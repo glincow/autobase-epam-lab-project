@@ -2,8 +2,8 @@ package model;
 
 public class Role {
 
-    String name;
-    int id;
+    private int id;
+    private String name;
 
     public Role(String name) {
         this.name = name;
@@ -13,4 +13,12 @@ public class Role {
         return name;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Role [id = " + id + ", name = " + name + "]";
+    }
 }
