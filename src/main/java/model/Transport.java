@@ -7,7 +7,7 @@ public class Transport {
     private float paramMaxVolume;
     private boolean autoWorks;
     private boolean autoAvailable;
-    private int driver;
+    private int driverId;
 
     public int getId() {
         return id;
@@ -46,16 +46,16 @@ public class Transport {
     }
 
     public int getDriver() {
-        return driver;
+        return driverId;
     }
 
-    public void setDriver(int driver) {
-        this.driver = driver;
+    public void setDriver(int driverId) {
+        this.driverId = driverId;
     }
 
     @Override
     public String toString() {
         return "Transport [id = " + id + ", paramMaxMass = " + paramMaxMass + ", paramMaxVolume = " + paramMaxVolume +
-                ", autoWorks = " + autoWorks + ", autoAvailable = " + autoAvailable + ", driver = " + driver + "]";
+                ", autoWorks = " + autoWorks + ", autoAvailable = " + autoAvailable + ", driverId = " + driverId + "]";
     }
 }

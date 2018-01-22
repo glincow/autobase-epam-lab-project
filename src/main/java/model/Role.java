@@ -1,6 +1,7 @@
 package model;
 
-public class Role {
+@Deprecated
+public class Role { //use only for test, now role is joined to user
 
     private int id;
     private String name;
