@@ -7,8 +7,8 @@ public class Ride {
     private float paramMass;
     private float paramVolume;
     private String status;
-    private int executorId;
-    private int managerId;
+    private Transport executor;
+    private User manager;
 
     public int getId() {
         return id;
@@ -50,26 +50,26 @@ public class Ride {
         this.status = status;
     }
 
-    public int getExecutor() {
-        return executorId;
+    public Transport getExecutor() {
+        return executor;
     }
 
-    public void setExecutor(int executorId) {
-        this.executorId = executorId;
+    public void setExecutor(Transport executor) {
+        this.executor = executor;
     }
 
-    public int getManager() {
-        return managerId;
+    public User getManager() {
+        return manager;
     }
 
-    public void setManager(int managerId) {
-        this.managerId = managerId;
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     @Override
     public String toString() {
         return "Ride [id = " + id + ", name = " + name + ", paramMass = " + paramMass
                 + ", paramVolume = " + paramVolume + ", status = " + status
-                + ", executorId = " + executorId + ", managerId = " + managerId + "]";
+                + ", executorId = " + executor.toString() + ", managerId = " + manager.toString() + "]";
     }
 }
