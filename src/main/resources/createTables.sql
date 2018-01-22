@@ -38,3 +38,11 @@ CREATE TABLE Ride(
   FOREIGN KEY(executor_id) REFERENCES Transport(id),
   FOREIGN KEY(manager_id) REFERENCES User(id)
 );
+
+-- Order of inserts matters because using auto_increment in key columns
+
+INSERT INTO Role SET name= 'Admin';
+INSERT INTO Role SET name= 'Manager';
+INSERT INTO Role SET name= 'Driver';
+
+INSERT INTO User (name, login, password, role_id) VALUES ('Admin', 'admin', 'admin', 1);

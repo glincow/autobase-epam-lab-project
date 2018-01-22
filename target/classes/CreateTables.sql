@@ -4,37 +4,45 @@ DROP TABLE IF EXISTS Transport;
 DROP TABLE IF EXISTS Ride;
 
 CREATE TABLE Role(
-  id INT auto_increment PRIMARY KEY,
+  id BIGINT auto_increment PRIMARY KEY,
   name VARCHAR(255)
 );
 
 CREATE TABLE User(
-  id INT auto_increment PRIMARY KEY,
+  id BIGINT auto_increment PRIMARY KEY,
   name VARCHAR(255),
   login VARCHAR(255),
   password VARCHAR(255),
-  role INT,
-  FOREIGN KEY(role) REFERENCES role(ID)
+  role_id BIGINT,
+  FOREIGN KEY(role_id) REFERENCES role(id)
 );
 
 CREATE TABLE Transport(
-  id INT auto_increment PRIMARY KEY,
-  param_max_mass FLOAT,
-  param_max_volume FLOAT,
-  auto_works BOOLEAN,
-  auto_available BOOLEAN,
-  driver INT,
-  FOREIGN KEY(driver) REFERENCES User(ID)
+  id BIGINT auto_increment PRIMARY KEY,
+  max_mass FLOAT,
+  max_volume FLOAT,
+  isAuto_works BOOLEAN,
+  isAuto_available BOOLEAN,
+  driver_id BIGINT,
+  FOREIGN KEY(driver_id) REFERENCES User(id)
 );
 
 CREATE TABLE Ride(
-  id INT auto_increment PRIMARY KEY,
+  id BIGINT auto_increment PRIMARY KEY,
   name VARCHAR(255),
-  param_mass FLOAT,
-  param_volume FLOAT,
+  mass FLOAT,
+  volume FLOAT,
   status VARCHAR(255),
-  executor_ID INT,
-  manager_ID INT,
-  FOREIGN KEY(executor_ID) REFERENCES Transport(ID),
-  FOREIGN KEY(manager_ID) REFERENCES User(ID)
+  executor_id BIGINT,
+  manager_id BIGINT,
+  FOREIGN KEY(executor_id) REFERENCES Transport(id),
+  FOREIGN KEY(manager_id) REFERENCES User(id)
 );
+
+-- Order of inserts matters because using auto_increment in key columns
+
+INSERT INTO Role SET name= 'Admin';
+INSERT INTO Role SET name= 'Manager';
+INSERT INTO Role SET name= 'Driver';
+
+INSERT INTO User (name, login, password, role_id) VALUES ('Admin', 'admin', 'admin', 1);
