@@ -2,7 +2,7 @@ package model;
 
 public class Ride {
 
-    private int id;
+    private long id;
     private String name;
     private float paramMass;
     private float paramVolume;
@@ -10,7 +10,7 @@ public class Ride {
     private Transport executor;
     private User manager;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

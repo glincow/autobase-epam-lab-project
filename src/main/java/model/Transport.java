@@ -2,14 +2,14 @@ package model;
 
 public class Transport {
 
-    private int id;
+    private long id;
     private float maxMass;
     private float maxVolume;
     private boolean isAutoWorks;
     private boolean isAutoAvailable;
     private User driver;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

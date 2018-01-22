@@ -2,7 +2,7 @@ package model;
 
 public class User {
 
-    private int id;
+    private long id;
     private String login;
     private String name;
     private String password;
@@ -20,7 +20,7 @@ public class User {
         this.login = login;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
