@@ -3,59 +3,59 @@ package model;
 public class Transport {
 
     private int id;
-    private float paramMaxMass;
-    private float paramMaxVolume;
-    private boolean autoWorks;
-    private boolean autoAvailable;
+    private float maxMass;
+    private float maxVolume;
+    private boolean isAutoWorks;
+    private boolean isAutoAvailable;
     private int driverId;
 
     public int getId() {
         return id;
     }
 
-    public float getParamMaxMass() {
-        return paramMaxMass;
+    public float getMaxMass() {
+        return maxMass;
     }
 
-    public void setParamMaxMass(float paramMaxMass) {
-        this.paramMaxMass = paramMaxMass;
+    public void setMaxMass(float maxMass) {
+        this.maxMass = maxMass;
     }
 
-    public float getParamMaxVolume() {
-        return paramMaxVolume;
+    public float getMaxVolume() {
+        return maxVolume;
     }
 
-    public void setParamMaxVolume(float paramMaxVolume) {
-        this.paramMaxVolume = paramMaxVolume;
+    public void setMaxVolume(float maxVolume) {
+        this.maxVolume = maxVolume;
     }
 
-    public boolean isAutoWorks() {
-        return autoWorks;
+    public boolean getIsAutoWorks() {
+        return isAutoWorks;
     }
 
-    public void setAutoWorks(boolean autoWorks) {
-        this.autoWorks = autoWorks;
+    public void setIsAutoWorks(boolean isAutoWorks) {
+        this.isAutoWorks = isAutoWorks;
     }
 
-    public boolean isAutoAvailable() {
-        return autoAvailable;
+    public boolean getIsAutoAvailable() {
+        return isAutoAvailable;
     }
 
-    public void setAutoAvailable(boolean autoAvailable) {
-        this.autoAvailable = autoAvailable;
+    public void setIsAutoAvailable(boolean isAutoAvailable) {
+        this.isAutoAvailable = isAutoAvailable;
     }
 
-    public int getDriver() {
+    public int getDriverId() {
         return driverId;
     }
 
-    public void setDriver(int driverId) {
+    public void setDriverId(int driverId) {
         this.driverId = driverId;
     }
 
     @Override
     public String toString() {
-        return "Transport [id = " + id + ", paramMaxMass = " + paramMaxMass + ", paramMaxVolume = " + paramMaxVolume +
-                ", autoWorks = " + autoWorks + ", autoAvailable = " + autoAvailable + ", driverId = " + driverId + "]";
+        return "Transport [id = " + id + ", maxMass = " + maxMass + ", maxVolume = " + maxVolume +
+                ", isAutoWorks = " + isAutoWorks + ", isAutoAvailable = " + isAutoAvailable + ", driverId = " + driverId + "]";
     }
 }
