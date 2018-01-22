@@ -65,4 +65,10 @@ public class Order {
     public void setManager(int manager) {
         this.manager = manager;
     }
+
+    @Override
+    public String toString() {
+        return "Order [id = " + id + ", name = " + name + ", paramMass = " + paramMass +
+                ", paramVolume = " + paramVolume + ", status = " + status + ", executor = " + executor + ", manager = " + manager + "]";
+    }
 }

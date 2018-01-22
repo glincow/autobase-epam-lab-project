@@ -52,4 +52,10 @@ public class Transport {
     public void setDriver(int driver) {
         this.driver = driver;
     }
+
+    @Override
+    public String toString() {
+        return "Transport [id = " + id + ", paramMaxMass = " + paramMaxMass + ", paramMaxVolume = " + paramMaxVolume +
+                ", autoWorks = " + autoWorks + ", autoAvailable = " + autoAvailable + ", driver = " + driver + "]";
+    }
 }
