@@ -9,7 +9,7 @@ import java.util.List;
 public interface TransportDao {
 
     //create
-    boolean insert(Transport transport);
+    boolean add (Transport transport);
 
     //read
     Transport getBy(User driver);
