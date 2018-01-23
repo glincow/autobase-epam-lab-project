@@ -1,16 +1,16 @@
 package model;
 
-public class Ride {
+public class Order {
 
-    private long id;
+    private int id;
     private String name;
     private float paramMass;
     private float paramVolume;
     private String status;
-    private Transport executor;
-    private User manager;
+    private int executor;
+    private int manager;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -50,26 +50,19 @@ public class Ride {
         this.status = status;
     }
 
-    public Transport getExecutor() {
+    public int getExecutor() {
         return executor;
     }
 
-    public void setExecutor(Transport executor) {
+    public void setExecutor(int executor) {
         this.executor = executor;
     }
 
-    public User getManager() {
+    public int getManager() {
         return manager;
     }
 
-    public void setManager(User manager) {
+    public void setManager(int manager) {
         this.manager = manager;
-    }
-
-    @Override
-    public String toString() {
-        return "Ride [id = " + id + ", name = " + name + ", paramMass = " + paramMass
-                + ", paramVolume = " + paramVolume + ", status = " + status
-                + ", executorId = " + executor.toString() + ", managerId = " + manager.toString() + "]";
     }
 }
