@@ -1,4 +1,7 @@
-package util;
+package config;
+
+import util.DBConnectionPool;
+import util.ScriptRunner;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
