@@ -4,8 +4,8 @@ public class Ride {
 
     private long id;
     private String name;
-    private float paramMass;
-    private float paramVolume;
+    private float mass;
+    private float volume;
     private String status;
     private Transport executor;
     private User manager;
@@ -14,7 +14,7 @@ public class Ride {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -26,20 +26,20 @@ public class Ride {
         this.name = name;
     }
 
-    public float getParamMass() {
-        return paramMass;
+    public float getMass() {
+        return mass;
     }
 
-    public void setParamMass(float paramMass) {
-        this.paramMass = paramMass;
+    public void setMass(float mass) {
+        this.mass = mass;
     }
 
-    public float getParamVolume() {
-        return paramVolume;
+    public float getVolume() {
+        return volume;
     }
 
-    public void setParamVolume(float paramVolume) {
-        this.paramVolume = paramVolume;
+    public void setVolume(float volume) {
+        this.volume = volume;
     }
 
     public String getStatus() {
@@ -68,8 +68,8 @@ public class Ride {
 
     @Override
     public String toString() {
-        return "Ride [id = " + id + ", name = " + name + ", paramMass = " + paramMass
-                + ", paramVolume = " + paramVolume + ", status = " + status
+        return "Ride [id = " + id + ", name = " + name + ", paramMass = " + mass
+                + ", paramVolume = " + volume + ", status = " + status
                 + ", executorId = " + executor.toString() + ", managerId = " + manager.toString() + "]";
     }
 }
