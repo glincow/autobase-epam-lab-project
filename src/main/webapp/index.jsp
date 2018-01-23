@@ -16,6 +16,6 @@
   <title>Insert title here</title>
 </head>
 <body>
-<jsp:forward page="/RideController?action=listRide" />
+<jsp:forward page="/RideController?action=listRides" />
 </body>
 </html>

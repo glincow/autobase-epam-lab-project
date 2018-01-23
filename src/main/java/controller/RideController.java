@@ -26,18 +26,22 @@ public class RideController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward="";
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")){
-            long rideId = Integer.parseInt(request.getParameter("rideId"));
+            long rideId = Integer.parseInt(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             dao.delete(ride);
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
-            long rideId = Integer.parseInt(request.getParameter("rideId"));
+            long rideId = Integer.parseInt(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             request.setAttribute("ride", ride);
         } else if (action.equalsIgnoreCase("listRides")){
@@ -49,9 +53,5 @@ public class RideController extends HttpServlet {
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
