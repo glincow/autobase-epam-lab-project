@@ -54,7 +54,29 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public Transport getBy(long id) {
-        return null;
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Transport WHERE id = ?";
+        Transport transport = null;
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            rs = preparedStatement.executeQuery();
+            transport = assemble(rs);
+
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return transport;
+
     }
 
     @Override
@@ -104,5 +126,9 @@ public class TransportDaoImpl implements TransportDao {
     @Override
     public void delete(Transport transport) {
 
+    }
+
+    private Transport assemble (ResultSet rs) throws SQLException {
+        return null;
     }
 }
