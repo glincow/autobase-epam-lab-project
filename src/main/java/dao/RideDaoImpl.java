@@ -17,7 +17,7 @@ public class RideDaoImpl implements RideDao {
     @Override
     public void add (Ride ride) throws DaoException {
 
-        Connection connection;
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         String sql = "INSERT INTO Ride (id , name, mass, volume, status, executor_id, manager_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -39,16 +39,6 @@ public class RideDaoImpl implements RideDao {
             //TODO logging
             throw new DaoException("SQLexception in add method", e);
         } finally {
-            /*try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                throw new DaoException("closing connections error in insert method", e);
-            }*/
             try {
                 DbUtils.closeQuietly(preparedStatement);
                 DbUtils.close(connection);
@@ -56,7 +46,6 @@ public class RideDaoImpl implements RideDao {
                 //TODO logging
                 throw new DaoException("SQLexception while closing connections error in add method", e);
             }
-
         }
     }
 
@@ -76,7 +65,7 @@ public class RideDaoImpl implements RideDao {
 
             while (rs.next()) {
                 Ride ride = new Ride();
-                ride.setId(rs.getLong("id "));
+                ride.setId(rs.getLong("id"));
                 ride.setName(rs.getString("name"));
                 ride.setMass(rs.getFloat("mass"));
                 ride.setVolume(rs.getFloat("volume"));
