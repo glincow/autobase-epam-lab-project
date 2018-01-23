@@ -12,8 +12,6 @@ import util.DBConnectionPool;
 
 public class RideDaoImpl implements RideDao {
 
-    //private Connection connection = DBConnectionPool.getInstance().getConnection();
-
     @Override
     public void add (Ride ride) throws DaoException {
 
@@ -115,11 +113,12 @@ public class RideDaoImpl implements RideDao {
     @Override
     public void delete(Ride ride) {
 
-        Connection connection = DBConnectionPool.getInstance().getConnection();
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sql = "DELETE FROM Ride WHERE id = ?";
 
         try {
+            connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, ride.getId());
 
@@ -128,13 +127,8 @@ public class RideDaoImpl implements RideDao {
             //TODO logging
             throw new DaoException("SQLexception in delete method", e);
         } finally {
-            try {
-                DbUtils.closeQuietly(preparedStatement);
-                DbUtils.close(connection);
-            } catch (SQLException e) {
-                //TODO logging
-                throw new DaoException("SQLException while closing connections in delete method", e);
-            }
+            DbUtils.closeQuietly(preparedStatement);
+            DbUtils.closeQuietly(connection);
         }
 
     }
