@@ -26,7 +26,7 @@ public class RideController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       /* String forward="";
+        String forward="";
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")){
@@ -48,7 +48,7 @@ public class RideController extends HttpServlet {
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);*/
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
