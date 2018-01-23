@@ -52,13 +52,14 @@ public class RideDaoImpl implements RideDao {
     @Override
     public List<Ride> getAll() {
 
-        Connection connection = DBConnectionPool.getInstance().getConnection();
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM Ride";
         List<Ride> list = new ArrayList<>();
 
         try {
+            connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
             rs = preparedStatement.executeQuery();
