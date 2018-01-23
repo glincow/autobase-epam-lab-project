@@ -7,11 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import org.apache.commons.dbutils.DbUtils;
 import util.DBConnectionPool;
 
 public class RideDaoImpl implements RideDao {
+
+    final static Logger logger = LogManager.getLogger(RideDaoImpl.class);
 
     @Override
     public void add (Ride ride) throws DaoException {
@@ -35,7 +39,7 @@ public class RideDaoImpl implements RideDao {
 
             preparedStatement.executeQuery();
         } catch (SQLException e) {
-            //TODO logging
+            logger.error("SQLexception in add method : " + e.getMessage());
             throw new DaoException("SQLexception in add method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
@@ -70,7 +74,7 @@ public class RideDaoImpl implements RideDao {
                 list.add(ride);
             }
         } catch (SQLException e) {
-            //TODO logging
+            logger.error("SQLexception in get method : " + e.getMessage());
             throw new DaoException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
@@ -102,7 +106,7 @@ public class RideDaoImpl implements RideDao {
 
             preparedStatement.executeQuery();
         } catch (SQLException e) {
-            //TODO logging
+            logger.error("SQLexception in update method : " + e.getMessage());
             throw new DaoException("SQLexception in update method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
@@ -125,7 +129,7 @@ public class RideDaoImpl implements RideDao {
 
             preparedStatement.executeQuery();
         } catch (SQLException e) {
-            //TODO logging
+            logger.error("SQLexception in delete method : " + e.getMessage());
             throw new DaoException("SQLexception in delete method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
