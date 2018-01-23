@@ -1,5 +1,10 @@
 package controller;
 
+import dao.RideDao;
+import dao.RideDaoImpl;
+import model.Ride;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +14,41 @@ import java.io.IOException;
 
 @WebServlet(name = "RideController")
 public class RideController extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    private static final long serialVersionUID = 1L;
+    private static String INSERT_OR_EDIT = "/ride.jsp";
+    private static String LIST_RIDE = "/listRide.jsp";
+    private RideDao dao;
+
+    public RideController() {
+        super();
+        dao = new RideDaoImpl();
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String forward="";
+        String action = request.getParameter("action");
+
+        if (action.equalsIgnoreCase("delete")){
+            long rideId = Integer.parseInt(request.getParameter("rideId"));
+            Ride ride = dao.getById(rideId);
+            dao.delete(ride);
+            forward = LIST_RIDE;
+            request.setAttribute("rides", dao.getAll());
+        } else if (action.equalsIgnoreCase("edit")){
+            forward = INSERT_OR_EDIT;
+            long rideId = Integer.parseInt(request.getParameter("rideId"));
+            Ride ride = dao.getById(rideId);
+            request.setAttribute("ride", ride);
+        } else if (action.equalsIgnoreCase("listRides")){
+            forward = LIST_RIDE;
+            request.setAttribute("rides", dao.getAll());
+        } else {
+            forward = INSERT_OR_EDIT;
+        }
+
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
