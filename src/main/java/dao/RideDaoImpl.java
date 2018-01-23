@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Transport;
 import org.apache.commons.dbutils.DbUtils;
 import util.DBConnectionPool;
 
@@ -97,8 +96,8 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setFloat(2, ride.getMass());
             preparedStatement.setFloat(3, ride.getVolume());
             preparedStatement.setString(4, ride.getStatus());
-            preparedStatement.setString(5, ride.getExecutor());
-            preparedStatement.setString(6, ride.getManager());
+            preparedStatement.setLong(5, ride.getExecutor().getId());
+            preparedStatement.setLong(6, ride.getManager().getId());
             preparedStatement.setLong(7, ride.getId());
 
             preparedStatement.executeQuery();
