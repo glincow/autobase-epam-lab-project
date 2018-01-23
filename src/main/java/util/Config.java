@@ -16,20 +16,20 @@ public class Config implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         DBConnectionPool cp = DBConnectionPool.getInstance();
-        try {
-            Connection connection = cp.getConnection();
+        try (Connection connection = cp.getConnection()){
             ScriptRunner scriptRunner = new ScriptRunner(connection,
                     false, true);
             BufferedReader reader = new BufferedReader(new FileReader(
                     "D:\\JavaProjects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
             scriptRunner.runScript(reader);
-            connection.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            cp.dispose();
         }
     }
 
