@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.DbUtils;
+import util.DBConnectionPool;
 
 public class RideDaoImpl implements RideDao {
 
@@ -15,21 +16,23 @@ public class RideDaoImpl implements RideDao {
 
     @Override
     public void add (Ride ride) throws DaoException {
-        Connection connection = DBConnectionPool.getInstance().getConnection();
+
+        Connection connection;
         PreparedStatement preparedStatement = null;
 
         String sql = "INSERT INTO Ride (id , name, mass, volume, status, executor_id, manager_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
+            connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, ride.getId());
+            preparedStatement.setLong(1, ride.getId());
             preparedStatement.setString(2, ride.getName());
-            preparedStatement.setFloat(3, ride.getMass());
-            preparedStatement.setFloat(4, ride.getVolume());
+            preparedStatement.setFloat(3, ride.getParamMass());
+            preparedStatement.setFloat(4, ride.getParamVolume());
             preparedStatement.setString(5, ride.getStatus());
-            preparedStatement.setString(6, ride.getExecutor().getId());
-            preparedStatement.setString(7, ride.getManager().getId());
+            preparedStatement.setLong(6, ride.getExecutor().getId());
+            preparedStatement.setLong(7, ride.getManager().getId());
 
             preparedStatement.executeQuery();
         } catch (SQLException e) {
