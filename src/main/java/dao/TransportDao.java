@@ -9,19 +9,21 @@ import java.util.List;
 public interface TransportDao {
 
     //create
-    boolean add (Transport transport);
+    void add (Transport transport);
 
     //read
     Transport getBy(User driver);
+
+    Transport getBy(long id);
 
     List<Transport> getSuitable(Ride ride);
 
     List<Transport> getAll();
 
     //update
-    boolean update(Transport transport);
+    void update(Transport transport);
 
     //delete
-    boolean delete(Transport transport);
+    void delete(Transport transport);
 
 }
