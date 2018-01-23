@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Transport;
 import org.apache.commons.dbutils.DbUtils;
 import util.DBConnectionPool;
 
@@ -26,8 +28,8 @@ public class RideDaoImpl implements RideDao {
 
             preparedStatement.setLong(1, ride.getId());
             preparedStatement.setString(2, ride.getName());
-            preparedStatement.setFloat(3, ride.getParamMass());
-            preparedStatement.setFloat(4, ride.getParamVolume());
+            preparedStatement.setFloat(3, ride.getMass());
+            preparedStatement.setFloat(4, ride.getVolume());
             preparedStatement.setString(5, ride.getStatus());
             preparedStatement.setLong(6, ride.getExecutor().getId());
             preparedStatement.setLong(7, ride.getManager().getId());
@@ -43,7 +45,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public List<Ride> getAll() {
+    public List<Ride> getAll() throws DaoException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -54,8 +56,8 @@ public class RideDaoImpl implements RideDao {
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
-
             rs = preparedStatement.executeQuery();
+
 
             while (rs.next()) {
                 Ride ride = new Ride();
@@ -64,8 +66,8 @@ public class RideDaoImpl implements RideDao {
                 ride.setMass(rs.getFloat("mass"));
                 ride.setVolume(rs.getFloat("volume"));
                 ride.setStatus(rs.getString("status"));
-                ride.setExecutor(rs.getString("executor_id"));
-                ride.setManager(rs.getString("manager_id"));
+                ride.setExecutor(new TransportDaoImpl().getBy(rs.getLong("executor_id")));
+                ride.setManager(new UserDaoImpl().getBy(rs.getLong("manager_id")));
                 list.add(ride);
             }
         } catch (SQLException e) {
@@ -79,7 +81,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public void update(Ride ride) {
+    public void update(Ride ride) throws DaoException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -111,7 +113,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public void delete(Ride ride) {
+    public void delete(Ride ride) throws DaoException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
