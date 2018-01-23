@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebListener
@@ -14,12 +15,15 @@ public class Config implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        ScriptRunner scriptRunner = new ScriptRunner(DatabaseConnection.getConnection(),
-                false , true);
+        DBConnectionPool cp = DBConnectionPool.getInstance();
         try {
+            Connection connection = cp.getConnection();
+            ScriptRunner scriptRunner = new ScriptRunner(connection,
+                    false, true);
             BufferedReader reader = new BufferedReader(new FileReader(
                     "D:\\JavaProjects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
             scriptRunner.runScript(reader);
+            connection.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
