@@ -39,13 +39,8 @@ public class RideDaoImpl implements RideDao {
             //TODO logging
             throw new DaoException("SQLexception in add method", e);
         } finally {
-            try {
-                DbUtils.closeQuietly(preparedStatement);
-                DbUtils.close(connection);
-            } catch (SQLException e) {
-                //TODO logging
-                throw new DaoException("SQLexception while closing connections error in add method", e);
-            }
+            DbUtils.closeQuietly(preparedStatement);
+            DbUtils.closeQuietly(connection);
         }
     }
 
@@ -88,13 +83,14 @@ public class RideDaoImpl implements RideDao {
     @Override
     public void update(Ride ride) {
 
-        Connection connection = DBConnectionPool.getInstance().getConnection();
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sql = "UPDATE ride SET name = ?, " +
                 "mass = ?, volume = ?, status = ?, executor_id = ?, " +
                 "manager_id = ? WHERE id = ?";
 
         try {
+            connection  = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, ride.getName());
@@ -103,20 +99,15 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setString(4, ride.getStatus());
             preparedStatement.setString(5, ride.getExecutor());
             preparedStatement.setString(6, ride.getManager());
-            preparedStatement.setLong(7, ride.getid());
+            preparedStatement.setLong(7, ride.getId());
 
             preparedStatement.executeQuery();
         } catch (SQLException e) {
             //TODO logging
             throw new DaoException("SQLexception in update method", e);
         } finally {
-            try {
-                DbUtils.closeQuietly(preparedStatement);
-                DbUtils.close(connection);
-            } catch (SQLException e) {
-                //TODO logging
-                throw new DaoException("SQLException while closing connections in update method", e);
-            }
+            DbUtils.closeQuietly(preparedStatement);
+            DbUtils.closeQuietly(connection);
         }
 
     }
