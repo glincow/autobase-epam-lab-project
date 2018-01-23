@@ -8,10 +8,6 @@ public class User {
     private String password;
     private String role;
 
-    public User(String login) {
-        this.login = login;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -22,6 +18,10 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
