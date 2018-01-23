@@ -6,9 +6,11 @@ import java.util.List;
 public interface UserDao {
 
     //create
-    boolean insert(User user);
+    void add(User user);
 
     //read
+    User getBy(long id);
+
     User getBy(String login);
 
     User getBy(String login, String password);
@@ -16,8 +18,8 @@ public interface UserDao {
     List<User> getAll();
 
     //update
-    boolean update(User user);
+    void update(User user);
 
     //delete
-    boolean delete(User user);
+    void delete(User user);
 }
