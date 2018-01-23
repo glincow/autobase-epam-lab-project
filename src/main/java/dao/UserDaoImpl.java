@@ -16,12 +16,22 @@ public class UserDaoImpl implements UserDao {
 
     private final static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
+    private User makeUser(ResultSet rs) throws SQLException {
+        User user = new User();
+
+        user.setLogin(rs.getString("login"));
+        user.setPassword(rs.getString("password"));
+        user.setId(rs.getLong("id"));
+        user.setName(rs.getString("name"));
+        user.setRole(rs.getString(ROLE_COLUMN_ID));
+
+        return user;
+    }
+
     @Override
     public void add(User user) {
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
         String sql = "INSERT INTO User (id , name, login, password, role_id) " +
                 "VALUES (?, ?, ?, ?, SELECT id from Role where name = ?)";
 
@@ -43,12 +53,10 @@ public class UserDaoImpl implements UserDao {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
         }
-
     }
 
     @Override
     public User getBy(long id) {
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sqlUser = "SELECT * FROM User where id = ?";
@@ -77,7 +85,6 @@ public class UserDaoImpl implements UserDao {
             rs.next();
 
             user.setRole(rs.getString("name"));
-
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
             throw new DaoException("SQLexception in get method", e);
@@ -95,7 +102,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "SELECT * FROM User inner join (select * from Role) as Role " +
                 "on User.role_id=Role.id where login = ?";
         ResultSet rs = null;
-        User user = new User();
+        User user = null;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
@@ -105,12 +112,7 @@ public class UserDaoImpl implements UserDao {
             rs = preparedStatement.executeQuery();
             rs.next();
 
-            user.setLogin(login);
-            user.setPassword(rs.getString("password"));
-            user.setId(rs.getLong("id"));
-            user.setName(rs.getString("name"));
-            user.setRole(rs.getString(ROLE_COLUMN_ID));
-
+            user = makeUser(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
             throw new DaoException("SQLexception in get method", e);
@@ -123,29 +125,48 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getBy(String login, String password) {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "SELECT * FROM User inner join (select * from Role) as Role " +
+                "on User.role_id=Role.id where login = ? and password = ?";
+        ResultSet rs = null;
+        User user = null;
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
+            rs = preparedStatement.executeQuery();
+            rs.next();
+
+            user = makeUser(rs);
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return user;
     }
 
     @Override
     public List<User> getAll() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String User = "SELECT * FROM User inner join (select * from Role) as Role on User.role_id=Role.id";
+        String sql = "SELECT * FROM User inner join (select * from Role) as Role on User.role_id=Role.id";
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(User);
+            preparedStatement = connection.prepareStatement(sql);
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getLong("id"));
-                user.setName(rs.getString("name"));
-                user.setLogin(rs.getString("login"));
-                user.setPassword(rs.getString("password"));
-                user.setRole(rs.getString(ROLE_COLUMN_ID));
+                User user = makeUser(rs);
                 list.add(user);
             }
         } catch (SQLException e) {
@@ -160,7 +181,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sql = "UPDATE User SET name = ?, login = ?, password = ?, " +
@@ -184,12 +204,10 @@ public class UserDaoImpl implements UserDao {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
         }
-
     }
 
     @Override
     public void delete(User user) {
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sqlUser = "DELETE FROM User WHERE id = ?";
@@ -206,6 +224,5 @@ public class UserDaoImpl implements UserDao {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
         }
-
     }
 }
