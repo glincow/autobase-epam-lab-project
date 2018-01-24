@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
 
     private final static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
-    private User makeUser(ResultSet rs) throws SQLException {
+    private User assembleUser(ResultSet rs) throws SQLException {
         User user = new User();
 
         user.setLogin(rs.getString("login"));
@@ -112,7 +112,7 @@ public class UserDaoImpl implements UserDao {
             rs = preparedStatement.executeQuery();
             rs.next();
 
-            user = makeUser(rs);
+            user = assembleUser(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
             throw new DaoException("SQLexception in get method", e);
@@ -141,7 +141,7 @@ public class UserDaoImpl implements UserDao {
             rs = preparedStatement.executeQuery();
             rs.next();
 
-            user = makeUser(rs);
+            user = assembleUser(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
             throw new DaoException("SQLexception in get method", e);
@@ -166,7 +166,7 @@ public class UserDaoImpl implements UserDao {
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                User user = makeUser(rs);
+                User user = assembleUser(rs);
                 list.add(user);
             }
         } catch (SQLException e) {
