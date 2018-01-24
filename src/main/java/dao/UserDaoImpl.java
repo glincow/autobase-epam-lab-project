@@ -28,12 +28,31 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    final static private String SQL_INSERT_USER = "INSERT INTO User (id , name, login, password, role_id) " +
+            "VALUES (?, ?, ?, ?, SELECT id from Role where name = ?)";
+
+    final static private String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM User inner join (select * from Role) as Role " +
+            "on User.role_id=Role.id where login = ?";
+
+    final static private String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM User inner join (select * from Role) as Role " +
+            "on User.role_id=Role.id where login = ? and password = ?";
+
+    final static private String SQL_SELECT_ALL_USERS = "SELECT * FROM User " +
+            "inner join (select * from Role) as Role on User.role_id=Role.id";
+
+    final static private String SQL_UPDATE_USER = "UPDATE User SET name = ?, login = ?, password = ?, " +
+            "role_id = (SELECT id from Role where name = ?) WHERE id = ?";
+
+    final static private String SQL_DELETE_USER = "DELETE FROM User WHERE id = ?";
+
     @Override
     public void add(User user) {
+
+        logger.debug("add(User user) started...");
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO User (id , name, login, password, role_id) " +
-                "VALUES (?, ?, ?, ?, SELECT id from Role where name = ?)";
+        String sql = SQL_INSERT_USER;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
@@ -57,6 +76,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getBy(Long id) {
+
+        logger.debug("User getBy(Long id) started...");
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sqlUser = "SELECT * FROM User where id = ?";
@@ -97,10 +119,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getBy(String login) {
+
+        logger.debug("User getBy(String login) started...");
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "SELECT * FROM User inner join (select * from Role) as Role " +
-                "on User.role_id=Role.id where login = ?";
+        String sql = SQL_SELECT_USER_BY_LOGIN;
         ResultSet rs = null;
         User user = null;
 
@@ -125,12 +149,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getBy(String login, String password) {
+
+        logger.debug("User getBy(String login, String password) started...");
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "SELECT * FROM User inner join (select * from Role) as Role " +
-                "on User.role_id=Role.id where login = ? and password = ?";
+        String sql = SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD;
         ResultSet rs = null;
-        User user = null;
+        User user;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
@@ -154,9 +180,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
+
+        logger.debug("List<User> getAll() started...");
+        
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "SELECT * FROM User inner join (select * from Role) as Role on User.role_id=Role.id";
+        String sql = SQL_SELECT_ALL_USERS;
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
 
@@ -181,10 +210,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
+
+        logger.debug("update(User user) started...");
+        
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "UPDATE User SET name = ?, login = ?, password = ?, " +
-                "role_id = (SELECT id from Role where name = ?) WHERE id = ?";
+        String sql = SQL_UPDATE_USER;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
@@ -208,9 +239,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(User user) {
+
+        logger.debug("delete (User user) started...");
+        
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sqlUser = "DELETE FROM User WHERE id = ?";
+        String sqlUser = SQL_DELETE_USER;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
