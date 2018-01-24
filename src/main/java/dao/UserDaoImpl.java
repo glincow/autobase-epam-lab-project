@@ -45,7 +45,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setString(5, user.getRole());
 
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in add method : " + e.getMessage());
             throw new DaoException("SQLexception in add method", e);
@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getBy(long id) {
+    public User getBy(Long id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sqlUser = "SELECT * FROM User where id = ?";
@@ -196,7 +196,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, user.getRole());
             preparedStatement.setLong(5, user.getId());
 
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in update method : " + e.getMessage());
             throw new DaoException("SQLexception in update method", e);
@@ -216,7 +216,7 @@ public class UserDaoImpl implements UserDao {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sqlUser);
             preparedStatement.setLong(1, user.getId());
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in delete method : " + e.getMessage());
             throw new DaoException("SQLexception in delete method", e);
