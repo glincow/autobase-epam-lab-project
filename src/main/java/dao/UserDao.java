@@ -9,7 +9,7 @@ public interface UserDao {
     void add(User user);
 
     //read
-    User getBy(long id);
+    User getBy(Long id);
 
     User getBy(String login);
 

@@ -9,7 +9,7 @@ public interface RideDao {
     void add(Ride ride);
 
     //read
-    //Ride getById(long id);
+    Ride getById(Long id);
 
     List<Ride> getAll();
 

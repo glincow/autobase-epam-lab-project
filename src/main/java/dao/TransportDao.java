@@ -14,7 +14,7 @@ public interface TransportDao {
     //read
     Transport getBy(User driver);
 
-    Transport getBy(long id);
+    Transport getBy(Long id);
 
     List<Transport> getSuitable(Ride ride);
 
