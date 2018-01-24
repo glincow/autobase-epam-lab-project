@@ -42,7 +42,7 @@ public class RideDaoImpl implements RideDao {
         ride.setName(rs.getString("name"));
         ride.setMass(rs.getFloat("mass"));
         ride.setVolume(rs.getFloat("volume"));
-        ride.setStatus(rs.getString("status"));
+        ride.setStatus(Ride.Status.valueOf(rs.getString("status").toUpperCase()));
         ride.setExecutor(transportDao.getBy(rs.getLong("executor_id")));
         ride.setManager(userDao.getBy(rs.getLong("manager_id")));
 
@@ -75,7 +75,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setString(2, ride.getName());
             preparedStatement.setFloat(3, ride.getMass());
             preparedStatement.setFloat(4, ride.getVolume());
-            preparedStatement.setString(5, ride.getStatus());
+            preparedStatement.setString(5, ride.getStatus().name());
             preparedStatement.setLong(6, ride.getExecutor().getId());
             preparedStatement.setLong(7, ride.getManager().getId());
 
@@ -119,8 +119,8 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public List<Ride> getByStatus(String status) {
-        logger.debug("List<Ride> getBy(Sring status) started...");
+    public List<Ride> getByStatus(Ride.Status status) {
+        logger.debug("List<Ride> getBy(Status status) started...");
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -131,11 +131,11 @@ public class RideDaoImpl implements RideDao {
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, status);
+            preparedStatement.setString(1, status.name());
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                Ride ride = new Ride();
+                Ride ride;
                 ride = assembleRide(rs);
                 list.add(ride);
             }

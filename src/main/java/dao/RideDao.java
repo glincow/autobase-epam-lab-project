@@ -1,6 +1,7 @@
 package dao;
 
 import model.Ride;
+
 import java.util.List;
 
 public interface RideDao {
@@ -13,7 +14,7 @@ public interface RideDao {
 
     List<Ride> getAll();
 
-    List<Ride> getByStatus(String status);
+    List<Ride> getByStatus(Ride.Status status);
 
     //update
     void update(Ride ride);
