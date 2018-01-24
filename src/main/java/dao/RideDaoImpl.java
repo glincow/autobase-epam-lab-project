@@ -25,8 +25,8 @@ public class RideDaoImpl implements RideDao {
         ride.setMass(rs.getFloat("mass"));
         ride.setVolume(rs.getFloat("volume"));
         ride.setStatus(rs.getString("status"));
-        ride.setExecutor(new TransportDaoImpl().getBy(rs.getLong("executor_id")));
-        ride.setManager(new UserDaoImpl().getBy(rs.getLong("manager_id")));
+//        ride.setExecutor(new TransportDaoImpl().getBy(rs.getLong("executor_id")));
+//        ride.setManager(new UserDaoImpl().getBy(rs.getLong("manager_id")));
 
         return ride;
     }
@@ -37,19 +37,20 @@ public class RideDaoImpl implements RideDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String sql = "INSERT INTO Ride (id , name, mass, volume, status, executor_id, manager_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Ride (name, mass, volume, status) VALUES (?, ?, ?, ?)";
+//        String sql = "INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setLong(1, ride.getId());
-            preparedStatement.setString(2, ride.getName());
-            preparedStatement.setFloat(3, ride.getMass());
-            preparedStatement.setFloat(4, ride.getVolume());
-            preparedStatement.setString(5, ride.getStatus());
-            preparedStatement.setLong(6, ride.getExecutor().getId());
-            preparedStatement.setLong(7, ride.getManager().getId());
+//            preparedStatement.setLong(1, ride.getId());
+            preparedStatement.setString(1, ride.getName());
+            preparedStatement.setFloat(2, ride.getMass());
+            preparedStatement.setFloat(3, ride.getVolume());
+            preparedStatement.setString(4, ride.getStatus());
+//            preparedStatement.setLong(5, ride.getExecutor().getId());
+//            preparedStatement.setLong(6, ride.getManager().getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -74,6 +75,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             rs = preparedStatement.executeQuery();
+            rs.next();
             ride = assembleRide(rs);
 
         } catch (SQLException e) {

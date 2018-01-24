@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "RideController")
 public class RideController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
     private static String INSERT_OR_EDIT = "/ride.jsp";
     private static String LIST_RIDE = "/listRide.jsp";
     private RideDao dao;
@@ -38,7 +38,7 @@ public class RideController extends HttpServlet {
         }
         else
         {
-            ride.setId(Integer.parseInt(rideId)); //is Integer valid here?
+            ride.setId(Long.parseLong(rideId));
             dao.update(ride);
         }
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
@@ -51,14 +51,14 @@ public class RideController extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")){
-            long rideId = Integer.parseInt(request.getParameter("id")); //is Integer valid here?
+            Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             dao.delete(ride);
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
-            long rideId = Integer.parseInt(request.getParameter("id"));
+            Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             request.setAttribute("ride", ride);
         } else if (action.equalsIgnoreCase("listRides")){
