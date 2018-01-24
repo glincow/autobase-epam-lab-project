@@ -17,6 +17,20 @@ public class RideDaoImpl implements RideDao {
 
     final static Logger logger = LogManager.getLogger(RideDaoImpl.class);
 
+    private Ride assembleRide (ResultSet rs) throws SQLException {
+        Ride ride = new Ride();
+
+        ride.setId(rs.getLong("id"));
+        ride.setName(rs.getString("name"));
+        ride.setMass(rs.getFloat("mass"));
+        ride.setVolume(rs.getFloat("volume"));
+        ride.setStatus(rs.getString("status"));
+        ride.setExecutor(new TransportDaoImpl().getBy(rs.getLong("executor_id")));
+        ride.setManager(new UserDaoImpl().getBy(rs.getLong("manager_id")));
+
+        return ride;
+    }
+
     @Override
     public void add (Ride ride) throws DaoException {
 
@@ -37,7 +51,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setLong(6, ride.getExecutor().getId());
             preparedStatement.setLong(7, ride.getManager().getId());
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in add method : " + e.getMessage());
             throw new DaoException("SQLexception in add method", e);
@@ -45,6 +59,31 @@ public class RideDaoImpl implements RideDao {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
         }
+    }
+
+    @Override
+    public Ride getById(Long id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Ride WHERE id = ?";
+        Ride ride;
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            rs = preparedStatement.executeQuery();
+            ride = assembleRide(rs);
+
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return ride;
     }
 
     @Override
@@ -64,13 +103,7 @@ public class RideDaoImpl implements RideDao {
 
             while (rs.next()) {
                 Ride ride = new Ride();
-                ride.setId(rs.getLong("id"));
-                ride.setName(rs.getString("name"));
-                ride.setMass(rs.getFloat("mass"));
-                ride.setVolume(rs.getFloat("volume"));
-                ride.setStatus(rs.getString("status"));
-                ride.setExecutor(new TransportDaoImpl().getBy(rs.getLong("executor_id")));
-                ride.setManager(new UserDaoImpl().getBy(rs.getLong("manager_id")));
+                ride = assembleRide(rs);
                 list.add(ride);
             }
         } catch (SQLException e) {
@@ -104,7 +137,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setLong(6, ride.getManager().getId());
             preparedStatement.setLong(7, ride.getId());
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in update method : " + e.getMessage());
             throw new DaoException("SQLexception in update method", e);
@@ -127,7 +160,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, ride.getId());
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in delete method : " + e.getMessage());
             throw new DaoException("SQLexception in delete method", e);
