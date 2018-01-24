@@ -2,7 +2,7 @@ package model;
 
 public class Ride {
 
-    private long id;
+    private Long id;
     private String name;
     private float mass;
     private float volume;
@@ -10,11 +10,11 @@ public class Ride {
     private Transport executor;
     private User manager;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
