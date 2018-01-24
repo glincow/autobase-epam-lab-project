@@ -37,7 +37,7 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement.setBoolean(6, transport.getIsAutoAvailable());
             preparedStatement.setLong(7, transport.getDriver().getId());
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in add method : " + e.getMessage());
             throw new DaoException("SQLexception in add method", e);
@@ -49,24 +49,43 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public Transport getBy(User driver) {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Transport WHERE driver_id = ?";
+        Transport transport;
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, driver.getId());
+            rs = preparedStatement.executeQuery();
+            transport = assembleTransport(rs);
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return transport;
     }
 
     @Override
-    public Transport getBy(long id) {
+    public Transport getBy(Long id) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM Transport WHERE id = ?";
-        Transport transport = null;
+        Transport transport;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             rs = preparedStatement.executeQuery();
-            transport = assemble(rs);
+            transport = assembleTransport(rs);
 
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
@@ -100,12 +119,7 @@ public class TransportDaoImpl implements TransportDao {
 
             while (rs.next()) {
                 Transport transport = new Transport();
-                transport.setId(rs.getLong("id"));
-                transport.setMaxMass(rs.getFloat("mass"));
-                transport.setMaxVolume(rs.getFloat("volume"));
-                transport.setIsAutoWorks(rs.getBoolean("isAuto_works"));
-                transport.setIsAutoAvailable(rs.getBoolean("isAuto_available"));
-                transport.setDriver(new UserDaoImpl().getBy(rs.getLong("driver_id")));
+                transport = assembleTransport(rs);
                 list.add(transport);
             }
         } catch (SQLException e) {
@@ -120,7 +134,29 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public void update(Transport transport) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "UPDATE Transport SET max_mass = ?, max_volume = ?, isAuto_works = ?, " +
+                "isAuto_available = ?, driver_id = ? WHERE id = ?";
 
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setFloat(1, transport.getMaxMass());
+            preparedStatement.setFloat(2, transport.getMaxVolume());
+            preparedStatement.setBoolean(3, transport.getIsAutoWorks());
+            preparedStatement.setBoolean(4, transport.getIsAutoAvailable());
+            preparedStatement.setLong(5, transport.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("SQLexception in update method : " + e.getMessage());
+            throw new DaoException("SQLexception in update method", e);
+        } finally {
+            DbUtils.closeQuietly(preparedStatement);
+            DbUtils.closeQuietly(connection);
+        }
     }
 
     @Override
@@ -128,7 +164,17 @@ public class TransportDaoImpl implements TransportDao {
 
     }
 
-    private Transport assemble (ResultSet rs) throws SQLException {
-        return null;
+    private Transport assembleTransport (ResultSet rs) throws SQLException {
+        Transport transport = new Transport();
+
+        transport.setId(rs.getLong("id"));
+        transport.setMaxMass(rs.getFloat("max_mass"));
+        transport.setMaxVolume(rs.getFloat("max_volume"));
+        transport.setIsAutoWorks(rs.getBoolean("isAuto_works"));
+        transport.setIsAutoAvailable(rs.getBoolean("isAuto_available"));
+        transport.setDriver(new UserDaoImpl().getBy(rs.getLong("driver_id")));
+
+        return transport;
     }
+
 }
