@@ -13,7 +13,7 @@ public interface RideDao {
 
     List<Ride> getAll();
 
-    //List<Ride> getByStatus(String status);
+    List<Ride> getByStatus(String status);
 
     //update
     void update(Ride ride);

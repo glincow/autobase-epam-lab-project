@@ -25,6 +25,8 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_SELECT_RIDE_BY_ID = "SELECT * FROM Ride WHERE id = ?";
 
+    final static private String SQL_SELECT_RIDE_BY_STATUS = "SELECT * FROM Ride WHERE status = ?";
+
     final static private String SQL_SELECT_ALL_RIDES = "SELECT * FROM Ride";
 
     final static private String SQL_UPDATE_RIDE = "UPDATE ride SET name = ?, " +
@@ -114,6 +116,38 @@ public class RideDaoImpl implements RideDao {
         }
 
         return ride;
+    }
+
+    @Override
+    public List<Ride> getByStatus(String status) {
+        logger.debug("List<Ride> getBy(Sring status) started...");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = SQL_SELECT_RIDE_BY_STATUS;
+        List<Ride> list = new ArrayList<>();
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, status);
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Ride ride = new Ride();
+                ride = assembleRide(rs);
+                list.add(ride);
+            }
+
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return list;
     }
 
     @Override
