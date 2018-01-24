@@ -26,7 +26,24 @@ public class RideController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Ride ride = new Ride();
+        ride.setName(request.getParameter("name"));
+        ride.setMass(Float.parseFloat(request.getParameter("mass")));
+        ride.setVolume(Float.parseFloat(request.getParameter("volume")));
+        ride.setStatus(request.getParameter("status"));
+        String rideId = request.getParameter("id");
+        if(rideId == null || rideId.isEmpty())
+        {
+            dao.add(ride);
+        }
+        else
+        {
+            ride.setId(Integer.parseInt(rideId)); //is Integer valid here?
+            dao.update(ride);
+        }
+        RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
+        request.setAttribute("rides", dao.getAll());
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +51,7 @@ public class RideController extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")){
-            long rideId = Integer.parseInt(request.getParameter("id"));
+            long rideId = Integer.parseInt(request.getParameter("id")); //is Integer valid here?
             Ride ride = dao.getById(rideId);
             dao.delete(ride);
             forward = LIST_RIDE;
@@ -48,7 +65,7 @@ public class RideController extends HttpServlet {
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
         } else {
-            forward = INSERT_OR_EDIT;
+                forward = INSERT_OR_EDIT;
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);

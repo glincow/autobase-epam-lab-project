@@ -46,12 +46,12 @@
             <td><c:out value="${ride.mass}" /></td>
             <td><c:out value="${ride.volume}" /></td>
             <td><c:out value="${ride.status}" /></td>
-            <td><a href="RideController?action=edit&userId=<c:out value="${ride.id}"/>">Update</a></td>
-            <td><a href="RideController?action=delete&userId=<c:out value="${ride.id}"/>">Delete</a></td>
+            <td><a href="RideController?action=edit&id=<c:out value="${ride.id}"/>">Update</a></td>
+            <td><a href="RideController?action=delete&id=<c:out value="${ride.id}"/>">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href="UserController?action=insert">Add Ride</a></p>
+<p><a href="RideController?action=insert">Add Ride</a></p>
 </body>
 </html>
