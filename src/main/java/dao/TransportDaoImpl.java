@@ -46,6 +46,8 @@ public class TransportDaoImpl implements TransportDao {
     final static private String SQL_UPDATE_TRANSPORT = "UPDATE Transport SET max_mass = ?, max_volume = ?, isAuto_works = ?, " +
             "isAuto_available = ?, driver_id = ? WHERE id = ?";
 
+    final static private String SQL_DELETE_TRANSPORT = "DELETE FROM Transport WHERE id = ?";
+
     @Override
     public void add (Transport transport) {
 
@@ -202,7 +204,27 @@ public class TransportDaoImpl implements TransportDao {
 
     @Override
     public void delete(Transport transport) {
-        logger.debug("delete(Transport (transport) started...");//TODO
+
+        logger.debug("delete(Transport (transport) started...");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = SQL_DELETE_TRANSPORT;
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, transport.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("SQLexception in delete method : " + e.getMessage());
+            throw new DaoException("SQLexception in delete method", e);
+        } finally {
+            DbUtils.closeQuietly(preparedStatement);
+            DbUtils.closeQuietly(connection);
+        }
+
     }
 
 }
