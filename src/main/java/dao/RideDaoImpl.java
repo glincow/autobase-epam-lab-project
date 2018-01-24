@@ -198,7 +198,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setString(1, ride.getName());
             preparedStatement.setFloat(2, ride.getMass());
             preparedStatement.setFloat(3, ride.getVolume());
-            preparedStatement.setString(4, ride.getStatus());
+            preparedStatement.setString(4, ride.getStatus().name());
             preparedStatement.setLong(5, ride.getExecutor().getId());
             preparedStatement.setLong(6, ride.getManager().getId());
             preparedStatement.setLong(7, ride.getId());
