@@ -13,11 +13,11 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <title>Your rides</title>
+    <%--<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">--%>
+    <title>Driver.jsp</title>
 </head>
 <body>
-<table border=1>
+<%--<table border=1>
     <thead>
     <tr>
         <th>Ride Id</th>
@@ -40,6 +40,6 @@
         </tr>
     </c:forEach>
     </tbody>
-</table>
+</table>--%>
 </body>
 </html>

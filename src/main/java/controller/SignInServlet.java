@@ -41,7 +41,7 @@ public class SignInServlet extends HttpServlet {
                     response.sendRedirect("app/Manager.jsp");
                     break;
                 case "Driver":
-                    response.sendRedirect("app/Driver.jsp");
+                    response.sendRedirect("/DriverController?action=listRides");
                     break;
                 case "Consumer":
                     response.sendRedirect("app/Consumer.jsp");
