@@ -25,7 +25,7 @@ public class SignUpServlet extends HttpServlet {
         String name = request.getParameter("name");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        String role = "Customer";
+        User.Role role = User.Role.CUSTOMER;
 
         UserDaoImpl dao = new UserDaoImpl();
         List<User> allUsers = dao.getAll();

@@ -35,23 +35,23 @@ public class SignInServlet extends HttpServlet {
             return;
         }
 
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+
         if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {
 
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-
-            String role = user.getRole();
+            User.Role role = user.getRole();
             switch (role) {
-                case "Admin":
+                case ADMIN:
                     response.sendRedirect("app/Admin.jsp");
                     break;
-                case "Manager":
+                case MANAGER:
                     response.sendRedirect("app/Manager.jsp");
                     break;
-                case "Driver":
+                case DRIVER:
                     response.sendRedirect("app/Driver.jsp");
                     break;
-                case "Consumer":
+                case CUSTOMER:
                     response.sendRedirect("app/Customer.jsp");
                     break;
                 default:
@@ -60,6 +60,7 @@ public class SignInServlet extends HttpServlet {
             }
             LOGGER.info("User " + user.getLogin() + " signed in as " + role);
         } else {
+            session.setAttribute("user", null);
             response.sendRedirect("/sign-in.jsp");
         }
     }

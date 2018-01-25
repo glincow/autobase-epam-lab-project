@@ -1,5 +1,6 @@
 package controller.Filter;
 
+import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class AdminFilter implements UserFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        checkRights(servletRequest, servletResponse, filterChain, LOGGER, "Admin");
+        checkRights(servletRequest, servletResponse, filterChain, LOGGER, User.Role.ADMIN);
     }
 
     @Override
