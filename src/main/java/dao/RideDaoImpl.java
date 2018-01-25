@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Transport;
+import model.User;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.commons.dbutils.DbUtils;
@@ -39,14 +40,23 @@ public class RideDaoImpl implements RideDao {
     final static private String SQL_DELETE_RIDE = "DELETE FROM Ride WHERE id = ?";
 
     private Ride assembleRide (ResultSet rs) throws SQLException {
-        Ride ride = new Ride();
 
-        ride.setId(rs.getLong("id"));
-        ride.setName(rs.getString("name"));
-        ride.setMass(rs.getFloat("mass"));
-        ride.setVolume(rs.getFloat("volume"));
-        ride.setStatus(Ride.Status.valueOf(rs.getString("status")));
-        return ride;
+        Long id = rs.getLong("id");
+        String name = rs.getString("name");
+        float mass = rs.getFloat("mass");
+        float volume = rs.getFloat("volume");
+        Ride.Status status = Ride.Status.valueOf(rs.getString("status").toUpperCase());
+        Long executor_id = rs.getLong("executor_id");
+        Long manager_id = rs.getLong("manager_id");
+        Long customer_id = rs.getLong("customer_id");
+        User customer = userDao.getBy(customer_id);
+        if (executor_id == 0 && manager_id == 0) {
+            return new Ride(id, name, mass, volume, status, customer);
+        } else {
+            Transport executor = transportDao.getBy(executor_id);
+            User manager = userDao.getBy(manager_id);
+            return new Ride(id, name, mass, volume, status, executor, manager, customer);
+        }
     }
 
     @Override
@@ -187,8 +197,8 @@ public class RideDaoImpl implements RideDao {
 
 
             while (rs.next()) {
-                Ride ride = new Ride();
-                ride = assembleRide(rs);
+                //Ride ride = new Ride();
+                Ride ride = assembleRide(rs);
                 list.add(ride);
             }
         } catch (SQLException e) {

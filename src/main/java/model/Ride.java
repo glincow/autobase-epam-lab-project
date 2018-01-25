@@ -17,6 +17,31 @@ public class Ride {
         FINISHED
     }
 
+    public Ride(Long id, String name, float mass, float volume, Status status, User customer) {
+        this.id = id;
+        this.name = name;
+        this.mass = mass;
+        this.volume = volume;
+        this.status = status;
+        this.customer = customer;
+    }
+
+    public Ride() {
+    }
+
+
+
+    public Ride(Long id, String name, float mass, float volume, Status status, Transport executor, User manager, User customer) {
+        this.id = id;
+        this.name = name;
+        this.mass = mass;
+        this.volume = volume;
+        this.status = status;
+        this.executor = executor;
+        this.manager = manager;
+        this.customer = customer;
+    }
+
     public Long getId() {
         return id;
     }

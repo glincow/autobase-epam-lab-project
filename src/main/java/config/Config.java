@@ -25,7 +25,7 @@ public class Config implements ServletContextListener {
             ScriptRunner scriptRunner = new ScriptRunner(connection,
                     false, true);
             BufferedReader reader = new BufferedReader(new FileReader(
-                    "D:\\JavaProjects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
+                    "D:\\[work]\\IDEA projects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
             scriptRunner.runScript(reader);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
