@@ -70,13 +70,13 @@ public class ManagerController extends HttpServlet {
             List<Transport> transportList = transportDao.getSuitable(ride);
             forward = AVAILABLE_TRANSPORT;
             request.setAttribute("transportList", transportList);
-            request.setAttribute("ride", ride);
+            request.setAttribute("ride", ride); //ride is needed here to recieve it in chooseTransport (next if)
         } else if(action.equalsIgnoreCase("chooseTransport")) {
             Transport transport = transportDao.getBy(Long.parseLong(request.getParameter("id")));
             Ride ride = rideDao.getById(Long.parseLong(request.getParameter("rideId")));
             ride.setStatus(Ride.Status.IN_PROCESS);
             ride.setExecutor(transport);
-            ride.setManager(user); //TODO: еще надо прописать статусы для авто возможно, что они с грузом
+            ride.setManager(user);
             rideDao.update(ride);
             forward = LIST_RIDE;
             request.setAttribute("rides", rideDao.getAll());
