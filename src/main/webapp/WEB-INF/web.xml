@@ -25,4 +25,14 @@
         <servlet-name>RideController</servlet-name>
         <url-pattern>/RideController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>DriverController</display-name>
+        <servlet-name>DriverController</servlet-name>
+        <servlet-class>controller.DriverController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DriverController</servlet-name>
+        <url-pattern>/DriverController</url-pattern>
+    </servlet-mapping>
 </web-app>

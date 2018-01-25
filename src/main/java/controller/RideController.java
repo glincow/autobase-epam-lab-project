@@ -30,7 +30,7 @@ public class RideController extends HttpServlet {
         ride.setName(request.getParameter("name"));
         ride.setMass(Float.parseFloat(request.getParameter("mass")));
         ride.setVolume(Float.parseFloat(request.getParameter("volume")));
-        ride.setStatus(request.getParameter("status"));
+//        ride.setStatus(request.getParameter("status"));
         String rideId = request.getParameter("id");
         if(rideId == null || rideId.isEmpty())
         {
