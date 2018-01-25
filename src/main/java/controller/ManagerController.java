@@ -6,6 +6,7 @@ import dao.TransportDao;
 import dao.TransportDaoImpl;
 import model.Ride;
 import model.Transport;
+import model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,6 +56,8 @@ public class ManagerController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward="";
         String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
         if (action.equalsIgnoreCase("cancelRide")){ //TODO
             forward = AVAILABLE_TRANSPORT;
@@ -66,6 +70,16 @@ public class ManagerController extends HttpServlet {
             List<Transport> transportList = transportDao.getSuitable(ride);
             forward = AVAILABLE_TRANSPORT;
             request.setAttribute("transportList", transportList);
+            request.setAttribute("ride", ride);
+        } else if(action.equalsIgnoreCase("chooseTransport")) {
+            Transport transport = transportDao.getBy(Long.parseLong(request.getParameter("id")));
+            Ride ride = rideDao.getById(Long.parseLong(request.getParameter("rideId")));
+            ride.setStatus(Ride.Status.IN_PROCESS);
+            ride.setExecutor(transport);
+            ride.setManager(user); //TODO: еще надо прописать статусы для авто возможно, что они с грузом
+            rideDao.update(ride);
+            forward = LIST_RIDE;
+            request.setAttribute("rides", rideDao.getAll());
         } else {
             forward = LIST_RIDE;
 //            request.setAttribute("rides", rideDao.getByStatus(Ride.Status.UNASSIGNED));
