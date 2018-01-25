@@ -38,11 +38,6 @@ public class DriverController extends HttpServlet {
         Transport transport = transportDao.getBy(user);
         transport.setIsAutoWorks(Boolean.parseBoolean(request.getParameter("isAutoWorks")));
         transport.setIsAutoAvailable(Boolean.parseBoolean(request.getParameter("isAutoAvailable")));
-//        String rideId = request.getParameter("id");
-//        if (rideId == null || rideId.isEmpty()) {
-//            rideDao.add(ride);
-//        } else {
-//            ride.setId(Long.parseLong(rideId));
         transportDao.update(transport);
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
         request.setAttribute("transport", transport);

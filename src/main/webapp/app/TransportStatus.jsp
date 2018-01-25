@@ -30,16 +30,27 @@
     Max volume : <input
         type="text" readonly="readonly" name="maxVolume"
         value="<c:out value="${transport.maxVolume}" />" /> <br />
-    <%--Works : <input
-        type="text" name="isWorks"
-        value="<c:out value="${transport.isAutoWorks}" />" /> <br />--%>
     Works : <select name="isAutoWorks">
-                <option selected value="true">True</option>
-                <option value="false">False</option>
+                <option value="true">True</option>
+                <c:choose> <%--for dynamic selected variant--%>
+                    <c:when test="${transport.isAutoWorks=='true'}">
+                        <option value="false">False</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option selected value="false">False</option>
+                    </c:otherwise>
+                </c:choose>
             </select> <br />
     Available : <select name="isAutoAvailable">
                     <option value="true">True</option>
-                    <option value="false">False</option>
+                    <c:choose> <%--for dynamic selected variant--%>
+                        <c:when test="${transport.isAutoAvailable=='true'}">
+                            <option value="false">False</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option selected value="false">False</option>
+                        </c:otherwise>
+                    </c:choose>
                 </select> <br />
     <input
             type="submit" value="Submit" />

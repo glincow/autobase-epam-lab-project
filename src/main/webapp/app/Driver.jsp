@@ -57,7 +57,14 @@
             <td><c:out value="${ride.mass}" /></td>
             <td><c:out value="${ride.volume}" /></td>
             <td><c:out value="${ride.status}" /></td>
-            <td><a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a></td>
+            <%--<c:if test="${ride.status}=='IN_PROCESS'">
+                <td><a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a></td>
+            </c:if>--%>
+
+                <td><c:if test="${ride.status=='IN_PROCESS'}">
+                    <a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a>
+                    </c:if></td>
+
         </tr>
     </c:forEach>
     </tbody>
