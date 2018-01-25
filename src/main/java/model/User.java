@@ -2,14 +2,23 @@ package model;
 
 public class User {
 
-    private long id;
+    private Long id;
     private String login;
     private String name;
     private String password;
-    private String role;
+    private Role role;
 
-    public User(String login) {
-        this.login = login;
+    public enum Role {
+
+        ADMIN,
+        MANAGER,
+        DRIVER,
+        COSTUMER;
+
+        public Long getId() {
+            return (long) ordinal() + 1;
+        }
+
     }
 
     public String getLogin() {
@@ -20,8 +29,12 @@ public class User {
         this.login = login;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,12 +53,12 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(Long ordinal) {
+        this.role = Role.values()[ordinal.intValue() - 1];
     }
 
     @Override
