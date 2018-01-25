@@ -46,7 +46,7 @@ public class SignInServlet extends HttpServlet {
                     response.sendRedirect("/AdminController?action=listUsers");
                     break;
                 case MANAGER:
-                    response.sendRedirect("app/Manager.jsp");
+                    response.sendRedirect("/ManagerController?action=");
                     break;
                 case DRIVER:
                     response.sendRedirect("/DriverController?action=");
