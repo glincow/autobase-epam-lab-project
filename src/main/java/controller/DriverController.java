@@ -36,8 +36,8 @@ public class DriverController extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Transport transport = transportDao.getBy(user);
-        transport.setIsAutoWorks("true".equals(request.getParameter("isAutoWorks"))); //TODO: do normal boolean
-        transport.setIsAutoAvailable("true".equals(request.getParameter("isAutoAvailable"))); //TODO: do normal boolean
+        transport.setIsAutoWorks(Boolean.parseBoolean(request.getParameter("isAutoWorks")));
+        transport.setIsAutoAvailable(Boolean.parseBoolean(request.getParameter("isAutoAvailable")));
 //        String rideId = request.getParameter("id");
 //        if (rideId == null || rideId.isEmpty()) {
 //            rideDao.add(ride);
@@ -63,6 +63,7 @@ public class DriverController extends HttpServlet {
             ride.setStatus("FINISHED");
             rideDao.update(ride);
             forward = LIST_RIDE;
+            request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport.getId()));
         } else if (action.equalsIgnoreCase("statusEdit")) {
             forward = STATUS_EDIT;

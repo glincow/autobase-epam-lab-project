@@ -30,12 +30,17 @@
     Max volume : <input
         type="text" readonly="readonly" name="maxVolume"
         value="<c:out value="${transport.maxVolume}" />" /> <br />
-    Works : <input
+    <%--Works : <input
         type="text" name="isWorks"
-        value="<c:out value="${transport.isAutoWorks}" />" /> <br />
-    Available : <input
-        type="text" name="isAvailable"
-        value="<c:out value="${transport.isAutoAvailable}" />" /> <br />
+        value="<c:out value="${transport.isAutoWorks}" />" /> <br />--%>
+    Works : <select name="isAutoWorks">
+                <option selected value="true">True</option>
+                <option value="false">False</option>
+            </select> <br />
+    Available : <select name="isAutoAvailable">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select> <br />
     <input
             type="submit" value="Submit" />
 </form>
