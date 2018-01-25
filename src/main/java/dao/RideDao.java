@@ -2,6 +2,7 @@ package dao;
 
 import model.Ride;
 import model.Transport;
+import model.User;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface RideDao {
     Ride getById(Long id);
 
     List<Ride> getByExecutor(Transport transport);
+
+    //List<Ride> getByCustomer(User customer);
 
     List<Ride> getAll();
 
