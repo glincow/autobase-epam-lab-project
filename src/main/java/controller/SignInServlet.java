@@ -44,10 +44,10 @@ public class SignInServlet extends HttpServlet {
                     response.sendRedirect("app/Driver.jsp");
                     break;
                 case "Consumer":
-                    response.sendRedirect("app/Consumer.jsp");
+                    response.sendRedirect("app/Customer.jsp");
                     break;
                 default:
-                    response.sendRedirect("app/Consumer.jsp");
+                    response.sendRedirect("app/Customer.jsp");
                     break;
             }
         } else {
