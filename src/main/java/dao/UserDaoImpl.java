@@ -16,18 +16,6 @@ public class UserDaoImpl implements UserDao {
 
     private final static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
-    private User assembleUser(ResultSet rs) throws SQLException {
-        User user = new User();
-
-        user.setLogin(rs.getString("login"));
-        user.setPassword(rs.getString("password"));
-        user.setId(rs.getLong("id"));
-        user.setName(rs.getString("name"));
-        user.setRole(rs.getString(ROLE_COLUMN_ID));
-
-        return user;
-    }
-
     final static private String SQL_INSERT_USER = "INSERT INTO User (id , name, login, password, role_id) " +
             "VALUES (?, ?, ?, ?, SELECT id from Role where name = ?)";
 
@@ -44,6 +32,18 @@ public class UserDaoImpl implements UserDao {
             "role_id = (SELECT id from Role where name = ?) WHERE id = ?";
 
     final static private String SQL_DELETE_USER = "DELETE FROM User WHERE id = ?";
+
+    private User assembleUser(ResultSet rs) throws SQLException {
+        User user = new User();
+
+        user.setLogin(rs.getString("login"));
+        user.setPassword(rs.getString("password"));
+        user.setId(rs.getLong("id"));
+        user.setName(rs.getString("name"));
+        user.setRole(rs.getString(ROLE_COLUMN_ID));
+
+        return user;
+    }
 
     @Override
     public void add(User user) {
@@ -126,7 +126,7 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement preparedStatement = null;
         String sql = SQL_SELECT_USER_BY_LOGIN;
         ResultSet rs = null;
-        User user = null;
+        User user;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();

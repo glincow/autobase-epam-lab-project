@@ -98,6 +98,7 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             rs = preparedStatement.executeQuery();
+            rs.next();
             transport = assembleTransport(rs);
 
         } catch (SQLException e) {
@@ -127,6 +128,7 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, driver.getId());
             rs = preparedStatement.executeQuery();
+            rs.next();
             transport = assembleTransport(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
