@@ -17,19 +17,18 @@ public class UserDaoImpl implements UserDao {
     private final static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     final static private String SQL_INSERT_USER = "INSERT INTO User (name, login, password, role_id) " +
-            "VALUES (?, ?, ?, SELECT id from Role where name = ?)";
+            "VALUES (?, ?, ?, ?)";
 
-    final static private String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM User inner join (select * from Role) as Role " +
-            "on User.role_id=Role.id where login = ?";
+    final static private String SQL_SELECT_USER_BY_ID = "SELECT * FROM User WHERE id = ?";
 
-    final static private String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM User inner join (select * from Role) as Role " +
-            "on User.role_id=Role.id where login = ? and password = ?";
+    final static private String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM User WHERE login = ?";
 
-    final static private String SQL_SELECT_ALL_USERS = "SELECT * FROM User " +
-            "inner join (select * from Role) as Role on User.role_id=Role.id";
+    final static private String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM User WHERE login = ? AND password = ?";
+
+    final static private String SQL_SELECT_ALL_USERS = "SELECT * FROM User";
 
     final static private String SQL_UPDATE_USER = "UPDATE User SET name = ?, login = ?, password = ?, " +
-            "role_id = (SELECT id from Role where name = ?) WHERE id = ?";
+            "role_id = ? WHERE id = ?";
 
     final static private String SQL_DELETE_USER = "DELETE FROM User WHERE id = ?";
 
@@ -40,7 +39,7 @@ public class UserDaoImpl implements UserDao {
         user.setPassword(rs.getString("password"));
         user.setId(rs.getLong("id"));
         user.setName(rs.getString("name"));
-        user.setRole(rs.getString(ROLE_COLUMN_ID));
+        user.setRole(rs.getLong("role_id"));
 
         return user;
     }
@@ -61,7 +60,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getRole());
+            preparedStatement.setLong(4, user.getRole().getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -80,32 +79,18 @@ public class UserDaoImpl implements UserDao {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sqlUser = "SELECT * FROM User where id = ?";
-        String sqlRole = "SELECT name FROM Role where id = ?";
         ResultSet rs = null;
         User user = new User();
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
 
-            preparedStatement = connection.prepareStatement(sqlUser);
+            preparedStatement = connection.prepareStatement(SQL_SELECT_USER_BY_ID);
             preparedStatement.setLong(1, id);
             rs = preparedStatement.executeQuery();
             rs.next();
 
-            user.setLogin(rs.getString("login"));
-            user.setPassword(rs.getString("password"));
-            user.setId(id);
-            user.setName(rs.getString("name"));
-            long role = rs.getLong("role_id");
-
-
-            preparedStatement = connection.prepareStatement(sqlRole);
-            preparedStatement.setLong(1, role);
-            rs = preparedStatement.executeQuery();
-            rs.next();
-
-            user.setRole(rs.getString("name"));
+            user = assembleUser(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
             throw new DataAccessException("SQLexception in get method", e);
@@ -225,7 +210,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getRole());
+            preparedStatement.setLong(4, user.getRole().getId());
             preparedStatement.setLong(5, user.getId());
 
             preparedStatement.executeUpdate();
