@@ -118,6 +118,7 @@ public class RideDaoImpl implements RideDao {
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, executorId);
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
