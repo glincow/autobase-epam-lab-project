@@ -63,6 +63,7 @@ public class DriverController extends HttpServlet {
             ride.setStatus("FINISHED");
             rideDao.update(ride);
             forward = LIST_RIDE;
+            request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport.getId()));
         } else if (action.equalsIgnoreCase("statusEdit")){ //TODO: must work properly
             forward = STATUS_EDIT;
@@ -73,7 +74,6 @@ public class DriverController extends HttpServlet {
             forward = LIST_RIDE;
             request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport.getId()));
-//            request.setAttribute("rides", rideDao.getAll());
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
