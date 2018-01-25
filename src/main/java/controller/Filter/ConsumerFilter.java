@@ -11,10 +11,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(filterName = "driverFilter", urlPatterns = "/app/Driver.jsp")
-public class DriverFilter implements UserFilter {
+@WebFilter(filterName = "consumerFilter", urlPatterns = "/app/Consumer.jsp")
+public class ConsumerFilter implements UserFilter {
 
-    private final static Logger LOGGER = LogManager.getLogger(DriverFilter.class);
+    private final static Logger LOGGER = LogManager.getLogger(ConsumerFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -23,7 +23,7 @@ public class DriverFilter implements UserFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        checkRights(servletRequest, servletResponse, filterChain, LOGGER, "Driver");
+        checkRights(servletRequest, servletResponse, filterChain, LOGGER, "Consumer");
     }
 
     @Override
