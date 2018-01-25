@@ -43,6 +43,9 @@ public class TransportDaoImpl implements TransportDao {
 
     final static private String SQL_SELECT_ALL_TRANSPORT = "SELECT * FROM Transport";
 
+    final static private String SQL_SELECT_SUITABLE_FOR_RIDE_TRANSPORT = "SELECT * FROM Transport WHERE " +
+            "max_mass > ? AND max_volume > ? AND isAuto_works = TRUE AND isAuto_available = TRUE";
+
     final static private String SQL_UPDATE_TRANSPORT = "UPDATE Transport SET max_mass = ?, max_volume = ?, isAuto_works = ?, " +
             "isAuto_available = ?, driver_id = ? WHERE id = ?";
 
@@ -138,7 +141,32 @@ public class TransportDaoImpl implements TransportDao {
     @Override
     public List<Transport> getSuitable(Ride ride) {
         logger.debug("List<Transport> getSuitable(Ride ride) started...");
-        return null; //TODO
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        List<Transport> list = new ArrayList<>();
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(SQL_SELECT_SUITABLE_FOR_RIDE_TRANSPORT);
+            preparedStatement.setFloat(1, ride.getMass());
+            preparedStatement.setFloat(2, ride.getVolume());
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Transport transport;
+                transport = assembleTransport(rs);
+                list.add(transport);
+            }
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return list;
     }
 
     @Override
