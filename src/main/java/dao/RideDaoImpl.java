@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Transport;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.commons.dbutils.DbUtils;
@@ -32,7 +34,7 @@ public class RideDaoImpl implements RideDao {
     final static private String SQL_SELECT_ALL_RIDES = "SELECT * FROM Ride";
 
     final static private String SQL_UPDATE_RIDE = "UPDATE ride SET name = ?, " +
-            "mass = ?, volume = ?, status = ? WHERE id = ?";
+            "mass = ?, volume = ?, status = ?, executor_id = ?, manager_id = ? WHERE id = ?";
 
     final static private String SQL_DELETE_RIDE = "DELETE FROM Ride WHERE id = ?";
 
@@ -106,7 +108,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public List<Ride> getByExecutor(Long executorId) {
+    public List<Ride> getByExecutor(Transport transport) {
         logger.debug("Ride getBy(Long executorId) started...");
 
         Connection connection = null;
@@ -118,7 +120,7 @@ public class RideDaoImpl implements RideDao {
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, executorId);
+            preparedStatement.setLong(1, transport.getId());
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -216,7 +218,9 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setFloat(2, ride.getMass());
             preparedStatement.setFloat(3, ride.getVolume());
             preparedStatement.setString(4, ride.getStatus().name());
-            preparedStatement.setLong(5, ride.getId());
+            preparedStatement.setLong(5, ride.getExecutor().getId());
+            preparedStatement.setLong(6, ride.getManager().getId());
+            preparedStatement.setLong(7, ride.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
