@@ -52,6 +52,7 @@ public class Ride {
         return status;
     }
 
+    //TODO: check what to use: string or not
     public void setStatus(String statusString) {
         this.status = Status.valueOf(statusString.toUpperCase());
     }

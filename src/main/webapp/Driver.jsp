@@ -41,6 +41,5 @@
     </c:forEach>
     </tbody>
 </table>
-<p><a href="RideController?action=insert">Add Ride</a></p>
 </body>
 </html>

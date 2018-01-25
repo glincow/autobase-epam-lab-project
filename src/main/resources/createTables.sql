@@ -48,3 +48,4 @@ INSERT INTO Role SET name= 'Driver';
 INSERT INTO User (name, login, password, role_id) VALUES ('Admin', 'admin', 'admin', 1);
 
 INSERT INTO Ride (name, mass, volume, status) VALUES ('WestRide', 1.4, 2.4, 'unassigned');
+INSERT INTO Ride (name, mass, volume, status) VALUES ('EastRide', 6.4, 0.3, 'unassigned');
