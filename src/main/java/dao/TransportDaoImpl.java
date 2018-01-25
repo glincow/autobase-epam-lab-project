@@ -220,7 +220,8 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement.setFloat(2, transport.getMaxVolume());
             preparedStatement.setBoolean(3, transport.getIsAutoWorks());
             preparedStatement.setBoolean(4, transport.getIsAutoAvailable());
-            preparedStatement.setLong(5, transport.getId());
+            preparedStatement.setLong(5, transport.getDriver().getId());
+            preparedStatement.setLong(6, transport.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

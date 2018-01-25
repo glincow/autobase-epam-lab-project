@@ -21,7 +21,7 @@ import java.io.IOException;
 public class DriverController extends HttpServlet {
 
     private static final Long serialVersionUID = 1L;
-    private static String STATUS_EDIT = "/DriverStatus.jsp";
+    private static String STATUS_EDIT = "app/TransportStatus.jsp";
     private static String LIST_RIDE = "app/Driver.jsp";
     private RideDao rideDao;
     private TransportDao transportDao;
@@ -33,21 +33,21 @@ public class DriverController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*Ride ride = new Ride();
-        ride.setName(request.getParameter("name"));
-        ride.setMass(Float.parseFloat(request.getParameter("mass")));
-        ride.setVolume(Float.parseFloat(request.getParameter("volume")));
-        ride.setStatus(request.getParameter("status"));
-        String rideId = request.getParameter("id");
-        if (rideId == null || rideId.isEmpty()) {
-            rideDao.add(ride);
-        } else {
-            ride.setId(Long.parseLong(rideId));
-            rideDao.update(ride);
-        }
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Transport transport = transportDao.getBy(user);
+        transport.setIsAutoWorks("true".equals(request.getParameter("isAutoWorks"))); //TODO: do normal boolean
+        transport.setIsAutoAvailable("true".equals(request.getParameter("isAutoAvailable"))); //TODO: do normal boolean
+//        String rideId = request.getParameter("id");
+//        if (rideId == null || rideId.isEmpty()) {
+//            rideDao.add(ride);
+//        } else {
+//            ride.setId(Long.parseLong(rideId));
+        transportDao.update(transport);
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
-        request.setAttribute("rides", rideDao.getAll());
-        view.forward(request, response);*/
+        request.setAttribute("transport", transport);
+        request.setAttribute("rides", rideDao.getByExecutor(transport.getId()));
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,13 +63,10 @@ public class DriverController extends HttpServlet {
             ride.setStatus("FINISHED");
             rideDao.update(ride);
             forward = LIST_RIDE;
-            request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport.getId()));
-        } else if (action.equalsIgnoreCase("statusEdit")){ //TODO: must work properly
+        } else if (action.equalsIgnoreCase("statusEdit")) {
             forward = STATUS_EDIT;
-            Long rideId = Long.parseLong(request.getParameter("id"));
-            Ride ride = rideDao.getById(rideId);
-            request.setAttribute("ride", ride);
+            request.setAttribute("transport", transport);
         } else {
             forward = LIST_RIDE;
             request.setAttribute("transport", transport);

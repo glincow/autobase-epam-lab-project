@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(filterName = "driverFilter", urlPatterns = "/DriverController?action=listRides")
+@WebFilter(filterName = "driverFilter", urlPatterns = "/app/Driver.jsp")
 public class DriverFilter implements UserFilter {
 
     private final static Logger LOGGER = LogManager.getLogger(DriverFilter.class);
