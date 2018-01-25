@@ -75,7 +75,7 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in add method : " + e.getMessage());
-            throw new DaoException("SQLexception in add method", e);
+            throw new DataAccessException("SQLexception in add method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
@@ -103,7 +103,7 @@ public class TransportDaoImpl implements TransportDao {
 
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -132,7 +132,7 @@ public class TransportDaoImpl implements TransportDao {
             transport = assembleTransport(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -163,7 +163,7 @@ public class TransportDaoImpl implements TransportDao {
             }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -195,7 +195,7 @@ public class TransportDaoImpl implements TransportDao {
             }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -225,7 +225,7 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in update method : " + e.getMessage());
-            throw new DaoException("SQLexception in update method", e);
+            throw new DataAccessException("SQLexception in update method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
@@ -249,7 +249,7 @@ public class TransportDaoImpl implements TransportDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in delete method : " + e.getMessage());
-            throw new DaoException("SQLexception in delete method", e);
+            throw new DataAccessException("SQLexception in delete method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
