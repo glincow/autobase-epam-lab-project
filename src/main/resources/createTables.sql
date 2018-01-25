@@ -35,8 +35,10 @@ CREATE TABLE Ride(
   status VARCHAR(255),
   executor_id BIGINT,
   manager_id BIGINT,
+  customer_id BIGINT,
   FOREIGN KEY(executor_id) REFERENCES Transport(id),
-  FOREIGN KEY(manager_id) REFERENCES User(id)
+  FOREIGN KEY(manager_id) REFERENCES User(id),
+  FOREIGN KEY(customer_id) REFERENCES User(id)
 );
 
 -- Order of inserts matters because using auto_increment in key columns

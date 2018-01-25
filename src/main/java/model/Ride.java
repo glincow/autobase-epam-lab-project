@@ -9,6 +9,7 @@ public class Ride {
     private Status status;
     private Transport executor;
     private User manager;
+    private User customer;
 
     public enum Status {
         UNASSIGNED,
@@ -48,13 +49,20 @@ public class Ride {
         this.volume = volume;
     }
 
+    public User getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(User customer) {
+        this.customer = customer;
+    }
+
     public Status getStatus() {
         return status;
     }
 
-    //TODO: check what to use: string or not
-    public void setStatus(String statusString) {
-        this.status = Status.valueOf(statusString.toUpperCase());
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Transport getExecutor() {
