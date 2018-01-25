@@ -27,10 +27,10 @@ public class SignInServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UserDaoImpl dao = new UserDaoImpl();
-        User user = null;
+        User user;
         try {
             user = dao.getBy(login);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             response.sendRedirect("sign-in.jsp");
             return;
         }
@@ -58,6 +58,7 @@ public class SignInServlet extends HttpServlet {
                     response.sendRedirect("app/Customer.jsp");
                     break;
             }
+            LOGGER.info("User " + user.getLogin() + " signed in as " + role);
         } else {
             response.sendRedirect("/sign-in.jsp");
         }

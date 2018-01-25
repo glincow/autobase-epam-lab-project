@@ -4,9 +4,9 @@
 <head>
     <title>SignIn</title>
 </head>
-
+<body>
 <h2>Hello, please log in:</h2>
-<form action="signIn" method=post>
+<form action="/signIn" method=post>
     <p><strong>Please Enter Your User Name: </strong>
         <input type="text" name="login" size="25">
     <p>
@@ -16,5 +16,8 @@
     <p>
         <input type="submit" value="SignIn">
 </form>
-<input type="button" value="SignUp">
+<form action="sign-up.jsp">
+    <input type="submit" value="SignUp">
+</form>
+</body>
 </html>

@@ -16,8 +16,8 @@ public class UserDaoImpl implements UserDao {
 
     private final static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
-    final static private String SQL_INSERT_USER = "INSERT INTO User (id , name, login, password, role_id) " +
-            "VALUES (?, ?, ?, ?, SELECT id from Role where name = ?)";
+    final static private String SQL_INSERT_USER = "INSERT INTO User (name, login, password, role_id) " +
+            "VALUES (?, ?, ?, SELECT id from Role where name = ?)";
 
     final static private String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM User inner join (select * from Role) as Role " +
             "on User.role_id=Role.id where login = ?";
@@ -58,11 +58,10 @@ public class UserDaoImpl implements UserDao {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setLong(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getLogin());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setString(5, user.getRole());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getLogin());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getRole());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
