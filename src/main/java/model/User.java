@@ -13,12 +13,22 @@ public class User {
         ADMIN,
         MANAGER,
         DRIVER,
-        COSTUMER;
+        CUSTOMER;
 
         public Long getId() {
             return (long) ordinal() + 1;
         }
 
+    }
+
+    public User() {}
+
+    public User(Long id, String login, String name, String password, Role role) {
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.password = password;
+        this.role = role;
     }
 
     public String getLogin() {

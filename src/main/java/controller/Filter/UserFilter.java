@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 public interface UserFilter extends Filter {
 
     default void checkRights(ServletRequest servletRequest, ServletResponse servletResponse,
-                             FilterChain filterChain, Logger LOGGER, String role) throws IOException, ServletException {
+                             FilterChain filterChain, Logger LOGGER, User.Role role) throws IOException, ServletException {
 
         HttpServletRequest req = ((HttpServletRequest) servletRequest);
         HttpServletResponse resp = ((HttpServletResponse) servletResponse);
@@ -26,12 +26,11 @@ public interface UserFilter extends Filter {
                 filterChain.doFilter(req, resp);
             } else {
                 LOGGER.info("Illegal entry to page:  " + req.getRequestURI());
-                //send to error page
-                throw new RuntimeException();
+                resp.sendRedirect("/err.jsp");
             }
         } else {
             LOGGER.info("Illegal entry to page:  " + req.getRequestURI());
-            //Send to signup page
+            resp.sendRedirect("/sign-in.jsp");
         }
     }
 }

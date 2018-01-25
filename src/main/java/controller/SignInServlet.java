@@ -1,10 +1,12 @@
 package controller;
 
+import dao.EmptyResultDataAccessException;
 import dao.UserDaoImpl;
 import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,35 +27,41 @@ public class SignInServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UserDaoImpl dao = new UserDaoImpl();
-        User user = dao.getBy(login);
+        User user;
+        try {
+            user = dao.getBy(login);
+        } catch (EmptyResultDataAccessException e) {
+            response.sendRedirect("sign-in.jsp");
+            return;
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
 
         if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {
 
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-
-            String role = user.getRole();
+            User.Role role = user.getRole();
             switch (role) {
-                case "Admin":
+                case ADMIN:
                     response.sendRedirect("app/Admin.jsp");
                     break;
-                case "Manager":
+                case MANAGER:
                     response.sendRedirect("app/Manager.jsp");
                     break;
-                case "Driver":
-                    response.sendRedirect("/DriverController?action=listRides");
+                case DRIVER:
+                    response.sendRedirect("app/Driver.jsp");
                     break;
-                case "Consumer":
-                    response.sendRedirect("app/Consumer.jsp");
+                case CUSTOMER:
+                    response.sendRedirect("app/Customer.jsp");
                     break;
                 default:
-                    response.sendRedirect("app/Consumer.jsp");
+                    response.sendRedirect("app/Customer.jsp");
                     break;
             }
+            LOGGER.info("User " + user.getLogin() + " signed in as " + role);
         } else {
-            request.getRequestDispatcher("sign-in.jsp").forward(request, response);
-            //send to signin page
+            session.setAttribute("user", null);
+            response.sendRedirect("/sign-in.jsp");
         }
-        //add user==null and send to signin page
     }
 }
