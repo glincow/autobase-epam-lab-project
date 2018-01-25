@@ -32,6 +32,7 @@ public class Ride {
 
 
     public Ride(Long id, String name, float mass, float volume, Status status, Transport executor, User manager, User customer) {
+        this.id = id;
         this.name = name;
         this.mass = mass;
         this.volume = volume;

@@ -49,7 +49,7 @@ public class SignInServlet extends HttpServlet {
                     response.sendRedirect("app/Manager.jsp");
                     break;
                 case DRIVER:
-                    response.sendRedirect("app/Driver.jsp");
+                    response.sendRedirect("/DriverController?action=");
                     break;
                 case CUSTOMER:
                     response.sendRedirect("app/Customer.jsp");
