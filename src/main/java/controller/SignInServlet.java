@@ -1,10 +1,12 @@
 package controller;
 
+import dao.EmptyResultDataAccessException;
 import dao.UserDaoImpl;
 import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,13 @@ public class SignInServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UserDaoImpl dao = new UserDaoImpl();
-        User user = dao.getBy(login);
+        User user = null;
+        try {
+            user = dao.getBy(login);
+        } catch (EmptyResultDataAccessException e){
+            response.sendRedirect("sign-in.jsp");
+            return;
+        }
 
         if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {
 
@@ -51,9 +59,7 @@ public class SignInServlet extends HttpServlet {
                     break;
             }
         } else {
-            request.getRequestDispatcher("sign-in.jsp").forward(request, response);
-            //send to signin page
+            response.sendRedirect("/sign-in.jsp");
         }
-        //add user==null and send to signin page
     }
 }

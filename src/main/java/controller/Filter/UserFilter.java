@@ -26,12 +26,11 @@ public interface UserFilter extends Filter {
                 filterChain.doFilter(req, resp);
             } else {
                 LOGGER.info("Illegal entry to page:  " + req.getRequestURI());
-                //send to error page
-                throw new RuntimeException();
+                resp.sendRedirect("/err.jsp");
             }
         } else {
             LOGGER.info("Illegal entry to page:  " + req.getRequestURI());
-            //Send to signup page
+            resp.sendRedirect("/sign-in.jsp");
         }
     }
 }
