@@ -55,7 +55,7 @@ public class DriverController extends HttpServlet {
         if (action.equalsIgnoreCase("finishRide")){
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = rideDao.getById(rideId);
-            ride.setStatus("FINISHED");
+            ride.setStatus(Ride.Status.FINISHED);
             rideDao.update(ride);
             forward = LIST_RIDE;
             request.setAttribute("transport", transport);

@@ -43,7 +43,7 @@ public class RideDaoImpl implements RideDao {
         ride.setName(rs.getString("name"));
         ride.setMass(rs.getFloat("mass"));
         ride.setVolume(rs.getFloat("volume"));
-        ride.setStatus(rs.getString("status"));
+        ride.setStatus(Ride.Status.valueOf(rs.getString("status")));
         return ride;
     }
 
