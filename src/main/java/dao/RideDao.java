@@ -12,9 +12,13 @@ public interface RideDao {
     //read
     Ride getById(Long id);
 
+    Ride getByExecutor(Long executorId);
+
     List<Ride> getAll();
 
     List<Ride> getByStatus(Ride.Status status);
+
+
 
     //update
     void update(Ride ride);

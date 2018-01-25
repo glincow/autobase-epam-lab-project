@@ -25,6 +25,8 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_SELECT_RIDE_BY_ID = "SELECT * FROM Ride WHERE id = ?";
 
+    final static private String SQL_SELECT_RIDE_BY_EXECUTOR = "SELECT * FROM Ride WHERE executor_id = ?";
+
     final static private String SQL_SELECT_RIDE_BY_STATUS = "SELECT * FROM Ride WHERE status = ?";
 
     final static private String SQL_SELECT_ALL_RIDES = "SELECT * FROM Ride";
@@ -89,6 +91,34 @@ public class RideDaoImpl implements RideDao {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
+            rs = preparedStatement.executeQuery();
+            rs.next();
+            ride = assembleRide(rs);
+
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DaoException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return ride;
+    }
+
+    @Override
+    public Ride getByExecutor(Long executorId) {
+        logger.debug("Ride getBy(Long executorId) started...");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = SQL_SELECT_RIDE_BY_EXECUTOR;
+        Ride ride;
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, executorId);
             rs = preparedStatement.executeQuery();
             rs.next();
             ride = assembleRide(rs);
