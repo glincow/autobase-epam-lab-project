@@ -20,8 +20,8 @@ public class RideDaoImpl implements RideDao {
 
     final static private UserDao userDao = new UserDaoImpl();
 
-    final static private String SQL_INSERT_RIDE = "INSERT INTO Ride (id , name, mass, volume, status, executor_id, manager_id) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final static private String SQL_INSERT_RIDE = "INSERT INTO Ride (name, mass, volume, status) " +
+            "VALUES (?, ?, ?, ?)";
 
     final static private String SQL_SELECT_RIDE_BY_ID = "SELECT * FROM Ride WHERE id = ?";
 
@@ -30,8 +30,7 @@ public class RideDaoImpl implements RideDao {
     final static private String SQL_SELECT_ALL_RIDES = "SELECT * FROM Ride";
 
     final static private String SQL_UPDATE_RIDE = "UPDATE ride SET name = ?, " +
-            "mass = ?, volume = ?, status = ?, executor_id = ?, " +
-            "manager_id = ? WHERE id = ?";
+            "mass = ?, volume = ?, status = ? WHERE id = ?";
 
     final static private String SQL_DELETE_RIDE = "DELETE FROM Ride WHERE id = ?";
 
@@ -42,10 +41,7 @@ public class RideDaoImpl implements RideDao {
         ride.setName(rs.getString("name"));
         ride.setMass(rs.getFloat("mass"));
         ride.setVolume(rs.getFloat("volume"));
-        ride.setStatus(Ride.Status.valueOf(rs.getString("status").toUpperCase()));
-        ride.setExecutor(transportDao.getBy(rs.getLong("executor_id")));
-        ride.setManager(userDao.getBy(rs.getLong("manager_id")));
-
+        ride.setStatus(rs.getString("status"));
         return ride;
     }
 
@@ -58,26 +54,15 @@ public class RideDaoImpl implements RideDao {
         PreparedStatement preparedStatement = null;
 
         String sql = SQL_INSERT_RIDE;
-//        String sql = "INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
-//            preparedStatement.setLong(1, ride.getId());
             preparedStatement.setString(1, ride.getName());
             preparedStatement.setFloat(2, ride.getMass());
             preparedStatement.setFloat(3, ride.getVolume());
-            preparedStatement.setString(4, ride.getStatus());
-//            preparedStatement.setLong(5, ride.getExecutor().getId());
-//            preparedStatement.setLong(6, ride.getManager().getId());
-            preparedStatement.setLong(1, ride.getId());
-            preparedStatement.setString(2, ride.getName());
-            preparedStatement.setFloat(3, ride.getMass());
-            preparedStatement.setFloat(4, ride.getVolume());
-            preparedStatement.setString(5, ride.getStatus().name());
-            preparedStatement.setLong(6, ride.getExecutor().getId());
-            preparedStatement.setLong(7, ride.getManager().getId());
+            preparedStatement.setString(4, ride.getStatus().name());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -199,9 +184,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setFloat(2, ride.getMass());
             preparedStatement.setFloat(3, ride.getVolume());
             preparedStatement.setString(4, ride.getStatus().name());
-            preparedStatement.setLong(5, ride.getExecutor().getId());
-            preparedStatement.setLong(6, ride.getManager().getId());
-            preparedStatement.setLong(7, ride.getId());
+            preparedStatement.setLong(5, ride.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

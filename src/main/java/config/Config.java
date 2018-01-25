@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -23,7 +25,7 @@ public class Config implements ServletContextListener {
             ScriptRunner scriptRunner = new ScriptRunner(connection,
                     false, true);
             BufferedReader reader = new BufferedReader(new FileReader(
-                    "D:\\JavaProjects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
+                    "D:\\[work]\\IDEA Projects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
             scriptRunner.runScript(reader);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

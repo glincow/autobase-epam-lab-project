@@ -52,8 +52,8 @@ public class Ride {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(String statusString) {
+        this.status = Status.valueOf(statusString.toUpperCase());
     }
 
     public Transport getExecutor() {
