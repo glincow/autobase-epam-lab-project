@@ -2,6 +2,7 @@ package controller.Filter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.h2.engine.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -23,7 +24,7 @@ public class DriverFilter implements UserFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        checkRights(servletRequest, servletResponse, filterChain, LOGGER, "Driver");
+        checkRights(servletRequest, servletResponse, filterChain, LOGGER, model.User.Role.DRIVER);
     }
 
     @Override

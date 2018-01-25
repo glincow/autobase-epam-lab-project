@@ -105,14 +105,6 @@ public class Ride {
         this.manager = manager;
     }
 
-    public User getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(User customer) {
-        this.customer = customer;
-    }
-
     @Override
     public String toString() {
         return "Ride [id = " + id + ", name = " + name + ", paramMass = " + mass
