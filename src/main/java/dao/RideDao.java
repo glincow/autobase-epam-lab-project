@@ -12,7 +12,7 @@ public interface RideDao {
     //read
     Ride getById(Long id);
 
-    Ride getByExecutor(Long executorId);
+    List<Ride> getByExecutor(Long executorId);
 
     List<Ride> getAll();
 

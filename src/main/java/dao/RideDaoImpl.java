@@ -106,23 +106,24 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public Ride getByExecutor(Long executorId) {
+    public List<Ride> getByExecutor(Long executorId) {
         logger.debug("Ride getBy(Long executorId) started...");
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         String sql = SQL_SELECT_RIDE_BY_EXECUTOR;
-        Ride ride;
+        List<Ride> list = new ArrayList<>();
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, executorId);
             rs = preparedStatement.executeQuery();
-            rs.next();
-            ride = assembleRide(rs);
 
+            while (rs.next()) {
+                Ride ride = assembleRide(rs);
+                list.add(ride);
+            }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
             throw new DaoException("SQLexception in get method", e);
@@ -130,7 +131,7 @@ public class RideDaoImpl implements RideDao {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
 
-        return ride;
+        return list;
     }
 
     @Override
