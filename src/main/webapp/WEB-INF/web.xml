@@ -48,4 +48,14 @@
         <servlet-name>DriverController</servlet-name>
         <url-pattern>/DriverController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>ManagerController</display-name>
+        <servlet-name>ManagerController</servlet-name>
+        <servlet-class>controller.ManagerController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManagerController</servlet-name>
+        <url-pattern>/ManagerController</url-pattern>
+    </servlet-mapping>
 </web-app>
