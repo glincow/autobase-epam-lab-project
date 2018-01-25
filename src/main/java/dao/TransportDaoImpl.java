@@ -48,6 +48,7 @@ public class TransportDaoImpl implements TransportDao {
             "(SELECT T.id, T.max_mass, T.max_volume, T.isAuto_works, T.isAuto_available, T.driver_id FROM Transport AS T " +
             "INNER JOIN Ride AS R ON T.id = R.executor_id WHERE status = 'IN_PROCESS')";
 
+
     final static private String SQL_UPDATE_TRANSPORT = "UPDATE Transport SET max_mass = ?, max_volume = ?, isAuto_works = ?, " +
             "isAuto_available = ?, driver_id = ? WHERE id = ?";
 

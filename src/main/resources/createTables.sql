@@ -53,9 +53,11 @@ INSERT INTO User (name, login, password, role_id) VALUES ('Vasia', 'vasia', 'vas
 INSERT INTO User (name, login, password, role_id) VALUES ('Petia', 'petia', 'petia', 3);
 INSERT INTO User (name, login, password, role_id) VALUES ('Vova', 'vova', 'vova', 2);
 INSERT INTO User (name, login, password, role_id) VALUES ('John', 'john', 'john', 4);
+INSERT INTO User (name, login, password, role_id) VALUES ('Kolia', 'kolia', 'kolia', 3);
 
 INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (12.4, 14.2, TRUE, TRUE, 2);
 INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (27.0, 16.5, TRUE, TRUE, 3);
+INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (30.0, 20.5, TRUE, TRUE, 6);
 
 INSERT INTO Ride (name, mass, volume, status, customer_id) VALUES ('WestRide', 1.4, 2.4, 'unassigned', 5);
 INSERT INTO Ride (name, mass, volume, status, customer_id ) VALUES ('EastRide', 6.4, 0.3, 'unassigned', 5);
