@@ -48,7 +48,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public void add (Ride ride) throws DaoException {
+    public void add (Ride ride) throws DataAccessException {
 
         logger.debug("add(Ride ride) started...");
 
@@ -69,7 +69,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in add method : " + e.getMessage());
-            throw new DaoException("SQLexception in add method", e);
+            throw new DataAccessException("SQLexception in add method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
@@ -97,7 +97,7 @@ public class RideDaoImpl implements RideDao {
 
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -106,31 +106,33 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public Ride getByExecutor(Long executorId) {
+    public List<Ride> getByExecutor(Long executorId) {
         logger.debug("Ride getBy(Long executorId) started...");
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         String sql = SQL_SELECT_RIDE_BY_EXECUTOR;
-        Ride ride;
+        List<Ride> list = new ArrayList<>();
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, executorId);
             rs = preparedStatement.executeQuery();
-            rs.next();
-            ride = assembleRide(rs);
 
+            while (rs.next()) {
+                Ride ride = assembleRide(rs);
+                list.add(ride);
+            }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
 
-        return ride;
+        return list;
     }
 
     @Override
@@ -157,7 +159,7 @@ public class RideDaoImpl implements RideDao {
 
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -166,7 +168,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public List<Ride> getAll() throws DaoException {
+    public List<Ride> getAll() throws DataAccessException {
 
         logger.debug("List<Ride> getAll started...");
 
@@ -189,7 +191,7 @@ public class RideDaoImpl implements RideDao {
             }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -198,7 +200,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public void update(Ride ride) throws DaoException {
+    public void update(Ride ride) throws DataAccessException {
 
         logger.debug("update(Ride ride) started...");
 
@@ -219,7 +221,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in update method : " + e.getMessage());
-            throw new DaoException("SQLexception in update method", e);
+            throw new DataAccessException("SQLexception in update method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
@@ -228,7 +230,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public void delete(Ride ride) throws DaoException {
+    public void delete(Ride ride) throws DataAccessException {
 
         logger.debug("delete(Ride ride) started...");
 
@@ -244,7 +246,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in delete method : " + e.getMessage());
-            throw new DaoException("SQLexception in delete method", e);
+            throw new DataAccessException("SQLexception in delete method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);

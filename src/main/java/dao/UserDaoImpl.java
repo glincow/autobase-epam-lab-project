@@ -16,18 +16,6 @@ public class UserDaoImpl implements UserDao {
 
     private final static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
-    private User assembleUser(ResultSet rs) throws SQLException {
-        User user = new User();
-
-        user.setLogin(rs.getString("login"));
-        user.setPassword(rs.getString("password"));
-        user.setId(rs.getLong("id"));
-        user.setName(rs.getString("name"));
-        user.setRole(rs.getString(ROLE_COLUMN_ID));
-
-        return user;
-    }
-
     final static private String SQL_INSERT_USER = "INSERT INTO User (id , name, login, password, role_id) " +
             "VALUES (?, ?, ?, ?, SELECT id from Role where name = ?)";
 
@@ -44,6 +32,18 @@ public class UserDaoImpl implements UserDao {
             "role_id = (SELECT id from Role where name = ?) WHERE id = ?";
 
     final static private String SQL_DELETE_USER = "DELETE FROM User WHERE id = ?";
+
+    private User assembleUser(ResultSet rs) throws SQLException {
+        User user = new User();
+
+        user.setLogin(rs.getString("login"));
+        user.setPassword(rs.getString("password"));
+        user.setId(rs.getLong("id"));
+        user.setName(rs.getString("name"));
+        user.setRole(rs.getString(ROLE_COLUMN_ID));
+
+        return user;
+    }
 
     @Override
     public void add(User user) {
@@ -67,7 +67,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in add method : " + e.getMessage());
-            throw new DaoException("SQLexception in add method", e);
+            throw new DataAccessException("SQLexception in add method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
@@ -109,7 +109,7 @@ public class UserDaoImpl implements UserDao {
             user.setRole(rs.getString("name"));
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -126,7 +126,7 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement preparedStatement = null;
         String sql = SQL_SELECT_USER_BY_LOGIN;
         ResultSet rs = null;
-        User user = null;
+        User user;
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
@@ -134,12 +134,14 @@ public class UserDaoImpl implements UserDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, login);
             rs = preparedStatement.executeQuery();
-            rs.next();
-
-            user = assembleUser(rs);
+            if (rs.next()) {
+                user = assembleUser(rs);
+            } else {
+                throw new EmptyResultDataAccessException("No user with this login found");
+            }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -170,7 +172,7 @@ public class UserDaoImpl implements UserDao {
             user = assembleUser(rs);
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -200,7 +202,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException e) {
             logger.error("SQLexception in get method : " + e.getMessage());
-            throw new DaoException("SQLexception in get method", e);
+            throw new DataAccessException("SQLexception in get method", e);
         } finally {
             DbUtils.closeQuietly(connection, preparedStatement, rs);
         }
@@ -230,7 +232,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in update method : " + e.getMessage());
-            throw new DaoException("SQLexception in update method", e);
+            throw new DataAccessException("SQLexception in update method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
@@ -253,7 +255,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in delete method : " + e.getMessage());
-            throw new DaoException("SQLexception in delete method", e);
+            throw new DataAccessException("SQLexception in delete method", e);
         } finally {
             DbUtils.closeQuietly(preparedStatement);
             DbUtils.closeQuietly(connection);
