@@ -3,6 +3,7 @@ package config;
 import util.DBConnectionPool;
 import util.ScriptRunner;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -16,7 +17,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebListener
-public class Config implements ServletContextListener {
+public class ApplicationStartUpListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -24,8 +25,11 @@ public class Config implements ServletContextListener {
         try (Connection connection = cp.getConnection()){
             ScriptRunner scriptRunner = new ScriptRunner(connection,
                     false, true);
-            BufferedReader reader = new BufferedReader(new FileReader(
-                    "D:\\[work]\\IDEA projects\\autobase-epam-lab-project\\src\\main\\resources\\createTables.sql"));
+
+            StringBuilder scriptPath = new StringBuilder(event.getServletContext().getRealPath(Paths.get(".").toString()));
+            scriptPath.append("/WEB-INF/classes/createTables.sql");
+
+            BufferedReader reader = new BufferedReader(new FileReader(scriptPath.toString()));
             scriptRunner.runScript(reader);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
