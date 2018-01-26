@@ -18,10 +18,10 @@
         value="<c:out value="${user.name}" />" /> <br />
     User login : <input
         type="text" name="login"
-        value="<c:out value="${user.mass}" />" /> <br />
+        value="<c:out value="${user.login}" />" /> <br />
     User password : <input
         type="text" name="password"
-        value="<c:out value="${user.volume}" />" /> <br />
+        value="<c:out value="${user.password}" />" /> <br />
     <input
             type="submit" value="Submit" />
 </form>

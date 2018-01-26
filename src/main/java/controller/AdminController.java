@@ -21,8 +21,8 @@ public class AdminController extends HttpServlet {
     final static private Logger logger = LogManager.getLogger(AdminController.class);
 
     private static final Long serialVersionUID = 1L;
-    private static String INSERT_OR_EDIT = "/app/addUser.jsp";
-    private static String LIST_USER = "/app/listUser.jsp";
+    private static String INSERT_OR_EDIT = "app/addUser.jsp";
+    private static String LIST_USER = "app/Admin.jsp";
     private UserDao dao;
 
     public AdminController() {
