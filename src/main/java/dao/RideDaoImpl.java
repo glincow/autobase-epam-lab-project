@@ -1,6 +1,7 @@
 package dao;
 
 import model.Ride;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,12 +40,12 @@ public class RideDaoImpl implements RideDao {
     final static private String SQL_UPDATE_RIDE = "UPDATE ride SET name = ?, " +
             "mass = ?, volume = ?, status = ?, executor_id = ?, manager_id = ? WHERE id = ?";
 
-    final static private String SQL_UPDATE_UNASSIGNED_RIDE = "UPDATE ride SET name = ?" +
+    final static private String SQL_UPDATE_UNASSIGNED_RIDE = "UPDATE ride SET name = ?, " +
             "mass = ?, volume = ?, status = ? WHERE id = ?";
 
     final static private String SQL_DELETE_RIDE = "DELETE FROM Ride WHERE id = ?";
 
-    private Ride assembleRide (ResultSet rs) throws SQLException {
+    private Ride assembleRide(ResultSet rs) throws SQLException {
 
         Long id = rs.getLong("id");
         String name = rs.getString("name");
@@ -55,7 +56,7 @@ public class RideDaoImpl implements RideDao {
         Long manager_id = rs.getLong("manager_id");
         Long customer_id = rs.getLong("customer_id");
         User customer = userDao.getBy(customer_id);
-        if (status.equals(Ride.Status.UNASSIGNED)) {
+        if (status.equals(Ride.Status.UNASSIGNED) || status.equals(Ride.Status.CANCELED)) {
             return new Ride(id, name, mass, volume, status, customer);
         } else {
             Transport executor = transportDao.getBy(executor_id);
@@ -65,7 +66,7 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
-    public void add (Ride ride) throws DataAccessException {
+    public void add(Ride ride) throws DataAccessException {
 
         logger.debug("add(Ride ride) started...");
 
@@ -257,7 +258,7 @@ public class RideDaoImpl implements RideDao {
         String sql = SQL_UPDATE_RIDE;
 
         try {
-            connection  = DBConnectionPool.getInstance().getConnection();
+            connection = DBConnectionPool.getInstance().getConnection();
             switch (ride.getStatus()) {
                 case UNASSIGNED:
                 case CANCELED:
