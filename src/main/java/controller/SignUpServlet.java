@@ -1,5 +1,6 @@
 package controller;
 
+import dao.EmptyResultDataAccessException;
 import dao.UserDaoImpl;
 import model.User;
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "SignUpServlet", urlPatterns = "/signUp")
 public class SignUpServlet extends HttpServlet {
@@ -28,19 +28,17 @@ public class SignUpServlet extends HttpServlet {
         User.Role role = User.Role.CUSTOMER;
 
         UserDaoImpl dao = new UserDaoImpl();
-        List<User> allUsers = dao.getAll();
-        for (User user : allUsers) {
-            if (user.getLogin().equals(login)) {
-                response.sendRedirect("/sign-up.jsp");
-                return;
-            }
+        try {
+            User user = dao.getBy(login);
+        } catch (EmptyResultDataAccessException e) {
+            User user = new User(1L, login, name, password, role);
+            dao.add(user);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            response.sendRedirect("/CustomerController?action=");
+            return;
+
         }
-
-        User user = new User(1L, login, name, password, role);
-        dao.add(user);
-        HttpSession session = request.getSession();
-        session.setAttribute("user", user);
-        response.sendRedirect("/app/Customer.jsp");
-
+        response.sendRedirect("/sign-up.jsp");
     }
 }

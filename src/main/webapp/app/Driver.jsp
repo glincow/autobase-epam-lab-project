@@ -29,7 +29,7 @@
             <td><c:out value="${transport.maxVolume}" /></td>
             <td><c:out value="${transport.isAutoWorks}" /></td>
             <td><c:out value="${transport.isAutoAvailable}" /></td>
-            <td><a href="DriverController?action=statusEdit&id=<c:out value="${ride.id}"/>">Edit</a></td>
+            <td><a href="/DriverController?action=statusEdit&id=<c:out value="${ride.id}"/>">Edit</a></td>
         </tr>
    <%--</c:forEach>--%>
     </tbody>
@@ -62,7 +62,7 @@
             </c:if>--%>
 
                 <td><c:if test="${ride.status=='IN_PROCESS'}">
-                    <a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a>
+                    <a href="/DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a>
                     </c:if></td>
 
         </tr>
