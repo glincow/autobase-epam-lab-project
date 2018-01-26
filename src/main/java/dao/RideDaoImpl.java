@@ -30,6 +30,8 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_SELECT_RIDE_BY_EXECUTOR = "SELECT * FROM Ride WHERE executor_id = ?";
 
+    final static private String SQL_SELECT_RIDE_BY_CUSTOMER = "SELECT * FROM Ride WHERE customer_id = ?";
+
     final static private String SQL_SELECT_RIDE_BY_STATUS = "SELECT * FROM Ride WHERE status = ?";
 
     final static private String SQL_SELECT_ALL_RIDES = "SELECT * FROM Ride";
@@ -152,6 +154,36 @@ public class RideDaoImpl implements RideDao {
     }
 
     @Override
+    public List<Ride> getByCustomer(User customer) {
+        logger.debug("Ride getBy(User customer) started...");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = SQL_SELECT_RIDE_BY_CUSTOMER;
+        List<Ride> list = new ArrayList<>();
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, customer.getId());
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Ride ride = assembleRide(rs);
+                list.add(ride);
+            }
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DataAccessException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return list;
+    }
+
+    @Override
     public List<Ride> getByStatus(Ride.Status status) {
         logger.debug("List<Ride> getBy(Status status) started...");
 
@@ -228,6 +260,7 @@ public class RideDaoImpl implements RideDao {
             connection  = DBConnectionPool.getInstance().getConnection();
             switch (ride.getStatus()) {
                 case UNASSIGNED:
+                case CANCELED:
                     preparedStatement = connection.prepareStatement(SQL_UPDATE_UNASSIGNED_RIDE);
                     preparedStatement.setString(1, ride.getName());
                     preparedStatement.setFloat(2, ride.getMass());
