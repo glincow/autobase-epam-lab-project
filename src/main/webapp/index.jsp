@@ -6,7 +6,6 @@
   <title>Insert title here</title>
 </head>
 <body>
-<%--<jsp:forward page="/RideController?action=listRides" />--%>
 <jsp:forward page="/sign-in.jsp" />
 </body>
 </html>

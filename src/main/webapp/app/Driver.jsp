@@ -22,7 +22,6 @@
     </tr>
     </thead>
     <tbody>
-    <%--<c:forEach items="${rides}" var="ride">--%>
         <tr>
             <td><c:out value="${transport.id}" /></td>
             <td><c:out value="${transport.maxMass}" /></td>
@@ -31,7 +30,6 @@
             <td><c:out value="${transport.isAutoAvailable}" /></td>
             <td><a href="/DriverController?action=statusEdit&id=<c:out value="${ride.id}"/>">Edit</a></td>
         </tr>
-   <%--</c:forEach>--%>
     </tbody>
 </table>
 
@@ -57,13 +55,9 @@
             <td><c:out value="${ride.mass}" /></td>
             <td><c:out value="${ride.volume}" /></td>
             <td><c:out value="${ride.status}" /></td>
-            <%--<c:if test="${ride.status}=='IN_PROCESS'">
-                <td><a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a></td>
-            </c:if>--%>
-
-                <td><c:if test="${ride.status=='IN_PROCESS'}">
-                    <a href="/DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a>
-                    </c:if></td>
+            <td><c:if test="${ride.status=='IN_PROCESS'}">
+                <a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish ride</a>
+                </c:if></td>
 
         </tr>
     </c:forEach>

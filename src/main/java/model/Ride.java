@@ -111,7 +111,8 @@ public class Ride {
     public String toString() {
         return "Ride [id = " + id + ", name = " + name + ", paramMass = " + mass
                 + ", paramVolume = " + volume + ", status = " + status
-                + ", executorId = " + executor.toString() + ", managerId = " + manager.toString() + "]";
+                + ", executorId = " + executor.toString() + ", managerId = " + manager.toString() +
+                ", customerId = " + customer.toString() +"]";
     }
 
 }
