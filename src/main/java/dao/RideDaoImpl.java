@@ -23,8 +23,8 @@ public class RideDaoImpl implements RideDao {
 
     final static private UserDao userDao = new UserDaoImpl();
 
-    final static private String SQL_INSERT_RIDE = "INSERT INTO Ride (name, mass, volume, status) " +
-            "VALUES (?, ?, ?, ?)";
+    final static private String SQL_INSERT_RIDE = "INSERT INTO Ride (name, mass, volume, status, customer_id) " +
+            "VALUES (?, ?, ?, ?, ?)";
 
     final static private String SQL_SELECT_RIDE_BY_ID = "SELECT * FROM Ride WHERE id = ?";
 
@@ -36,6 +36,9 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_UPDATE_RIDE = "UPDATE ride SET name = ?, " +
             "mass = ?, volume = ?, status = ?, executor_id = ?, manager_id = ? WHERE id = ?";
+
+    final static private String SQL_UPDATE_UNASSIGNED_RIDE = "UPDATE ride SET name = ?" +
+            "mass = ?, volume = ?, status = ? WHERE id = ?";
 
     final static private String SQL_DELETE_RIDE = "DELETE FROM Ride WHERE id = ?";
 
@@ -50,7 +53,7 @@ public class RideDaoImpl implements RideDao {
         Long manager_id = rs.getLong("manager_id");
         Long customer_id = rs.getLong("customer_id");
         User customer = userDao.getBy(customer_id);
-        if (executor_id == 0 && manager_id == 0) {
+        if (status.equals(Ride.Status.UNASSIGNED)) {
             return new Ride(id, name, mass, volume, status, customer);
         } else {
             Transport executor = transportDao.getBy(executor_id);
@@ -77,6 +80,7 @@ public class RideDaoImpl implements RideDao {
             preparedStatement.setFloat(2, ride.getMass());
             preparedStatement.setFloat(3, ride.getVolume());
             preparedStatement.setString(4, ride.getStatus().name());
+            preparedStatement.setLong(5, ride.getCustomer().getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -222,16 +226,25 @@ public class RideDaoImpl implements RideDao {
 
         try {
             connection  = DBConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(sql);
-
-            preparedStatement.setString(1, ride.getName());
-            preparedStatement.setFloat(2, ride.getMass());
-            preparedStatement.setFloat(3, ride.getVolume());
-            preparedStatement.setString(4, ride.getStatus().name());
-            preparedStatement.setLong(5, ride.getExecutor().getId());
-            preparedStatement.setLong(6, ride.getManager().getId());
-            preparedStatement.setLong(7, ride.getId());
-
+            switch (ride.getStatus()) {
+                case UNASSIGNED:
+                    preparedStatement = connection.prepareStatement(SQL_UPDATE_UNASSIGNED_RIDE);
+                    preparedStatement.setString(1, ride.getName());
+                    preparedStatement.setFloat(2, ride.getMass());
+                    preparedStatement.setFloat(3, ride.getVolume());
+                    preparedStatement.setString(4, ride.getStatus().name());
+                    preparedStatement.setLong(5, ride.getId());
+                    break;
+                default:
+                    preparedStatement = connection.prepareStatement(SQL_UPDATE_RIDE);
+                    preparedStatement.setString(1, ride.getName());
+                    preparedStatement.setFloat(2, ride.getMass());
+                    preparedStatement.setFloat(3, ride.getVolume());
+                    preparedStatement.setString(4, ride.getStatus().name());
+                    preparedStatement.setLong(5, ride.getExecutor().getId());
+                    preparedStatement.setLong(6, ride.getManager().getId());
+                    preparedStatement.setLong(7, ride.getId());
+            }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQLexception in update method : " + e.getMessage());
