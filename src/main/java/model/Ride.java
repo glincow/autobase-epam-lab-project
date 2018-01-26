@@ -14,7 +14,8 @@ public class Ride {
     public enum Status {
         UNASSIGNED,
         IN_PROCESS,
-        FINISHED
+        FINISHED,
+        CANCELED
     }
 
     public Ride(Long id, String name, float mass, float volume, Status status, User customer) {

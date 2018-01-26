@@ -43,8 +43,10 @@ public class TransportDaoImpl implements TransportDao {
 
     final static private String SQL_SELECT_ALL_TRANSPORT = "SELECT * FROM Transport";
 
-    final static private String SQL_SELECT_SUITABLE_FOR_RIDE_TRANSPORT = "SELECT * FROM Transport WHERE " +
-            "max_mass > ? AND max_volume > ? AND isAuto_works = TRUE AND isAuto_available = TRUE";
+    final static private String SQL_SELECT_SUITABLE_FOR_RIDE_TRANSPORT = "(SELECT * FROM Transport WHERE " +
+            "max_mass > ? AND max_volume > ? AND isAuto_works = TRUE AND isAuto_available = TRUE) MINUS " +
+            "(SELECT T.id, T.max_mass, T.max_volume, T.isAuto_works, T.isAuto_available, T.driver_id FROM Transport AS T " +
+            "INNER JOIN Ride AS R ON T.id = R.executor_id WHERE status = 'IN_PROCESS')";
 
     final static private String SQL_UPDATE_TRANSPORT = "UPDATE Transport SET max_mass = ?, max_volume = ?, isAuto_works = ?, " +
             "isAuto_available = ?, driver_id = ? WHERE id = ?";
