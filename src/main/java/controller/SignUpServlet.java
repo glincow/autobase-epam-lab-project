@@ -37,8 +37,12 @@ public class SignUpServlet extends HttpServlet {
             session.setAttribute("user", user);
             response.sendRedirect("/CustomerController?action=");
             return;
-
         }
-        response.sendRedirect("/sign-up.jsp");
+        request.getRequestDispatcher("/sign-up.jsp").forward(request,response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/sign-up.jsp").forward(request,response);
     }
 }

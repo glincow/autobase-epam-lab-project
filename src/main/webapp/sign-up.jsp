@@ -17,8 +17,8 @@
     <p>
         <input type="submit" value="SignUp">
 </form>
-<form>
-    <input type="button" value="Go back!" onclick="history.back()">
+<form action="/signIn" method="get">
+    <button type="submit" value="SignIn">Back</button>
 </form>
 </body>
 </html>

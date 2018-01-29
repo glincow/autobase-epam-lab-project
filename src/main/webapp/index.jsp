@@ -6,6 +6,6 @@
   <title>Insert title here</title>
 </head>
 <body>
-<jsp:forward page="/sign-in.jsp" />
+<jsp:forward page="/signIn" />
 </body>
 </html>

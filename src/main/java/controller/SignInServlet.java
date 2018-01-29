@@ -31,7 +31,7 @@ public class SignInServlet extends HttpServlet {
         try {
             user = dao.getBy(login);
         } catch (EmptyResultDataAccessException e) {
-            response.sendRedirect("sign-in.jsp");
+            request.getRequestDispatcher("/sign-in.jsp").forward(request, response);
             return;
         }
 
@@ -61,7 +61,12 @@ public class SignInServlet extends HttpServlet {
             LOGGER.info("User " + user.getLogin() + " signed in as " + role);
         } else {
             session.setAttribute("user", null);
-            response.sendRedirect("/sign-in.jsp");
+            request.getRequestDispatcher("/sign-in.jsp").forward(request, response);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/sign-in.jsp").forward(request, response);
     }
 }
