@@ -12,22 +12,17 @@
     <div>
         <form action="/signIn" method=post class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal">Hello, please log in:</h1>
-            <p><strong>Please Enter Your User Name: </strong>
-
-                <input type="text" name="login" size="25" class="form-control">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <!--<p><strong>Please Enter Your Password: </strong> -->
-                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
-                       required>
-                <!-- <input type="password" name="password" size="25" class="sr-only"> -->
-                <!-- <input type="submit" value="SignIn"> -->
-                <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignIn">Sign in</button>
+            <label for="inputLogin" class="sr-only">Login</label>
+            <input type="text" id="inputLogin" name="login" class="form-control" placeholder="Login" required>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
+                   required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignIn">Sign in</button>
         </form>
     </div>
     <div>
-        <form action="sign-up.jsp" class="form-signin">
+        <form action="/signUp" method=get class="form-signin">
             <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignUp">Sign up</button>
-            <!-- <input type="submit" value="SignUp"> -->
         </form>
     </div>
 </div>
