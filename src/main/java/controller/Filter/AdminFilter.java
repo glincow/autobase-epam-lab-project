@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(filterName = "adminFilter", urlPatterns = "/app/Admin.jsp")
+@WebFilter(filterName = "adminFilter", urlPatterns = "/AdminController.jsp")
 public class AdminFilter implements UserFilter {
 
     private final static Logger LOGGER = LogManager.getLogger(AdminFilter.class);

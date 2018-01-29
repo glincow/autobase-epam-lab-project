@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,12 +20,12 @@ public class SignOutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         session.removeAttribute("user");
         session.invalidate();
-        try {
-            response.sendRedirect("/signIn");
-        } catch (IOException e) {
-            LOGGER.error("Error during sending redirect.", e);
+        response.sendRedirect("/signIn");
+        if (user != null) {
+            LOGGER.info("User " + user.getLogin() + " logged out");
         }
     }
 

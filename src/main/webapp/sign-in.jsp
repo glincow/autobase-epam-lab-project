@@ -10,11 +10,15 @@
     <div>
         <form action="/signIn" method=post class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal">Hello, please log in:</h1>
+
             <label for="inputLogin" class="sr-only">Login</label>
-            <input type="text" id="inputLogin" name="login" class="form-control" placeholder="Login" required>
+            <input type="text" id="inputLogin" name="login"
+                   class="form-control" placeholder="Login" required>
+
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
-                   required>
+            <input type="password" id="inputPassword" name="password"
+                   class="form-control" placeholder="Password" required>
+
             <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignIn">Sign in</button>
         </form>
     </div>

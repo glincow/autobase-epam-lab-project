@@ -17,7 +17,7 @@
         <ul class="navbar-nav mr-auto"></ul>
         <form class="form-inline my-2 my-md-0" action="/signOut" method="post">
             <p class="navbar-text my-2 mr-sm-2">Signed in as ${user.getName()} (${user.getRole()})</p>
-            <button class="btn btn-danger my-2 my-sm-0" type="submit" value="/signOut">Sign out</button>
+            <button class="btn btn-danger my-2 my-sm-0" type="submit" value="SignOut">Sign out</button>
         </form>
     </div>
 </nav>
