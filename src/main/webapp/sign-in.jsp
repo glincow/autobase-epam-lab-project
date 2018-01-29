@@ -3,9 +3,7 @@
 <html>
 <head>
     <title>SignIn</title>
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
 </head>
 <div class="text-center">

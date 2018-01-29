@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(filterName = "customerFilter", urlPatterns = "/app/Customer.jsp")
+@WebFilter(filterName = "customerFilter", urlPatterns = "/CustomerController")
 public class CustomerFilter implements UserFilter {
 
     private final static Logger LOGGER = LogManager.getLogger(CustomerFilter.class);

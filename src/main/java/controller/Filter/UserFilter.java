@@ -23,6 +23,9 @@ public interface UserFilter extends Filter {
         if (user != null) {
             if (user.getRole().equals(role)) {
                 LOGGER.info("User " + user + " entry to page:  " + req.getRequestURI());
+                resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+                resp.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+                resp.setDateHeader("Expires", 0); // Proxies.
                 filterChain.doFilter(req, resp);
             } else {
                 LOGGER.info("Illegal entry to page:  " + req.getRequestURI());
