@@ -56,7 +56,7 @@
                                         </c:choose>/>
                             </div>
                         </fieldset>
-                        <button class="btn btn-lg btn-success btn-block" type="submit" value="Submit">Confirm</button>
+                        <button class="btn btn-lg btn-primary" type="submit" value="Submit">Confirm</button>
                     </form>
                 </div>
             </div>
