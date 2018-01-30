@@ -32,12 +32,9 @@ public class RideController extends HttpServlet {
         ride.setVolume(Float.parseFloat(request.getParameter("volume")));
         ride.setStatus(Ride.Status.valueOf(request.getParameter("status").toUpperCase()));
         String rideId = request.getParameter("id");
-        if(rideId == null || rideId.isEmpty())
-        {
+        if (rideId == null || rideId.isEmpty()) {
             dao.add(ride);
-        }
-        else
-        {
+        } else {
             ride.setId(Long.parseLong(rideId));
             dao.update(ride);
         }
@@ -47,25 +44,25 @@ public class RideController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward="";
+        String forward = "";
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("delete")){
+        if (action.equalsIgnoreCase("delete")) {
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             dao.delete(ride);
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
-        } else if (action.equalsIgnoreCase("edit")){
+        } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_OR_EDIT;
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             request.setAttribute("ride", ride);
-        } else if (action.equalsIgnoreCase("listRides")){
+        } else if (action.equalsIgnoreCase("listRides")) {
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
         } else {
-                forward = INSERT_OR_EDIT;
+            forward = INSERT_OR_EDIT;
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
