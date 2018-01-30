@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@include file="WEB-INF/i18n.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,22 +9,24 @@
 <div class="text-center">
     <div>
         <form action="/signIn" method=post class="form-signin">
-            <h1 class="h3 mb-3 font-weight-normal">Hello, please log in:</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="signIn.text.greeting"/> </h1>
 
             <label for="inputLogin" class="sr-only">Login</label>
             <input type="text" id="inputLogin" name="login"
-                   class="form-control" placeholder="Login" required>
+                   class="form-control" placeholder="<fmt:message key="signIn.label.login"/>" required>
 
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="password"
-                   class="form-control" placeholder="Password" required>
+                   class="form-control" placeholder="<fmt:message key="signIn.label.password"/>" required>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignIn">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignIn">
+                <fmt:message key="signIn.button.signIn"/></button>
         </form>
     </div>
     <div>
         <form action="/signUp" method=get class="form-signin">
-            <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignUp">Sign up</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignUp">
+                <fmt:message key="signIn.button.signUp"/></button>
         </form>
     </div>
 </div>

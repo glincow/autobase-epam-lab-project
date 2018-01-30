@@ -20,9 +20,13 @@ public class SignOutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String language = (String) session.getAttribute("language");
         User user = (User) session.getAttribute("user");
         session.removeAttribute("user");
         session.invalidate();
+
+        session = request.getSession();
+        session.setAttribute("language", language);
         response.sendRedirect("/signIn");
         if (user != null) {
             LOGGER.info("User " + user.getLogin() + " logged out");
