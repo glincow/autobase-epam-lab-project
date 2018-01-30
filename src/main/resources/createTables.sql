@@ -48,12 +48,12 @@ INSERT INTO Role SET name= 'Manager';
 INSERT INTO Role SET name= 'Driver';
 INSERT INTO Role SET name= 'Customer';
 
-INSERT INTO User (name, login, password, role_id) VALUES ('Admin', 'admin@gmail.com', 'admin', 1);
-INSERT INTO User (name, login, password, role_id) VALUES ('Vasia', 'vasia@gmail.com', 'vasia', 3);
-INSERT INTO User (name, login, password, role_id) VALUES ('Petia', 'petia@gmail.com', 'petia', 3);
-INSERT INTO User (name, login, password, role_id) VALUES ('Vova', 'vova@gmail.com', 'vova', 2);
-INSERT INTO User (name, login, password, role_id) VALUES ('John', 'john@gmail.com', 'john', 4);
-INSERT INTO User (name, login, password, role_id) VALUES ('Kolia', 'kolia@gmail.com', 'kolia', 3);
+INSERT INTO User (name, login, password, role_id) VALUES ('Admin', 'admin', 'admin', 1);
+INSERT INTO User (name, login, password, role_id) VALUES ('Vasia', 'vasia', 'vasia', 3);
+INSERT INTO User (name, login, password, role_id) VALUES ('Petia', 'petia', 'petia', 3);
+INSERT INTO User (name, login, password, role_id) VALUES ('Vova', 'vova', 'vova', 2);
+INSERT INTO User (name, login, password, role_id) VALUES ('John', 'john', 'john', 4);
+INSERT INTO User (name, login, password, role_id) VALUES ('Kolia', 'kolia', 'kolia', 3);
 
 INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (12.4, 14.2, TRUE, TRUE, 2);
 INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (27.0, 16.5, TRUE, TRUE, 3);
