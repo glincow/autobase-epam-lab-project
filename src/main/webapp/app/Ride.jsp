@@ -16,7 +16,7 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <form method="POST" action='CustomerController' name="Ride" role="form">
                         <fieldset>
                             <div class="form-group">
