@@ -31,7 +31,7 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_SELECT_RIDE_BY_EXECUTOR = "SELECT * FROM Ride WHERE executor_id = ?";
 
-    final static private String SQL_SELECT_RIDE_BY_CUSTOMER = "SELECT * FROM Ride WHERE customer_id = ?";
+    final static private String SQL_SELECT_RIDE_BY_CUSTOMER = "SELECT * FROM Ride WHERE customer_id = ? ORDER BY status DESC";
 
     final static private String SQL_SELECT_RIDE_BY_STATUS = "SELECT * FROM Ride WHERE status = ?";
 
