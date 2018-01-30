@@ -1,12 +1,12 @@
 package controller;
 
 import dao.EmptyResultDataAccessException;
+import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +19,12 @@ import java.io.IOException;
 public class SignInServlet extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(SignInServlet.class);
+    private UserDao dao;
+
+    public SignInServlet() {
+        super();
+        dao = new UserDaoImpl();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,20 +32,18 @@ public class SignInServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        UserDaoImpl dao = new UserDaoImpl();
         User user;
         try {
             user = dao.getBy(login);
         } catch (EmptyResultDataAccessException e) {
-            response.sendRedirect("sign-in.jsp");
+            doGet(request, response);
+            LOGGER.info("Wrong login or password");
             return;
         }
 
-        HttpSession session = request.getSession();
-        session.setAttribute("user", user);
-
         if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {
-
+            user.setPassword("");
+            request.getSession().setAttribute("user", user);
             User.Role role = user.getRole();
             switch (role) {
                 case ADMIN:
@@ -55,13 +59,18 @@ public class SignInServlet extends HttpServlet {
                     response.sendRedirect("/CustomerController?action=");
                     break;
                 default:
-                    response.sendRedirect("app/Customer.jsp");
+                    response.sendRedirect("/CustomerController?action=");
                     break;
             }
-            LOGGER.info("User " + user.getLogin() + " signed in as " + role);
+            LOGGER.info("User " + user.getLogin() + " logged in as " + role);
         } else {
-            session.setAttribute("user", null);
-            response.sendRedirect("/sign-in.jsp");
+            doGet(request, response);
+            LOGGER.info("Wrong login or password");
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/sign-in.jsp").forward(request, response);
     }
 }

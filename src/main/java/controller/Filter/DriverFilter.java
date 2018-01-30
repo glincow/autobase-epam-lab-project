@@ -1,8 +1,8 @@
 package controller.Filter;
 
+import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.h2.engine.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(filterName = "driverFilter", urlPatterns = "/app/Driver.jsp")
+@WebFilter(filterName = "driverFilter", urlPatterns = "/DriverController.jsp")
 public class DriverFilter implements UserFilter {
 
     private final static Logger LOGGER = LogManager.getLogger(DriverFilter.class);
@@ -24,7 +24,7 @@ public class DriverFilter implements UserFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        checkRights(servletRequest, servletResponse, filterChain, LOGGER, model.User.Role.DRIVER);
+        checkRights(servletRequest, servletResponse, filterChain, LOGGER, User.Role.DRIVER);
     }
 
     @Override
