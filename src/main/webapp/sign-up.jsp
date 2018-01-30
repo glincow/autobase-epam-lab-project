@@ -31,19 +31,19 @@
                     <form action="/signUp" method="post" class="form-signin" role="form">
                         <fieldset>
                             <div class="form-group">
-                                <label for="exampleInputName">Name</label>
-                                <input class="form-control" id="exampleInputName" placeholder="Enter name" type="text"
+                                <label for="inputName">Name</label>
+                                <input class="form-control" id="inputName" placeholder="Enter name" type="text"
                                        name="name" autofocus
                                        required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input class="form-control" id="exampleInputEmail1" placeholder="Enter e-mail"
-                                       type="email" name="login" required>
+                                <label for="inputLogin">Login</label>
+                                <input class="form-control" id="inputLogin" placeholder="Enter login"
+                                       type="text" name="login" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input class="form-control" id="exampleInputPassword1"
+                                <label for="inputPassword">Password</label>
+                                <input class="form-control" id="inputPassword"
                                        placeholder="Enter password" type="password" name="password" value="">
                             </div>
                             <button class="btn btn-lg btn-success btn-block" type="submit" value="SignIn">

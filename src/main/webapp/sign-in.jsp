@@ -32,9 +32,9 @@
 
                         <fieldset>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input class="form-control" id="exampleInputEmail1" placeholder="Enter e-mail" name="login"
-                                       type="email" autofocus>
+                                <label for="exampleInputEmail1">Login</label>
+                                <input class="form-control" id="exampleInputEmail1" placeholder="Enter login" name="login"
+                                       type="text" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
