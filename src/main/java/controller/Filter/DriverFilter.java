@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(filterName = "driverFilter", urlPatterns = "/DriverController.jsp")
+@WebFilter(filterName = "driverFilter", urlPatterns = "/DriverController")
 public class DriverFilter implements UserFilter {
 
     private final static Logger LOGGER = LogManager.getLogger(DriverFilter.class);

@@ -5,7 +5,6 @@ import model.User;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import org.apache.logging.log4j.Logger;
@@ -32,7 +31,7 @@ public interface UserFilter extends Filter {
             }
         } else {
             LOGGER.info("Illegal entry to page:  " + req.getRequestURI());
-            resp.sendRedirect("/sign-in.jsp");
+            resp.sendRedirect("/signIn");
         }
     }
 }
