@@ -6,32 +6,59 @@
     <title>Ride</title>
 </head>
 <body>
-<form method="POST" action='CustomerController' name="Ride">
-    Ride ID : <input type="text" readonly="readonly" name="id"
-                     value="<c:out value="${ride.id}" />"/> <br/>
-    Ride Name : <input
-        type="text" name="name"
-        value="<c:out value="${ride.name}" />"/> <br/>
-    Ride mass : <input
-        type="text" name="mass"
-        value="<c:out value="${ride.mass}" />"/> <br/>
-    Ride volume : <input
-        type="text" name="volume"
-        value="<c:out value="${ride.volume}" />"/> <br/>
-    Ride status : <input
-        type="text" readonly="readonly" name="status"
-        <c:choose>
-            <c:when test="${ride.status==null}">
-                value="UNASSIGNED"
-            </c:when>
-            <c:otherwise>
-                value="<c:out value="${ride.status}"/>"
-            </c:otherwise>
-        </c:choose>/>
-
-
-    <br/>
-    <input type="submit" value="Submit"/>
-</form>
+<div id="wrapper">
+    <jsp:include page="../header.jsp"/>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Edit your ride</h1>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <form method="POST" action='CustomerController' name="Ride" role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="rideId">Ride ID</label>
+                                <input class="form-control" type="text" name="id" readonly="readonly" id="rideId"
+                                       value="<c:out value="${ride.id}" />"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="rideDestination">Ride destination</label>
+                                <input class="form-control" type="text" name="name" id="rideDestination"
+                                       placeholder="Enter destination"
+                                       value="<c:out value="${ride.name}" />" autofocus/>
+                            </div>
+                            <div class="form-group">
+                                <label for="rideMass">Order mass</label>
+                                <input class="form-control" type="number" min="1" max="100" step="0.1" name="mass"
+                                       id="rideMass" placeholder="Enter mass"
+                                       value="<c:out value="${ride.mass}" />"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="rideVolume">Order volume</label>
+                                <input class="form-control" type="number" min="1" max="100" step="0.1" name="volume"
+                                       id="rideVolume" placeholder="Enter volume"
+                                       value="<c:out value="${ride.volume}" />"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="rideStatus">Order volume</label>
+                                <input class="form-control" type="text" name="status" id="rideStatus"
+                                       readonly="readonly"
+                                        <c:choose>
+                                            <c:when test="${ride.status==null}">
+                                                value="UNASSIGNED"
+                                            </c:when>
+                                            <c:otherwise>
+                                                value="<c:out value="${ride.status}"/>"
+                                            </c:otherwise>
+                                        </c:choose>/>
+                            </div>
+                        </fieldset>
+                        <button class="btn btn-lg btn-primary" type="submit" value="Submit">Confirm</button>
+                    </form>
+                </div>
+            </div>
 </body>
 </html>
