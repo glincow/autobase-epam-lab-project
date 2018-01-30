@@ -1,6 +1,5 @@
 package controller;
 
-
 import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
@@ -35,13 +34,11 @@ public class AdminController extends HttpServlet {
         user.setName(request.getParameter("name"));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
+        user.setRole(User.Role.valueOf(request.getParameter("role")).getId());
         String userId = request.getParameter("id");
-        if(userId == null || userId.isEmpty())
-        {
+        if (userId == null || userId.isEmpty()) {
             dao.add(user);
-        }
-        else
-        {
+        } else {
             user.setId(Long.parseLong(userId));
             dao.update(user);
         }
@@ -51,26 +48,27 @@ public class AdminController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward="";
+        String forward = "";
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("delete")){
+        if (action.equalsIgnoreCase("delete")) {
             Long userId = Long.parseLong(request.getParameter("id"));
             User user = dao.getBy(userId);
             dao.delete(user);
             forward = LIST_USER;
             request.setAttribute("rides", dao.getAll());
-        } else if (action.equalsIgnoreCase("edit")){
+        } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_OR_EDIT;
             Long userId = Long.parseLong(request.getParameter("id"));
             User user = dao.getBy(userId);
-            request.setAttribute("user", user);
+            request.setAttribute("jspUser", user);
             request.setAttribute("roles", User.Role.values());
-        } else if (action.equalsIgnoreCase("listUsers")){
+        } else if (action.equalsIgnoreCase("listUsers")) {
             forward = LIST_USER;
             request.setAttribute("users", dao.getAll());
         } else {
             forward = INSERT_OR_EDIT;
+            request.setAttribute("roles", User.Role.values());
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
