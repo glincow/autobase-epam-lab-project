@@ -65,6 +65,7 @@ public class AdminController extends HttpServlet {
             Long userId = Long.parseLong(request.getParameter("id"));
             User user = dao.getBy(userId);
             request.setAttribute("user", user);
+            request.setAttribute("roles", User.Role.values());
         } else if (action.equalsIgnoreCase("listUsers")){
             forward = LIST_USER;
             request.setAttribute("users", dao.getAll());

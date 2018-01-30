@@ -15,6 +15,7 @@
         <th>User name</th>
         <th>User login</th>
         <th>User role</th>
+        <th colspan=2>Action</th>
     </tr>
     </thead>
     <tbody>

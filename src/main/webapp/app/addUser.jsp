@@ -22,6 +22,11 @@
     User password : <input
         type="text" name="password"
         value="<c:out value="${user.password}" />" /> <br />
+    User role : <select name="role">
+                    <c:forEach items="${roles}" var="role">
+                        <option value="${role}" ${role == user.role ? 'selected="selected"' : ''}>${role}</option>
+                    </c:forEach>
+                </select>
     <input
             type="submit" value="Submit" />
 </form>
