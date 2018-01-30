@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "AdminController")
 public class AdminController extends HttpServlet {
@@ -50,6 +52,10 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
         String action = request.getParameter("action");
+        List<String> roles = new ArrayList<>(); //roles, that admin can assign
+        roles.add(User.Role.CUSTOMER.name());
+        roles.add(User.Role.DRIVER.name());
+        roles.add(User.Role.MANAGER.name());
 
         if (action.equalsIgnoreCase("delete")) {
             Long userId = Long.parseLong(request.getParameter("id"));
@@ -62,13 +68,13 @@ public class AdminController extends HttpServlet {
             Long userId = Long.parseLong(request.getParameter("id"));
             User user = dao.getBy(userId);
             request.setAttribute("jspUser", user);
-            request.setAttribute("roles", User.Role.values());
+            request.setAttribute("roles", roles);
         } else if (action.equalsIgnoreCase("listUsers")) {
             forward = LIST_USER;
             request.setAttribute("users", dao.getAll());
         } else {
             forward = INSERT_OR_EDIT;
-            request.setAttribute("roles", User.Role.values());
+            request.setAttribute("roles", roles);
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
