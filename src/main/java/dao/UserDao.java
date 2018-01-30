@@ -3,6 +3,7 @@ package dao;
 import model.User;
 import java.util.List;
 
+//TODO same as TransportDao
 public interface UserDao {
 
     //create

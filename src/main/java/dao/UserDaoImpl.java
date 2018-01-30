@@ -44,6 +44,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    //TODO can we add new User with already existing name in database with this method?
     @Override
     public void add(User user) {
 
@@ -194,6 +195,7 @@ public class UserDaoImpl implements UserDao {
         return list;
     }
 
+    //TODO maybe you should check if id is present in User
     @Override
     public void update(User user) {
 
@@ -201,6 +203,7 @@ public class UserDaoImpl implements UserDao {
         
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        //TODO what's the point of this?
         String sql = SQL_UPDATE_USER;
 
         try {

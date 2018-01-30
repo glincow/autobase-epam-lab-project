@@ -36,12 +36,9 @@ public class AdminController extends HttpServlet {
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
         String userId = request.getParameter("id");
-        if(userId == null || userId.isEmpty())
-        {
+        if(userId == null || userId.isEmpty()) {
             dao.add(user);
-        }
-        else
-        {
+        } else {
             user.setId(Long.parseLong(userId));
             dao.update(user);
         }
@@ -51,6 +48,7 @@ public class AdminController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //TODO String initialization is redundant and maybe you should make a Enum for actions
         String forward="";
         String action = request.getParameter("action");
 
