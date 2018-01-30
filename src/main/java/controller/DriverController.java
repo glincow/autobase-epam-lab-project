@@ -52,6 +52,7 @@ public class DriverController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         Transport transport = transportDao.getBy(user);
 
+        //TODO logic for each if can be stored in method
         if (action.equalsIgnoreCase("finishRide")){
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = rideDao.getById(rideId);

@@ -45,6 +45,9 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_DELETE_RIDE = "DELETE FROM Ride WHERE id = ?";
 
+    //TODO utility methods like this should be at the bottom of the file
+    //TODO also, do you need to handle exceptions which can be thrown while getting non existing column?
+    //TODO you can try to check it with ResultSetMetaData class
     private Ride assembleRide(ResultSet rs) throws SQLException {
 
         Long id = rs.getLong("id");
@@ -61,6 +64,7 @@ public class RideDaoImpl implements RideDao {
         } else {
             Transport executor = transportDao.getBy(executor_id);
             User manager = userDao.getBy(manager_id);
+            //TODO object initialization like this looks a bit complicated, maybe you should try builder pattern
             return new Ride(id, name, mass, volume, status, executor, manager, customer);
         }
     }
@@ -134,6 +138,7 @@ public class RideDaoImpl implements RideDao {
         String sql = SQL_SELECT_RIDE_BY_EXECUTOR;
         List<Ride> list = new ArrayList<>();
 
+        //TODO even IDEA highlights this code)
         try {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -201,6 +206,8 @@ public class RideDaoImpl implements RideDao {
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
+                //TODO don't need to create this reference, just write list.add(assembleRide(rs))
+                //TODO but you can keep it if you don't like method call in arguments
                 Ride ride;
                 ride = assembleRide(rs);
                 list.add(ride);
@@ -259,6 +266,7 @@ public class RideDaoImpl implements RideDao {
 
         try {
             connection = DBConnectionPool.getInstance().getConnection();
+            //TODO maybe set basic fields in private method?
             switch (ride.getStatus()) {
                 case UNASSIGNED:
                 case CANCELED:
