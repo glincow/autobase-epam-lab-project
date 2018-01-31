@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="WEB-INF/i18n.jspf" %>
 <html>
 <head>
-    <title>SignUp</title>
+    <title><fmt:message key="signUp.text.title"/></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Register an account</h3>
+                    <h3 class="panel-title"><fmt:message key="signIn.button.signUp"/></h3>
                 </div>
                 <div class="panel-body">
 
@@ -31,23 +31,26 @@
                     <form action="/signUp" method="post" class="form-signin" role="form">
                         <fieldset>
                             <div class="form-group">
-                                <label for="inputName">Name</label>
-                                <input class="form-control" id="inputName" placeholder="Enter name" type="text"
+                                <label for="inputName"><fmt:message key="signUp.label.name"/></label>
+                                <input class="form-control" id="inputName"
+                                       placeholder="<fmt:message key="signUp.label.namepl" />" type="text"
                                        name="name" autofocus
                                        required>
                             </div>
                             <div class="form-group">
-                                <label for="inputLogin">Login</label>
-                                <input class="form-control" id="inputLogin" placeholder="Enter login"
+                                <label for="inputLogin"><fmt:message key="signUp.label.login"/></label>
+                                <input class="form-control" id="inputLogin"
+                                       placeholder="<fmt:message key="signUp.label.loginpl" />"
                                        type="text" name="login" required>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword">Password</label>
+                                <label for="inputPassword"><fmt:message key="signUp.label.password"/></label>
                                 <input class="form-control" id="inputPassword"
-                                       placeholder="Enter password" type="password" name="password" value="">
+                                       placeholder="<fmt:message key="signUp.label.passwordpl" />" type="password"
+                                       name="password" value="">
                             </div>
                             <button class="btn btn-lg btn-success btn-block" type="submit" value="SignIn">
-                                Register
+                                <fmt:message key="signUp.button.signUp"/>
                             </button>
                         </fieldset>
 
@@ -68,7 +71,7 @@
                     </form>
                     <p></p>
                     <div class="text-center">
-                        <a class="d-block small mt-3" href="sign-in.jsp">Login Page</a>
+                        <a class="d-block small mt-3" href="sign-in.jsp"><fmt:message key="signUp.button.back"/></a>
                     </div>
                 </div>
             </div>
