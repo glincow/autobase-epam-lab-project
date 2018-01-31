@@ -1,7 +1,10 @@
 package controller;
 
+import dao.TransportDao;
+import dao.TransportDaoImpl;
 import dao.UserDao;
 import dao.UserDaoImpl;
+import model.Transport;
 import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,10 +29,12 @@ public class AdminController extends HttpServlet {
     private static String INSERT_OR_EDIT_DRIVER = "app/addDriver.jsp";
     private static String LIST_USER = "app/Admin.jsp";
     private UserDao dao;
+    private TransportDao transportDao;
 
     public AdminController() {
         super();
         dao = new UserDaoImpl();
+        transportDao = new TransportDaoImpl();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,10 +60,16 @@ public class AdminController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("edit".equalsIgnoreCase(action)) {
-            forward = INSERT_OR_EDIT;
             Long userId = Long.parseLong(request.getParameter("id"));
             User user = dao.getBy(userId);
-            request.setAttribute("jspUser", user);
+            if (user.getRole() == User.Role.DRIVER) { //if role == driver, then attribute transport is needed
+                forward = INSERT_OR_EDIT_DRIVER;
+                Transport transport = transportDao.getBy(user);
+                request.setAttribute("transport", transport);
+            } else {
+                forward = INSERT_OR_EDIT;
+            }
+            request.setAttribute("jspUser", user); //attribute user is needed for any role
         } else if ("listUsers".equalsIgnoreCase(action)) {
             forward = LIST_USER;
             request.setAttribute("users", dao.getAll());
