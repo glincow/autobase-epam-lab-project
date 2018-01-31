@@ -123,11 +123,12 @@
                                 <table width="100%" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Ride Id</th>
-                                        <th>Ride name</th>
-                                        <th>Ride mass</th>
-                                        <th>Ride volume</th>
-                                        <th>Ride status</th>
+                                        <th>Order ID</th>
+                                        <th>Ride destination</th>
+                                        <th>Mass</th>
+                                        <th>Volume</th>
+                                        <th>Manager</th>
+                                        <th>Order status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -137,6 +138,7 @@
                                             <td><c:out value="${ride.name}"/></td>
                                             <td><c:out value="${ride.mass}"/></td>
                                             <td><c:out value="${ride.volume}"/></td>
+                                            <td><c:out value="${ride.manager.name}"/></td>
                                             <td><c:out value="${ride.status}"/></td>
                                         </tr>
                                     </c:forEach>
