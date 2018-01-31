@@ -53,7 +53,6 @@ public class AdminController extends HttpServlet {
         String forward = "";
         String action = request.getParameter("action");
         List<String> roles = new ArrayList<>(); //roles, that admin can assign
-        roles.add(User.Role.CUSTOMER.name());
         roles.add(User.Role.DRIVER.name());
         roles.add(User.Role.MANAGER.name());
 
