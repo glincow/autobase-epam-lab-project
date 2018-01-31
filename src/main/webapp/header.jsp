@@ -1,5 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="WEB-INF/i18n.jspf" %>
 <html>
 <head>
     <!-- Bootstrap Core CSS -->
@@ -19,20 +18,21 @@
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
-        <a class="navbar-brand">AutoBase</a>
+        <a class="navbar-brand"><fmt:message key="header.text.name"/></a>
     </div>
 
     <ul class="nav navbar-top-links navbar-right">
         <li>
             <form class="navbar-form" action="/signOut" method="post">
                 <button class="btn btn-outline btn-default" type="submit" value="SignOut"><i
-                        class="fa fa-sign-out fa-fw"></i> Sign out
+                        class="fa fa-sign-out fa-fw"></i> <fmt:message key="header.button.signOut"/>
                 </button>
             </form>
         </li>
     </ul>
 
-    <p class="navbar-text navbar-right"><i class="fa fa-user fa-fw"></i>Signed in as ${user.getName()} (${user.getRole()})</p>
+    <p class="navbar-text navbar-right"><i class="fa fa-user fa-fw"></i><fmt:message
+            key="header.text.signedIn"/> ${user.getName()} (${user.getRole()})</p>
 
 </nav>
 
