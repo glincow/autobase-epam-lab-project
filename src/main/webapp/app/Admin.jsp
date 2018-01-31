@@ -44,12 +44,14 @@
                         </c:forEach>
                         </tbody>
                     </table>
-<p><a href="AdminController?action=insertManager">Add manager</a></p>
-<p><a href="AdminController?action=insertDriver">Add driver</a></p>
             <p>
-                <!-- <a href="AdminController?action=insert">Add User</a> -->
-                <button onclick="location.href='AdminController?action=insert'" type="button" class="btn btn-primary">Add
-                    user
+                <button onclick="location.href='AdminController?action=insertManager'" type="button" class="btn btn-primary">Add
+                    manager
+                </button>
+            </p>
+            <p>
+                <button onclick="location.href='AdminController?action=insertDriver'" type="button" class="btn btn-primary">Add
+                    driver
                 </button>
             </p>
         </div>
