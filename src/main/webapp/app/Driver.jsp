@@ -33,23 +33,23 @@
                                 <table width="100%" class="table">
                                     <tbody>
                                     <tr>
-                                        <th><fmt:message key="driver.ride.id"/></th>
+                                        <th><fmt:message key="ride.id"/></th>
                                         <td><c:out value="${activeRide.id}"/></td>
                                     </tr>
                                     <tr>
-                                        <th><fmt:message key="driver.ride.destination"/></th>
+                                        <th><fmt:message key="ride.destination"/></th>
                                         <td><c:out value="${activeRide.name}"/></td>
                                     </tr>
                                     <tr>
-                                        <th><fmt:message key="driver.ride.mass"/></th>
+                                        <th><fmt:message key="ride.mass"/></th>
                                         <td><c:out value="${activeRide.mass}"/></td>
                                     </tr>
                                     <tr>
-                                        <th><fmt:message key="driver.ride.volume"/></th>
+                                        <th><fmt:message key="ride.volume"/></th>
                                         <td><c:out value="${activeRide.volume}"/></td>
                                     </tr>
                                     <tr>
-                                        <th><fmt:message key="driver.ride.manager"/></th>
+                                        <th><fmt:message key="ride.manager"/></th>
                                         <td><c:out value="${activeRide.manager.name}"/></td>
                                     </tr>
                                     </tbody>
@@ -77,23 +77,23 @@
                         <table width="100%" class="table">
                             <tbody>
                             <tr>
-                                <th><fmt:message key="driver.vehicle.id"/></th>
+                                <th><fmt:message key="vehicle.id"/></th>
                                 <td><c:out value="${transport.id}"/></td>
                             </tr>
                             <tr>
-                                <th><fmt:message key="driver.vehicle.mass"/></th>
+                                <th><fmt:message key="vehicle.mass"/></th>
                                 <td><c:out value="${transport.maxMass}"/></td>
                             </tr>
                             <tr>
-                                <th><fmt:message key="driver.vehicle.volume"/></th>
+                                <th><fmt:message key="vehicle.volume"/></th>
                                 <td><c:out value="${transport.maxVolume}"/></td>
                             </tr>
                             <tr>
-                                <th><fmt:message key="driver.vehicle.works"/></th>
+                                <th><fmt:message key="vehicle.works"/></th>
                                 <td><c:out value="${transport.isAutoWorks}"/></td>
                             </tr>
                             <tr>
-                                <th><fmt:message key="driver.vehicle.available"/></th>
+                                <th><fmt:message key="vehicle.available"/></th>
                                 <td><c:out value="${transport.isAutoAvailable}"/></td>
                             </tr>
                             </tbody>
@@ -123,12 +123,12 @@
                                 <table width="100%" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th><fmt:message key="driver.ride.id"/></th>
-                                        <th><fmt:message key="driver.ride.destination"/></th>
-                                        <th><fmt:message key="driver.ride.mass"/></th>
-                                        <th><fmt:message key="driver.ride.volume"/></th>
-                                        <th><fmt:message key="driver.ride.manager"/></th>
-                                        <th><fmt:message key="driver.ride.status"/></th>
+                                        <th><fmt:message key="ride.id"/></th>
+                                        <th><fmt:message key="ride.destination"/></th>
+                                        <th><fmt:message key="ride.mass"/></th>
+                                        <th><fmt:message key="ride.volume"/></th>
+                                        <th><fmt:message key="ride.manager"/></th>
+                                        <th><fmt:message key="ride.status"/></th>
                                     </tr>
                                     </thead>
                                     <tbody>

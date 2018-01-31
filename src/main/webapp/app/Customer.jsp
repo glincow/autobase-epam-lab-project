@@ -10,7 +10,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><fmt:message key="customer.text.greeting"/></h1>
+                <h1 class="page-header"><fmt:message key="customer.text.header"/></h1>
             </div>
         </div>
         <div class="panel-body">
@@ -19,11 +19,11 @@
                     <table width="100%" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th scope="col"><fmt:message key="customer.column.destination"/></th>
-                            <th scope="col"><fmt:message key="customer.column.mass"/></th>
-                            <th scope="col"><fmt:message key="customer.column.volume"/></th>
-                            <th scope="col"><fmt:message key="customer.column.status"/></th>
-                            <th scope="col" colspan=2><fmt:message key="customer.column.action"/></th>
+                            <th scope="col"><fmt:message key="ride.destination"/></th>
+                            <th scope="col"><fmt:message key="ride.mass"/></th>
+                            <th scope="col"><fmt:message key="ride.volume"/></th>
+                            <th scope="col"><fmt:message key="ride.status"/></th>
+                            <th scope="col" colspan=2><fmt:message key="ride.action"/></th>
                         </tr>
                         </thead>
                         <tbody>

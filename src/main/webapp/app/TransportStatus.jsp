@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="../WEB-INF/i18n.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +7,7 @@
           href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet"/>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-    <title>Transport status</title>
+    <title><fmt:message key="trstatus.text.title"/></title>
 </head>
 <body>
 
@@ -19,21 +17,21 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Update vehicle availability</h1>
+                <h1 class="page-header"><fmt:message key="trstatus.text.header"/></h1>
             </div>
         </div>
 
         <div class="col-lg-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Edit status
+                    <fmt:message key="trstatus.text.statusheader"/>
                 </div>
                 <div class="panel-body">
                     <form method="POST" action='DriverController' name="frmEditStatus" role="form">
                         <fieldset>
 
                             <div class="form-group">
-                                <label>Works</label>
+                                <label><fmt:message key="vehicle.works"/></label>
                                 <c:choose> <%--for dynamic selected variant--%>
                                     <c:when test="${transport.isAutoWorks=='true'}">
                                         <div class="radio">
@@ -63,7 +61,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Available</label>
+                                <label><fmt:message key="vehicle.available"/></label>
                                 <c:choose> <%--for dynamic selected variant--%>
                                     <c:when test="${transport.isAutoAvailable=='true'}">
                                         <div class="radio">
@@ -93,7 +91,7 @@
                             </div>
                         </fieldset>
                         <br>
-                        <button class="btn btn-primary" type="submit" value="Submit">Confirm</button>
+                        <button class="btn btn-primary" type="submit" value="Submit"><fmt:message key="trstatus.button.confirm"/></button>
                     </form>
 
                 </div>
@@ -106,29 +104,29 @@
         <div class="col-lg-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    Vehicle Info
+                    <fmt:message key="trstatus.text.vehicleheader"/>
                 </div>
                 <div class="panel-body">
                     <table width="100%" class="table">
                         <tbody>
                         <tr>
-                            <th>Vehicle ID</th>
+                            <th><fmt:message key="vehicle.id"/></th>
                             <td><c:out value="${transport.id}"/></td>
                         </tr>
                         <tr>
-                            <th>Payload (tons)</th>
+                            <th><fmt:message key="vehicle.mass"/></th>
                             <td><c:out value="${transport.maxMass}"/></td>
                         </tr>
                         <tr>
-                            <th>Body volume (cubic meters)</th>
+                            <th><fmt:message key="vehicle.volume"/></th>
                             <td><c:out value="${transport.maxVolume}"/></td>
                         </tr>
                         <tr>
-                            <th>isAutoWorks</th>
+                            <th><fmt:message key="vehicle.works"/></th>
                             <td><c:out value="${transport.isAutoWorks}"/></td>
                         </tr>
                         <tr>
-                            <th>isAutoAvailable</th>
+                            <th><fmt:message key="vehicle.available"/></th>
                             <td><c:out value="${transport.isAutoAvailable}"/></td>
                         </tr>
                         </tbody>
