@@ -23,6 +23,7 @@ public class AdminController extends HttpServlet {
 
     private static final Long serialVersionUID = 1L;
     private static String INSERT_OR_EDIT = "app/addUser.jsp";
+    private static String INSERT_OR_EDIT_DRIVER = "app/addDriver.jsp";
     private static String LIST_USER = "app/Admin.jsp";
     private UserDao dao;
 
@@ -52,28 +53,19 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
         String action = request.getParameter("action");
-        List<String> roles = new ArrayList<>(); //roles, that admin can assign
-        roles.add(User.Role.DRIVER.name());
-        roles.add(User.Role.MANAGER.name());
 
-        if (action.equalsIgnoreCase("delete")) {
-            Long userId = Long.parseLong(request.getParameter("id"));
-            User user = dao.getBy(userId);
-            dao.delete(user);
-            forward = LIST_USER;
-            request.setAttribute("rides", dao.getAll());
-        } else if (action.equalsIgnoreCase("edit")) {
+        if ("edit".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
             Long userId = Long.parseLong(request.getParameter("id"));
             User user = dao.getBy(userId);
             request.setAttribute("jspUser", user);
-            request.setAttribute("roles", roles);
-        } else if (action.equalsIgnoreCase("listUsers")) {
+        } else if ("listUsers".equalsIgnoreCase(action)) {
             forward = LIST_USER;
             request.setAttribute("users", dao.getAll());
+        } else if ("insertDriver".equalsIgnoreCase(action)) {
+            forward = INSERT_OR_EDIT_DRIVER;
         } else {
             forward = INSERT_OR_EDIT;
-            request.setAttribute("roles", roles);
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);

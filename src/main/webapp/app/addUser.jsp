@@ -12,9 +12,7 @@
     <title>Add new user</title>
 </head>
 <body>
-<form method="POST" action='AdminController' name="frmAddUser">
-    User ID : <input type="text" readonly="readonly" name="id"
-                    value="<c:out value="${jspUser.id}" />"/> <br/>
+<form method="POST" action='AdminController' name="frmAddManager">
     User Name : <input
         type="text" name="name"
         value="<c:out value="${jspUser.name}" />" /> <br />
@@ -24,11 +22,15 @@
     User password : <input
         type="text" name="password"
         value="<c:out value="${jspUser.password}" />" /> <br />
-    User role : <select name="role">
-                    <c:forEach items="${roles}" var="role">
-                        <option value="${role}" ${role == jspUser.role ? 'selected="selected"' : ''}>${role}</option>
-                    </c:forEach>
-                </select>
+    <c:choose> <%--for create only manager and edit everybody except driver--%>
+        <c:when test="${jspUser.role == null}">
+            <input type="hidden" name="role" value="MANAGER" />
+        </c:when>
+        <c:otherwise>
+            <input type="hidden" name="role" value="<c:out value="${jspUser.role}" />" />
+        </c:otherwise>
+    </c:choose>
+    <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />" />
     <input
             type="submit" value="Submit" />
 </form>

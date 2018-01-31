@@ -8,12 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add new user</title>
+    <title>Add new driver</title>
 </head>
 <body>
 <form method="POST" action='AdminController' name="frmAddUser">
-    User ID : <input type="text" readonly="readonly" name="id"
-                     value="<c:out value="${jspUser.id}" />"/> <br/>
     User Name : <input
         type="text" name="name"
         value="<c:out value="${jspUser.name}" />" /> <br />
@@ -23,18 +21,11 @@
     User password : <input
         type="text" name="password"
         value="<c:out value="${jspUser.password}" />" /> <br />
-    User role : <select name="role">
-    <c:forEach items="${roles}" var="role">
-        <option value="${role}" ${role == jspUser.role ? 'selected="selected"' : ''}>${role}</option>
-    </c:forEach>
-</select>
-
+    <input type="hidden" name="role" value="DRIVER" />
+    <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />" />
 
     <br/>
     <br/>
-    Transport ID : <input
-        type="text" readonly="readonly" name="id"
-        value="<c:out value="${transport.id}" />"/> <br/>
     Max mass : <input
         type="text" name="maxMass"
         value="<c:out value="${transport.maxMass}" />"/> <br/>

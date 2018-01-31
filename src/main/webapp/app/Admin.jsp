@@ -44,8 +44,8 @@
                         </c:forEach>
                         </tbody>
                     </table>
-                </div>
-            </div>
+<p><a href="AdminController?action=insertManager">Add manager</a></p>
+<p><a href="AdminController?action=insertDriver">Add driver</a></p>
             <p>
                 <!-- <a href="AdminController?action=insert">Add User</a> -->
                 <button onclick="location.href='AdminController?action=insert'" type="button" class="btn btn-primary">Add
