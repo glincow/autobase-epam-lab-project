@@ -17,9 +17,78 @@
                 <h1 class="page-header">Driver Page</h1>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Active ride
+                    </div>
+                    <c:choose>
+                        <c:when test="${activeRidesCount==0}">
+                            <div class="panel-body">
+                                <p>You have no Active Rides at the moment</p>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="panel-body">
+                                <table width="100%" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Ride Id</th>
+                                        <th>Ride name</th>
+                                        <th>Ride mass</th>
+                                        <th>Ride volume</th>
+                                        <th>Ride status</th>
+                                        <th colspan=1>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${activeRides}" var="ride">
+                                        <tr>
+                                            <td><c:out value="${ride.id}"/></td>
+                                            <td><c:out value="${ride.name}"/></td>
+                                            <td><c:out value="${ride.mass}"/></td>
+                                            <td><c:out value="${ride.volume}"/></td>
+                                            <td><c:out value="${ride.status}"/></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+
+
+            <div class="col-lg-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Vehicle Info
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae
+                            ultrices
+                            accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                    </div>
+                    <div class="panel-footer">
+                        Panel Footer
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+
+
         <div class="panel panel-default">
             <div class="panel-heading">
-                Your vehicle
+                Your vehicle information
             </div>
             <div class="panel-body">
                 <div class="row">
