@@ -57,7 +57,7 @@
 
 
     <p class="navbar-text navbar-right"><i class="fa fa-user fa-fw"></i> ${user.getRole()}</p>
-    <p class="navbar-text navbar-right">Hello, ${user.getName()}!</p>
+    <p class="navbar-text navbar-right"><fmt:message key="header.text.greeting"/> ${user.getName()}!</p>
 
 </nav>
 
