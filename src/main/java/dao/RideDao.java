@@ -16,6 +16,8 @@ public interface RideDao {
 
     List<Ride> getByExecutor(Transport transport);
 
+    List<Ride> getByExecutorAndStatus(Transport transport, Ride.Status status);
+
     List<Ride> getByCustomer(User customer);
 
     List<Ride> getAll();

@@ -13,82 +13,139 @@
     <jsp:include page="../header.jsp"/>
     <div id="page-wrapper">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <h1 class="page-header">Driver Page</h1>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Your vehicle
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Active ride
+                    </div>
+                    <c:choose>
+                        <c:when test="${activeRidesCount==0}">
+                            <div class="panel-body">
+                                <p>You have no Active Rides at the moment</p>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="panel-body">
+                                <table width="100%" class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Ride ID</th>
+                                        <td><c:out value="${activeRide.id}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ride destination</th>
+                                        <td><c:out value="${activeRide.name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mass</th>
+                                        <td><c:out value="${activeRide.mass}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Volume</th>
+                                        <td><c:out value="${activeRide.volume}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Manager</th>
+                                        <td><c:out value="${activeRide.manager.name}"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+                                <button onclick="location.href='DriverController?action=finishRide&id=<c:out
+                                        value="${activeRide.id}"/>'" type="button" class="btn btn-primary">Finish ride
+                                </button>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <table width="100%" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Transport Id</th>
-                                <th>Max mass</th>
-                                <th>Max volume</th>
-                                <th>isAutoWorks</th>
-                                <th>isAutoAvailable</th>
-                                <th colspan=1>Action</th>
-                            </tr>
-                            </thead>
+            <!-- /.col-lg-4 -->
+
+
+            <div class="col-lg-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Vehicle Info
+                    </div>
+                    <div class="panel-body">
+                        <table width="100%" class="table">
                             <tbody>
                             <tr>
+                                <th>Vehicle ID</th>
                                 <td><c:out value="${transport.id}"/></td>
+                            </tr>
+                            <tr>
+                                <th>Payload (tons)</th>
                                 <td><c:out value="${transport.maxMass}"/></td>
+                            </tr>
+                            <tr>
+                                <th>Body volume (cubic meters)</th>
                                 <td><c:out value="${transport.maxVolume}"/></td>
+                            </tr>
+                            <tr>
+                                <th>isAutoWorks</th>
                                 <td><c:out value="${transport.isAutoWorks}"/></td>
+                            </tr>
+                            <tr>
+                                <th>isAutoAvailable</th>
                                 <td><c:out value="${transport.isAutoAvailable}"/></td>
-                                <td>
-                                    <a href="/DriverController?action=statusEdit&id=<c:out value="${ride.id}"/>">Edit</a>
-                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div class="panel-footer">
+                        <button onclick="location.href='/DriverController?action=statusEdit&id=<c:out
+                                value="${ride.id}"/>'" type="button" class="btn btn-primary">Edit vehicle status
+                        </button>
+                    </div>
                 </div>
             </div>
-            <br>
-            <br>
+            <!-- /.col-lg-4 -->
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Your rides
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <table width="100%" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Ride Id</th>
-                                <th>Ride name</th>
-                                <th>Ride mass</th>
-                                <th>Ride volume</th>
-                                <th>Ride status</th>
-                                <th colspan=1>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${rides}" var="ride">
-                                <tr>
-                                    <td><c:out value="${ride.id}"/></td>
-                                    <td><c:out value="${ride.name}"/></td>
-                                    <td><c:out value="${ride.mass}"/></td>
-                                    <td><c:out value="${ride.volume}"/></td>
-                                    <td><c:out value="${ride.status}"/></td>
-                                    <td><c:if test="${ride.status=='IN_PROCESS'}">
-                                        <a href="DriverController?action=finishRide&id=<c:out value="${ride.id}"/>">Finish
-                                            ride</a>
-                                    </c:if></td>
 
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        Your rides
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <table width="100%" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Ride destination</th>
+                                        <th>Mass</th>
+                                        <th>Volume</th>
+                                        <th>Manager</th>
+                                        <th>Order status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${rides}" var="ride">
+                                        <tr>
+                                            <td><c:out value="${ride.id}"/></td>
+                                            <td><c:out value="${ride.name}"/></td>
+                                            <td><c:out value="${ride.mass}"/></td>
+                                            <td><c:out value="${ride.volume}"/></td>
+                                            <td><c:out value="${ride.manager.name}"/></td>
+                                            <td><c:out value="${ride.status}"/></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
