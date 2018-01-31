@@ -43,7 +43,7 @@ public class DriverController extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
         request.setAttribute("transport", transport);
         request.setAttribute("rides", rideDao.getByExecutor(transport));
-        request.setAttribute("activeRides", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS));
+        request.setAttribute("activeRide", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).get(0));
         request.setAttribute("activeRidesCount", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).size());
         view.forward(request, response);
     }
@@ -71,8 +71,8 @@ public class DriverController extends HttpServlet {
             forward = LIST_RIDE;
             request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport));
-            request.setAttribute("activeRides", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS));
-            //request.setAttribute("hasActiveRides", !rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).isEmpty());
+            request.setAttribute("activeRide", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).get(0));
+            request.setAttribute("activeRidesCount", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).size());
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
