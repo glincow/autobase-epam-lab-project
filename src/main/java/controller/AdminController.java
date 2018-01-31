@@ -44,12 +44,31 @@ public class AdminController extends HttpServlet {
         user.setPassword(request.getParameter("password"));
         user.setRole(User.Role.valueOf(request.getParameter("role")).getId());
         String userId = request.getParameter("id");
+
         if (userId == null || userId.isEmpty()) {
             dao.add(user);
         } else {
             user.setId(Long.parseLong(userId));
             dao.update(user);
         }
+
+        if (user.getRole() == User.Role.DRIVER) {
+            Transport transport = new Transport();
+            transport.setMaxMass(Float.parseFloat(request.getParameter("maxMass")));
+            transport.setMaxVolume(Float.parseFloat(request.getParameter("maxVolume")));
+            transport.setIsAutoWorks(Boolean.parseBoolean(request.getParameter("isAutoWorks")));
+            transport.setIsAutoAvailable(Boolean.parseBoolean(request.getParameter("isAutoAvailable")));
+            transport.setDriver(dao.getBy(user.getLogin())); //getting user with id from db
+            String transportId = request.getParameter("transportId");
+
+            if (transportId == null || transportId.isEmpty()) {
+                transportDao.add(transport);
+            } else {
+                transport.setId(Long.parseLong(transportId));
+                transportDao.update(transport);
+            }
+        }
+
         RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
         request.setAttribute("users", dao.getAll());
         view.forward(request, response);
