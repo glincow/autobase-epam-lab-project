@@ -21,6 +21,10 @@ public class ApplicationStartUpListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
+
+        ServletContext context = event.getServletContext();
+        System.setProperty("rootPath", context.getRealPath("/"));
+
         DBConnectionPool cp = DBConnectionPool.getInstance();
         try (Connection connection = cp.getConnection()){
             ScriptRunner scriptRunner = new ScriptRunner(connection,
