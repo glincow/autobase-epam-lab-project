@@ -15,6 +15,7 @@
         <th>User name</th>
         <th>User login</th>
         <th>User role</th>
+        <th colspan=1>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -24,7 +25,7 @@
             <td><c:out value="${user.login}" /></td>
             <td><c:out value="${user.role}" /></td>
             <td><a href="AdminController?action=edit&id=<c:out value="${user.id}"/>">Update</a></td>
-            <td><a href="AdminController?action=delete&id=<c:out value="${user.id}"/>">Delete</a></td>
+            <%--<td><a href="AdminController?action=delete&id=<c:out value="${user.id}"/>">Delete</a></td>--%>
         </tr>
     </c:forEach>
     </tbody>
