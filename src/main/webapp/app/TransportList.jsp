@@ -71,9 +71,9 @@
 
 
             <div class="col-lg-4">
-                <div class="panel panel-primary">
+                <div class="panel panel-info">
                     <div class="panel-heading">
-                        The ride order to assign
+                        Selected ride order
                     </div>
                     <div class="panel-body">
                         <table width="100%" class="table table-striped">
