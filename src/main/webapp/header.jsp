@@ -21,6 +21,29 @@
         <a class="navbar-brand"><fmt:message key="header.text.name"/></a>
     </div>
 
+    <!-- dropdown menu in the navbar
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+
+        </li>
+
+    </ul>
+
+    -->
+
     <ul class="nav navbar-top-links navbar-right">
         <li>
             <form class="navbar-form" action="/signOut" method="post">
@@ -31,8 +54,10 @@
         </li>
     </ul>
 
-    <p class="navbar-text navbar-right"><i class="fa fa-user fa-fw"></i><fmt:message
-            key="header.text.signedIn"/> ${user.getName()} (${user.getRole()})</p>
+
+
+    <p class="navbar-text navbar-right"><i class="fa fa-user fa-fw"></i> ${user.getRole()}</p>
+    <p class="navbar-text navbar-right">Hello, ${user.getName()}!</p>
 
 </nav>
 

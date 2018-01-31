@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "DriverController")
 public class DriverController extends HttpServlet {
@@ -42,6 +43,11 @@ public class DriverController extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
         request.setAttribute("transport", transport);
         request.setAttribute("rides", rideDao.getByExecutor(transport));
+        List<Ride> activeRides = rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS);
+        if(!activeRides.isEmpty()){
+            request.setAttribute("activeRide", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).get(0));
+        }
+        request.setAttribute("activeRidesCount", activeRides.size());
         view.forward(request, response);
     }
 
@@ -60,6 +66,7 @@ public class DriverController extends HttpServlet {
             forward = LIST_RIDE;
             request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport));
+            request.setAttribute("activeRidesCount", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).size());
         } else if (action.equalsIgnoreCase("statusEdit")) {
             forward = STATUS_EDIT;
             request.setAttribute("transport", transport);
@@ -67,6 +74,11 @@ public class DriverController extends HttpServlet {
             forward = LIST_RIDE;
             request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport));
+            List<Ride> activeRides = rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS);
+            if(!activeRides.isEmpty()){
+                request.setAttribute("activeRide", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).get(0));
+            }
+            request.setAttribute("activeRidesCount", activeRides.size());
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
