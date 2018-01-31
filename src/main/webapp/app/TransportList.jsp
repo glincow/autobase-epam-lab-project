@@ -56,8 +56,6 @@
                                             <a href="ManagerController?action=transportList&id=<c:out value="${ride.id}"/>">Choose transport</a>
                                         </c:if></td>--%>
                                     <td>
-                                        <a href="ManagerController?action=chooseTransport&id=<c:out value="${transport.id}"/>&rideId=<c:out value="${ride.id}"/>">Choose
-                                            transport</a>
                                         <button onclick="location.href='ManagerController?action=chooseTransport&id=<c:out value="${transport.id}"/>&rideId=<c:out value="${ride.id}"/>'"
                                                 type="button" class="btn btn-primary">Assign vehicle
                                         </button>
