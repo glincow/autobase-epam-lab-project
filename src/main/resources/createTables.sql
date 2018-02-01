@@ -59,9 +59,9 @@ INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, dri
 INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (27.0, 16.5, TRUE, TRUE, 3);
 INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (30.0, 20.5, TRUE, TRUE, 6);
 
-INSERT INTO Ride (name, mass, volume, status, customer_id) VALUES ('WestRide', 1.4, 2.4, 'unassigned', 5);
-INSERT INTO Ride (name, mass, volume, status, customer_id ) VALUES ('EastRide', 6.4, 0.3, 'unassigned', 5);
+INSERT INTO Ride (name, mass, volume, status, customer_id) VALUES ('WestRide', 1.4, 2.4, 'UNASSIGNED', 5);
+INSERT INTO Ride (name, mass, volume, status, customer_id ) VALUES ('EastRide', 6.4, 0.3, 'UNASSIGNED', 5);
 INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('SouthRide', 6.4, 0.3, 'IN_PROCESS', 1, 4, 5);
 INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('NorthRide', 24.7, 15.9, 'IN_PROCESS', 2, 4, 5);
-INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('NERide', 8.7, 5.9, 'finished', 1, 4, 5);
-INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('SERide', 4.7, 15.9, 'finished', 2, 4, 5);
+INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('NERide', 8.7, 5.9, 'FINISHED', 1, 4, 5);
+INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('SERide', 4.7, 15.9, 'FINISHED', 2, 4, 5);
