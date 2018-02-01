@@ -30,7 +30,7 @@
                             <div class="col-lg-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <fmt:message key="use."/>
+                                        <fmt:message key="admin.text.header"/>
                                     </div>
                                     <div class="panel-body">
 

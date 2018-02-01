@@ -39,6 +39,7 @@
                 </select>
                 <input hidden name="action" value=<%= request.getParameter("action") %>>
                 <input hidden name="id" value=<%= request.getParameter("id") %>>
+                <input hidden name="rideId" value=<%= request.getParameter("rideId") %>>
             </form>
         </li>
     </ul>
