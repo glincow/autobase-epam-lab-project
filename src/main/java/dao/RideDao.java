@@ -20,6 +20,8 @@ public interface RideDao {
 
     List<Ride> getByManagerAndStatus(User manager, Ride.Status status);
 
+    List<Ride> getByCustomerAndStatus(User customer, Ride.Status status);
+
     List<Ride> getByCustomer(User customer);
 
     List<Ride> getAll();

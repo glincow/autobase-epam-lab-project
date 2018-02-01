@@ -42,7 +42,11 @@ public class CustomerController extends HttpServlet {
             dao.update(ride);
         }
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
-        request.setAttribute("rides", dao.getByCustomer(customer));
+        request.setAttribute("ridesUnassigned", dao.getByStatus(Ride.Status.UNASSIGNED));
+        request.setAttribute("ridesInProcess", dao.getByCustomerAndStatus(customer, Ride.Status.IN_PROCESS));
+        request.setAttribute("ridesFinished", dao.getByCustomerAndStatus(customer, Ride.Status.FINISHED));
+        request.setAttribute("ridesCanceled", dao.getByCustomerAndStatus(customer, Ride.Status.CANCELED));
+        //request.setAttribute("rides", dao.getByCustomer(customer));
         view.forward(request, response);
     }
 
@@ -57,7 +61,11 @@ public class CustomerController extends HttpServlet {
             ride.setStatus(Ride.Status.CANCELED);
             dao.update(ride);
             forward = LIST_RIDE;
-            request.setAttribute("rides", dao.getByCustomer(customer));
+            request.setAttribute("ridesUnassigned", dao.getByStatus(Ride.Status.UNASSIGNED));
+            request.setAttribute("ridesInProcess", dao.getByCustomerAndStatus(customer, Ride.Status.IN_PROCESS));
+            request.setAttribute("ridesFinished", dao.getByCustomerAndStatus(customer, Ride.Status.FINISHED));
+            request.setAttribute("ridesCanceled", dao.getByCustomerAndStatus(customer, Ride.Status.CANCELED));
+            //request.setAttribute("rides", dao.getByCustomer(customer));
         } else if ("edit".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
             Long rideId = Long.parseLong(request.getParameter("id"));
@@ -67,7 +75,11 @@ public class CustomerController extends HttpServlet {
             forward = INSERT_OR_EDIT;
         } else {
             forward = LIST_RIDE;
-            request.setAttribute("rides", dao.getByCustomer(customer));
+            request.setAttribute("ridesUnassigned", dao.getByStatus(Ride.Status.UNASSIGNED));
+            request.setAttribute("ridesInProcess", dao.getByCustomerAndStatus(customer, Ride.Status.IN_PROCESS));
+            request.setAttribute("ridesFinished", dao.getByCustomerAndStatus(customer, Ride.Status.FINISHED));
+            request.setAttribute("ridesCanceled", dao.getByCustomerAndStatus(customer, Ride.Status.CANCELED));
+            //request.setAttribute("rides", dao.getByCustomer(customer));
         }
 
         request.getRequestDispatcher(forward).forward(request, response);
