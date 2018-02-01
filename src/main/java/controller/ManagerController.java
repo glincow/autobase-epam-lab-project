@@ -33,24 +33,25 @@ public class ManagerController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*Ride ride = new Ride();
-        ride.setName(request.getParameter("name"));
-        ride.setMass(Float.parseFloat(request.getParameter("mass")));
-        ride.setVolume(Float.parseFloat(request.getParameter("volume")));
-        ride.setStatus(Ride.Status.valueOf(request.getParameter("status").toUpperCase()));
-        String rideId = request.getParameter("id");
-        if(rideId == null || rideId.isEmpty())
-        {
-            rideDao.add(ride);
-        }
-        else
-        {
-            ride.setId(Long.parseLong(rideId));
-            rideDao.update(ride);
-        }
-        RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
-        request.setAttribute("rides", rideDao.getAll());
-        view.forward(request, response);*/
+        String forward="";
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        Transport transport = transportDao.getBy(Long.parseLong(request.getParameter("transpId")));
+        Ride ride = rideDao.getById(Long.parseLong(request.getParameter("rideId")));
+        ride.setStatus(Ride.Status.IN_PROCESS);
+        ride.setExecutor(transport);
+        ride.setManager(user);
+        rideDao.update(ride);
+        forward = LIST_RIDE;
+        request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));
+        request.setAttribute("ridesInProcess", rideDao.getByManagerAndStatus(user, Ride.Status.IN_PROCESS));
+        request.setAttribute("ridesFinished", rideDao.getByManagerAndStatus(user, Ride.Status.FINISHED));
+        request.setAttribute("ridesCanceled", rideDao.getByStatus(Ride.Status.CANCELED));
+//        request.setAttribute("rides", rideDao.getAll());
+
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,18 +72,6 @@ public class ManagerController extends HttpServlet {
             forward = AVAILABLE_TRANSPORT;
             request.setAttribute("transportList", transportList);
             request.setAttribute("ride", ride); //ride is needed here to recieve it in chooseTransport (next if)
-        } else if("chooseTransport".equalsIgnoreCase(action)) {
-            Transport transport = transportDao.getBy(Long.parseLong(request.getParameter("id")));
-            Ride ride = rideDao.getById(Long.parseLong(request.getParameter("rideId")));
-            ride.setStatus(Ride.Status.IN_PROCESS);
-            ride.setExecutor(transport);
-            ride.setManager(user);
-            rideDao.update(ride);
-            forward = LIST_RIDE;
-            request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));
-            request.setAttribute("ridesInProcess", rideDao.getByManagerAndStatus(user, Ride.Status.IN_PROCESS));
-            request.setAttribute("ridesFinished", rideDao.getByManagerAndStatus(user, Ride.Status.FINISHED));
-            request.setAttribute("ridesCanceled", rideDao.getByStatus(Ride.Status.CANCELED));
         } else {
             forward = LIST_RIDE;
             request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));

@@ -42,14 +42,14 @@
                                     <td><c:out value="${transport.driver.name}"/></td>
                                     <td><c:out value="${transport.maxMass}"/></td>
                                     <td><c:out value="${transport.maxVolume}"/></td>
-                                        <%--<td><c:if test="${ride.status=='UNASSIGNED'}">
-                                            <a href="ManagerController?action=transportList&id=<c:out value="${ride.id}"/>">Choose transport</a>
-                                        </c:if></td>--%>
                                     <td>
-                                        <button onclick="location.href='ManagerController?action=chooseTransport&id=<c:out value="${transport.id}"/>&rideId=<c:out value="${ride.id}"/>'"
-                                                type="button" class="btn btn-primary">
-                                            <fmt:message key="trlist.button.assign"/>
-                                        </button>
+                                        <form method="post">
+                                            <input type="hidden" name="transpId" value="<c:out value="${transport.id}" />"/>
+                                            <input type="hidden" name="rideId" value="<c:out value="${ride.id}" />"/>
+                                            <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit">
+                                                Assign vehicle
+                                            </button>
+                                        </form>
                                     </td>
 
                                 </tr>

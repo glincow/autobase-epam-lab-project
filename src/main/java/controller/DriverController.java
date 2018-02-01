@@ -36,19 +36,35 @@ public class DriverController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        String action = request.getParameter("postAction");
+        String forward="";
         Transport transport = transportDao.getBy(user);
-        transport.setIsAutoWorks(Boolean.parseBoolean(request.getParameter("isAutoWorks")));
-        transport.setIsAutoAvailable(Boolean.parseBoolean(request.getParameter("isAutoAvailable")));
-        transportDao.update(transport);
-        RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
-        request.setAttribute("transport", transport);
-        request.setAttribute("rides", rideDao.getByExecutor(transport));
-        List<Ride> activeRides = rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS);
-        if(!activeRides.isEmpty()){
-            request.setAttribute("activeRide", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).get(0));
+
+        if ("finishRide".equalsIgnoreCase(action)){
+            Long rideId = Long.parseLong(request.getParameter("rideId"));
+            Ride ride = rideDao.getById(rideId);
+            ride.setStatus(Ride.Status.FINISHED);
+            rideDao.update(ride);
+            forward = LIST_RIDE;
+            request.setAttribute("transport", transport);
+            request.setAttribute("rides", rideDao.getByExecutor(transport));
+            request.setAttribute("activeRidesCount", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).size());
+        } else {
+            transport.setIsAutoWorks(Boolean.parseBoolean(request.getParameter("isAutoWorks")));
+            transport.setIsAutoAvailable(Boolean.parseBoolean(request.getParameter("isAutoAvailable")));
+            transportDao.update(transport);
+            forward = LIST_RIDE;
+            request.setAttribute("transport", transport);
+            request.setAttribute("rides", rideDao.getByExecutor(transport));
+            List<Ride> activeRides = rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS);
+            if (!activeRides.isEmpty()) {
+                request.setAttribute("activeRide", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).get(0));
+            }
+            request.setAttribute("activeRidesCount", activeRides.size());
         }
-        request.setAttribute("activeRidesCount", activeRides.size());
+        RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,16 +74,7 @@ public class DriverController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         Transport transport = transportDao.getBy(user);
 
-        if ("finishRide".equalsIgnoreCase(action)){
-            Long rideId = Long.parseLong(request.getParameter("id"));
-            Ride ride = rideDao.getById(rideId);
-            ride.setStatus(Ride.Status.FINISHED);
-            rideDao.update(ride);
-            forward = LIST_RIDE;
-            request.setAttribute("transport", transport);
-            request.setAttribute("rides", rideDao.getByExecutor(transport));
-            request.setAttribute("activeRidesCount", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).size());
-        } else if ("statusEdit".equalsIgnoreCase(action)) {
+        if ("statusEdit".equalsIgnoreCase(action)) {
             forward = STATUS_EDIT;
             request.setAttribute("transport", transport);
         } else {
