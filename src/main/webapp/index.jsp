@@ -5,12 +5,6 @@
     <title>JSP/JSTL i18n demo</title>
 </head>
 <body>
-<form action="/signIn" method="get">
-    <select id="language" name="language">
-        <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
-        <option value="ru_RU" ${language == 'ru_RU' ? 'selected' : ''}>Russian</option>
-    </select>
-    <button type="submit"></button>
-</form>
+
 </body>
 </html>

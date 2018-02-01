@@ -32,7 +32,7 @@
                                 <td><c:out value="${ride.name}"/></td>
                                 <td><c:out value="${ride.mass}"/></td>
                                 <td><c:out value="${ride.volume}"/></td>
-                                <td><c:out value="${ride.status}"/></td>
+                                <td><fmt:message key="status.${ride.status}"/></td>
                                 <c:if test="${ride.status=='UNASSIGNED'}">
                                     <td>
                                         <button onclick="location.href='CustomerController?action=edit&id=<c:out
