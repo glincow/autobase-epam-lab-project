@@ -5,6 +5,6 @@
     <title>JSP/JSTL i18n demo</title>
 </head>
 <body>
-
+<c:redirect url="/signIn"/>
 </body>
 </html>

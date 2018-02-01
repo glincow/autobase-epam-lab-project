@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="../WEB-INF/i18n.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +7,7 @@
           href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet"/>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-    <title>Add new user</title>
+    <title><fmt:message key="adduser.text.title"/></title>
 </head>
 <body>
 <div id="wrapper">
@@ -20,10 +18,10 @@
                 <h1 class="page-header">
                     <c:choose>
                         <c:when test="${jspUser.role == null}">
-                            Add new manager
+                            <fmt:message key="adduser.text.manheader"/>
                         </c:when>
                         <c:otherwise>
-                            Edit user information
+                            <fmt:message key="adduser.text.editheader"/>
                         </c:otherwise>
                     </c:choose>
                 </h1>
@@ -33,24 +31,24 @@
             <div class="col-lg-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        User info
+                        <fmt:message key="adduser.table.header"/>
                     </div>
                     <div class="panel-body">
 
                         <form method="POST" action='AdminController' name="frmAddManager" role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <label for="userName">User name</label>
+                                    <label for="userName"><fmt:message key="user.name"/></label>
                                     <input class="form-control" type="text" name="name" id="userName"
                                            value="<c:out value="${jspUser.name}" />"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="userLogin">User login</label>
+                                    <label for="userLogin"><fmt:message key="user.login"/></label>
                                     <input class="form-control" type="text" name="login" id="userLogin"
                                            value="<c:out value="${jspUser.login}" />"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="userPassword">User password</label>
+                                    <label for="userPassword"><fmt:message key="user.password"/></label>
                                     <input class="form-control" type="text" name="password" id="userPassword"
                                            value="<c:out value="${jspUser.password}" />"/>
                                 </div>
@@ -69,12 +67,13 @@
                                     <div class="col-lg-6">
                                         <button onclick="location.href='/AdminController?action=listUsers'"
                                                 type="button"
-                                                class="btn btn-primary"> Back
+                                                class="btn btn-primary"><fmt:message key="adduser.button.back"/>
                                         </button>
                                     </div>
                                     <div class="col-lg-6">
-                                        <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit">
-                                            Confirm
+                                        <button class="btn btn-primary btn-success pull-right" type="submit"
+                                                value="Submit">
+                                            <fmt:message key="adduser.button.confirm"/>
                                         </button>
                                     </div>
                                 </div>

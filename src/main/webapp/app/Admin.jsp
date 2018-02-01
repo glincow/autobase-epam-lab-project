@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="../WEB-INF/i18n.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <title>Show All Users</title>
+    <title><fmt:message key="admin.text.title"/></title>
 </head>
 <body>
 <div id="wrapper">
@@ -16,14 +14,14 @@
 
         <div class="row">
             <div class="col-lg-8">
-                <h1 class="page-header">Users information</h1>
+                <h1 class="page-header"><fmt:message key="admin.text.header"/></h1>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Registered users
+                        <fmt:message key="admin.table.header"/>
                     </div>
                     <div class="panel-body">
 
@@ -31,10 +29,10 @@
                         <table width="100%" class="table table-striped">
                             <thead>
                             <tr>
-                                <th>User name</th>
-                                <th>Login</th>
-                                <th>Role</th>
-                                <th>Action</th>
+                                <th><fmt:message key="user.name"/></th>
+                                <th><fmt:message key="user.login"/></th>
+                                <th><fmt:message key="user.role"/></th>
+                                <th><fmt:message key="user.action"/></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -42,10 +40,11 @@
                                 <tr>
                                     <td><c:out value="${user.name}"/></td>
                                     <td><c:out value="${user.login}"/></td>
-                                    <td><c:out value="${user.role}"/></td>
+                                    <td><fmt:message key="role.${user.role}"/></td>
                                     <td>
                                         <button onclick="location.href='AdminController?action=edit&id=<c:out
-                                                value="${user.id}"/>'" type="button" class="btn btn-primary">Edit user
+                                                value="${user.id}"/>'" type="button" class="btn btn-primary">
+                                            <fmt:message key="admin.button.edit"/>
                                         </button>
                                     </td>
                                 </tr>
@@ -59,14 +58,12 @@
         </div>
         <p>
             <button onclick="location.href='AdminController?action=insertManager'" type="button"
-                    class="btn btn-primary">Add
-                manager
+                    class="btn btn-primary"><fmt:message key="admin.button.manager"/>
             </button>
         </p>
         <p>
             <button onclick="location.href='AdminController?action=insertDriver'" type="button"
-                    class="btn btn-primary">Add
-                driver
+                    class="btn btn-primary"><fmt:message key="admin.button.driver"/>
             </button>
         </p>
 

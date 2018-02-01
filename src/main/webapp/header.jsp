@@ -37,6 +37,8 @@
                     <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${language == 'ru_RU' ? 'selected' : ''}>Russian</option>
                 </select>
+                <input hidden name="action" value=<%= request.getParameter("action") %>>
+                <input hidden name="id" value=<%= request.getParameter("id") %>>
             </form>
         </li>
     </ul>

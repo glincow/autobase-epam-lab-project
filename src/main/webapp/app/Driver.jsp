@@ -139,7 +139,7 @@
                                             <td><c:out value="${ride.mass}"/></td>
                                             <td><c:out value="${ride.volume}"/></td>
                                             <td><c:out value="${ride.manager.name}"/></td>
-                                            <td><c:out value="${ride.status}"/></td>
+                                            <td><fmt:message key="status.${ride.status}"/></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
