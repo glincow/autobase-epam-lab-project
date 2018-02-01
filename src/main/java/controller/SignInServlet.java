@@ -47,7 +47,7 @@ public class SignInServlet extends HttpServlet {
             User.Role role = user.getRole();
             switch (role) {
                 case ADMIN:
-                    response.sendRedirect("/AdminController?action=listUsers");
+                    response.sendRedirect("/AdminController?action=");
                     break;
                 case MANAGER:
                     response.sendRedirect("/ManagerController?action=");

@@ -89,13 +89,13 @@ public class AdminController extends HttpServlet {
                 forward = INSERT_OR_EDIT;
             }
             request.setAttribute("jspUser", user); //attribute user is needed for any role
-        } else if ("listUsers".equalsIgnoreCase(action)) {
-            forward = LIST_USER;
-            request.setAttribute("users", dao.getAll());
+        } else if ("insertManager".equalsIgnoreCase(action)) {
+            forward = INSERT_OR_EDIT;
         } else if ("insertDriver".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT_DRIVER;
         } else {
-            forward = INSERT_OR_EDIT;
+            forward = LIST_USER;
+            request.setAttribute("users", dao.getAll());
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
