@@ -79,11 +79,16 @@ public class ManagerController extends HttpServlet {
             ride.setManager(user);
             rideDao.update(ride);
             forward = LIST_RIDE;
-            request.setAttribute("rides", rideDao.getAll());
+            request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));
+            request.setAttribute("ridesInProcess", rideDao.getByManagerAndStatus(user, Ride.Status.IN_PROCESS));
+            request.setAttribute("ridesFinished", rideDao.getByManagerAndStatus(user, Ride.Status.FINISHED));
+            request.setAttribute("ridesCanceled", rideDao.getByStatus(Ride.Status.CANCELED));
         } else {
             forward = LIST_RIDE;
-//            request.setAttribute("rides", rideDao.getByStatus(Ride.Status.UNASSIGNED));
-            request.setAttribute("rides", rideDao.getAll());
+            request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));
+            request.setAttribute("ridesInProcess", rideDao.getByManagerAndStatus(user, Ride.Status.IN_PROCESS));
+            request.setAttribute("ridesFinished", rideDao.getByManagerAndStatus(user, Ride.Status.FINISHED));
+            request.setAttribute("ridesCanceled", rideDao.getByStatus(Ride.Status.CANCELED));
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
