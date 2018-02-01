@@ -1,8 +1,10 @@
-<%@include file="../WEB-INF/i18n.jspf" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title><fmt:message key="customer.text.title"/></title>
+    <title>Your rides</title>
 </head>
 <body>
 <div id="wrapper">
@@ -10,7 +12,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><fmt:message key="customer.text.header"/></h1>
+                <h1 class="page-header">Your ride orders</h1>
             </div>
         </div>
         <div class="panel-body">
@@ -19,11 +21,11 @@
                     <table width="100%" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th scope="col"><fmt:message key="ride.destination"/></th>
-                            <th scope="col"><fmt:message key="ride.mass"/></th>
-                            <th scope="col"><fmt:message key="ride.volume"/></th>
-                            <th scope="col"><fmt:message key="ride.status"/></th>
-                            <th scope="col" colspan=2><fmt:message key="ride.action"/></th>
+                            <th scope="col">Ride destination</th>
+                            <th scope="col">Mass</th>
+                            <th scope="col">Volume</th>
+                            <th scope="col">Order status</th>
+                            <th scope="col" colspan=2>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,28 +34,30 @@
                                 <td><c:out value="${ride.name}"/></td>
                                 <td><c:out value="${ride.mass}"/></td>
                                 <td><c:out value="${ride.volume}"/></td>
-                                <td><fmt:message key="status.${ride.status}"/></td>
-                                <c:if test="${ride.status=='UNASSIGNED'}">
+                                <td><c:out value="${ride.status}"/></td>
+
                                     <td>
+                                        <c:if test="${ride.status=='UNASSIGNED'}">
                                         <button onclick="location.href='CustomerController?action=edit&id=<c:out
-                                                value="${ride.id}"/>'" type="button" class="btn btn-primary">
-                                            <fmt:message key="customer.button.edit"/>
+                                                value="${ride.id}"/>'" type="button" class="btn btn-primary">Edit order
                                         </button>
+                                        </c:if>
                                     </td>
                                     <td>
+                                        <c:if test="${ride.status=='UNASSIGNED'}">
                                         <button onclick="location.href='CustomerController?action=cancel&id=<c:out
-                                                value="${ride.id}"/>'" type="button" class="btn btn-danger">
-                                            <fmt:message key="customer.button.cancel"/>
+                                                value="${ride.id}"/>'" type="button" class="btn btn-danger">Cancel order
                                         </button>
+                                        </c:if>
                                     </td>
-                                </c:if>
+
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
                     <p>
                         <button onclick="location.href='CustomerController?action=insert'" type="button"
-                                class="btn btn-primary"><fmt:message key="customer.button.create"/>
+                                class="btn btn-primary"> Create new order
                         </button>
                     </p>
                 </div>
