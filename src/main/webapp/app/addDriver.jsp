@@ -1,50 +1,166 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <link type="text/css"
-          href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
-    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
     <title>Add new driver</title>
 </head>
 <body>
-<form method="POST" action='AdminController' name="frmAddUser">
-    User Name : <input
-        type="text" name="name"
-        value="<c:out value="${jspUser.name}" />" /> <br />
-    User login : <input
-        type="text" name="login"
-        value="<c:out value="${jspUser.login}" />" /> <br />
-    User password : <input
-        type="text" name="password"
-        value="<c:out value="${jspUser.password}" />" /> <br />
-    <input type="hidden" name="role" value="DRIVER" />
-    <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />" />
+<jsp:include page="../header.jsp"/>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <c:choose>
+                    <c:when test="${jspUser.role == null}">
+                        Add new driver
+                    </c:when>
+                    <c:otherwise>
+                        Edit driver information
+                    </c:otherwise>
+                </c:choose>
+            </h1>
+        </div>
+    </div>
 
-    <br/>
-    <br/>
-    Max mass : <input
-        type="text" name="maxMass"
-        value="<c:out value="${transport.maxMass}" />"/> <br/>
-    Max volume : <input
-        type="text" name="maxVolume"
-        value="<c:out value="${transport.maxVolume}" />"/> <br/>
-    Works : <select name="isAutoWorks">
-                <option value="true">True</option>
-                <option value="false">False</option>
-            </select> <br/>
-    Available : <select name="isAutoAvailable">
-                    <option value="true">True</option>
-                    <option selected value="false">False</option>
-                </select> <br/>
-    <input type="hidden" name="transportId" value="<c:out value="${transport.id}" />" />
+            <div class="col-lg-8">
+                <form method="POST" action='AdminController' name="frmAddUser" role="form">
+                    <div class="row">
+                        <fieldset>
+                            <div class="col-lg-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        User info
+                                    </div>
+                                    <div class="panel-body">
 
-    <input
-            type="submit" value="Submit" />
-</form>
+                                        <div class="form-group">
+                                            <label for="userName">Name</label>
+                                            <input class="form-control" type="text" name="name" id="userName"
+                                                   value="<c:out value="${jspUser.name}" />"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userLogin">Login</label>
+                                            <input class="form-control" type="text" name="login" id="userLogin"
+                                                   value="<c:out value="${jspUser.login}" />"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userPassword">Password</label>
+                                            <input class="form-control" type="text" name="password" id="userPassword"
+                                                   value="<c:out value="${jspUser.password}" />"/>
+                                        </div>
+                                        <input type="hidden" name="role" value="DRIVER"/>
+                                        <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Vehicle Info
+                                    </div>
+                                    <div class="panel-body">
+
+
+                                        <div class="form-group">
+                                            <label for="maxMass">Payload (tons)</label>
+                                            <input class="form-control" type="number" min="1" max="100" step="0.1"
+                                                   name="maxMass" id="maxMass"
+                                                   value="<c:out value="${transport.maxMass}" />"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="maxVolume">Body volume (cubic meters)</label>
+                                            <input class="form-control" type="number" min="1" max="100" step="0.1"
+                                                   name="maxVolume" id="maxVolume"
+                                                   value="<c:out value="${transport.maxVolume}" />"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Works</label>
+                                            <c:choose> <%--for dynamic selected variant--%>
+                                                <c:when test="${transport.isAutoWorks=='true'}">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoWorks" value="true" checked>True
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoWorks" value="false">False
+                                                        </label>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoWorks" value="true">True
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoWorks" value="false"
+                                                                   checked>False
+                                                        </label>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <!-- </div>
+                                            <div class="form-group"> -->
+                                            <label>Available</label>
+                                            <c:choose> <%--for dynamic selected variant--%>
+                                                <c:when test="${transport.isAutoAvailable=='true'}">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoAvailable" value="true"
+                                                                   checked>True
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoAvailable" value="false">False
+                                                        </label>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoAvailable" value="true">True
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="isAutoAvailable" value="false"
+                                                                   checked>False
+                                                        </label>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+
+                        <input type="hidden" name="transportId" value="<c:out value="${transport.id}" />"/>
+
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit">Confirm</button>
+                        <button onclick="location.href='/AdminController?action=listUsers'" type="button"
+                                class="btn btn-primary pull-left"> Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
 </body>
 </html>
