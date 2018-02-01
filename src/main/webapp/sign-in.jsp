@@ -25,7 +25,23 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><fmt:message key="signIn.text.greeting"/></h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="panel-title"><fmt:message key="signIn.text.greeting"/></h3>
+                        </div>
+                        <div class="col-md-6" >
+                            <form class="pull-right" method="get">
+                                <select id="language" name="language" onchange="submit()">
+                                    <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>EN</option>
+                                    <option value="ru_RU" ${language == 'ru_RU' ? 'selected' : ''}>RU</option>
+                                </select>
+                                <input hidden name="action" value=<%= request.getParameter("action") %>>
+                                <input hidden name="id" value=<%= request.getParameter("id") %>>
+                                <input hidden name="rideId" value=<%= request.getParameter("rideId") %>>
+                                <i class="fa fa-globe"></i>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <form action="/signIn" method=post class="form-signin" role="form">
