@@ -58,7 +58,7 @@ public class DriverController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         Transport transport = transportDao.getBy(user);
 
-        if (action.equalsIgnoreCase("finishRide")){
+        if ("finishRide".equalsIgnoreCase(action)){
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = rideDao.getById(rideId);
             ride.setStatus(Ride.Status.FINISHED);
@@ -67,7 +67,7 @@ public class DriverController extends HttpServlet {
             request.setAttribute("transport", transport);
             request.setAttribute("rides", rideDao.getByExecutor(transport));
             request.setAttribute("activeRidesCount", rideDao.getByExecutorAndStatus(transport, Ride.Status.IN_PROCESS).size());
-        } else if (action.equalsIgnoreCase("statusEdit")) {
+        } else if ("statusEdit".equalsIgnoreCase(action)) {
             forward = STATUS_EDIT;
             request.setAttribute("transport", transport);
         } else {

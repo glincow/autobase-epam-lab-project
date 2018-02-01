@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@include file="WEB-INF/i18n.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>SignIn</title>
+    <title><fmt:message key="signIn.text.title"/></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,20 +25,23 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
+                    <h3 class="panel-title"><fmt:message key="signIn.text.greeting"/></h3>
                 </div>
                 <div class="panel-body">
                     <form action="/signIn" method=post class="form-signin" role="form">
 
                         <fieldset>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Login</label>
-                                <input class="form-control" id="exampleInputEmail1" placeholder="Enter login" name="login"
+                                <label for="exampleInputEmail1"><fmt:message key="signIn.label.login"/></label>
+                                <input class="form-control" id="exampleInputEmail1"
+                                       placeholder="<fmt:message key="signIn.label.loginpl"/>"
+                                       name="login"
                                        type="text" autofocus>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input class="form-control" id="exampleInputPassword1" placeholder="Enter password"
+                                <label for="exampleInputPassword1"><fmt:message key="signIn.label.password"/></label>
+                                <input class="form-control" id="exampleInputPassword1"
+                                       placeholder="<fmt:message key="signIn.label.passwordpl"/>"
                                        name="password" type="password"
                                        value="">
                             </div>
@@ -49,12 +52,13 @@
                                 </label>
                             </div> -->
 
-                            <button class="btn btn-lg btn-success btn-block" type="submit" value="SignIn">Login</button>
+                            <button class="btn btn-lg btn-success btn-block" type="submit" value="SignIn"><fmt:message
+                                    key="signIn.button.signIn"/></button>
                         </fieldset>
                     </form>
                     <p></p>
                     <div class="text-center">
-                        <a class="d-block small mt-3" href="/sign-up.jsp">Register an Account</a>
+                        <a class="d-block small mt-3" href="/sign-up.jsp"><fmt:message key="signIn.button.signUp"/></a>
                     </div>
                 </div>
             </div>

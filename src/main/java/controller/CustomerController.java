@@ -51,19 +51,19 @@ public class CustomerController extends HttpServlet {
         String action = request.getParameter("action");
         User customer = (User) request.getSession().getAttribute("user");
 
-        if (action.equalsIgnoreCase("cancel")) {
+        if ("cancel".equalsIgnoreCase(action)) {
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             ride.setStatus(Ride.Status.CANCELED);
             dao.update(ride);
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getByCustomer(customer));
-        } else if (action.equalsIgnoreCase("edit")) {
+        } else if ("edit".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             request.setAttribute("ride", ride);
-        } else if (action.equalsIgnoreCase("insert")) {
+        } else if ("insert".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
         } else {
             forward = LIST_RIDE;

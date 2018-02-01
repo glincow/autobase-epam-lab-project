@@ -47,18 +47,18 @@ public class RideController extends HttpServlet {
         String forward = "";
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("delete")) {
+        if ("delete".equalsIgnoreCase(action)) {
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             dao.delete(ride);
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
-        } else if (action.equalsIgnoreCase("edit")) {
+        } else if ("edit".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = dao.getById(rideId);
             request.setAttribute("ride", ride);
-        } else if (action.equalsIgnoreCase("listRides")) {
+        } else if ("listRides".equalsIgnoreCase(action)) {
             forward = LIST_RIDE;
             request.setAttribute("rides", dao.getAll());
         } else {

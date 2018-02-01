@@ -59,19 +59,19 @@ public class ManagerController extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        if (action.equalsIgnoreCase("cancelRide")){ //TODO
+        if ("cancelRide".equalsIgnoreCase(action)){
             forward = AVAILABLE_TRANSPORT;
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = rideDao.getById(rideId);
             request.setAttribute("ride", ride);
-        } else if (action.equalsIgnoreCase("transportList")){
+        } else if ("transportList".equalsIgnoreCase(action)){
             Long rideId = Long.parseLong(request.getParameter("id"));
             Ride ride = rideDao.getById(rideId);
             List<Transport> transportList = transportDao.getSuitable(ride);
             forward = AVAILABLE_TRANSPORT;
             request.setAttribute("transportList", transportList);
             request.setAttribute("ride", ride); //ride is needed here to recieve it in chooseTransport (next if)
-        } else if(action.equalsIgnoreCase("chooseTransport")) {
+        } else if("chooseTransport".equalsIgnoreCase(action)) {
             Transport transport = transportDao.getBy(Long.parseLong(request.getParameter("id")));
             Ride ride = rideDao.getById(Long.parseLong(request.getParameter("rideId")));
             ride.setStatus(Ride.Status.IN_PROCESS);

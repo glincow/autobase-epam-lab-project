@@ -1,20 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Lind
-  Date: 1/25/2018
-  Time: 8:04 PM
-  To change this template use File | Settings | File Templates.
---%>
-
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@include file="../WEB-INF/i18n.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <title>Choose transport</title>
+    <title><fmt:message key="trlist.text.title"/></title>
 </head>
 <body>
 <div id="wrapper">
@@ -23,7 +13,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Assign a vehicle for the order</h1>
+                <h1 class="page-header"><fmt:message key="trlist.text.header"/></h1>
             </div>
         </div>
 
@@ -32,17 +22,17 @@
             <div class="col-lg-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Avaliable vehicles
+                        <fmt:message key="trlist.text.vehicleheader"/>
                     </div>
                     <div class="panel-body">
                         <table width="100%" class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Vehicle ID</th>
-                                <th>Driver name</th>
-                                <th>Max mass</th>
-                                <th>Max volume</th>
-                                <th colspan=1>Action</th>
+                                <th><fmt:message key="vehicle.id"/></th>
+                                <th><fmt:message key="vehicle.driver"/></th>
+                                <th><fmt:message key="vehicle.mass"/></th>
+                                <th><fmt:message key="vehicle.volume"/></th>
+                                <th colspan=1><fmt:message key="vehicle.action"/></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -57,7 +47,8 @@
                                         </c:if></td>--%>
                                     <td>
                                         <button onclick="location.href='ManagerController?action=chooseTransport&id=<c:out value="${transport.id}"/>&rideId=<c:out value="${ride.id}"/>'"
-                                                type="button" class="btn btn-primary">Assign vehicle
+                                                type="button" class="btn btn-primary">
+                                            <fmt:message key="trlist.button.assign"/>
                                         </button>
                                     </td>
 
@@ -73,16 +64,16 @@
             <div class="col-lg-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        Selected ride order
+                        <fmt:message key="trlist.text.rideheader"/>
                     </div>
                     <div class="panel-body">
                         <table width="100%" class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Ride Destination</th>
-                                <th>Mass</th>
-                                <th>Volume</th>
+                                <th><fmt:message key="ride.id"/></th>
+                                <th><fmt:message key="ride.destination"/></th>
+                                <th><fmt:message key="ride.mass"/></th>
+                                <th><fmt:message key="ride.volume"/></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -99,7 +90,7 @@
 
                 <p>
                     <button onclick="location.href='/ManagerController?action='" type="button"
-                            class="btn btn-primary"> Back to orders list
+                            class="btn btn-primary"><fmt:message key="trlist.button.back"/>
                     </button>
                 </p>
 
@@ -107,9 +98,7 @@
             <!-- /.col-lg-4 -->
 
 
-
         </div>
-
 
 
     </div>
