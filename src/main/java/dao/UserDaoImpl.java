@@ -1,5 +1,7 @@
 package dao;
 
+import dao.exceptions.DataAccessException;
+import dao.exceptions.EmptyResultDataAccessException;
 import model.User;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.logging.log4j.LogManager;
