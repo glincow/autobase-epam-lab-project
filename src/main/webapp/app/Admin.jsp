@@ -10,54 +10,67 @@
 </head>
 <body>
 <div id="wrapper">
+
     <jsp:include page="../header.jsp"/>
     <div id="page-wrapper">
 
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Registered users</h1>
+            <div class="col-lg-8">
+                <h1 class="page-header">Users information</h1>
             </div>
         </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-lg-6">
-                    <table width="100%" class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>User name</th>
-                            <th>Login</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${users}" var="user">
-                            <tr>
-                                <td><c:out value="${user.name}"/></td>
-                                <td><c:out value="${user.login}"/></td>
-                                <td><c:out value="${user.role}"/></td>
-                                <td><button onclick="location.href='AdminController?action=edit&id=<c:out
-                                        value="${user.id}"/>'" type="button" class="btn btn-primary">Edit user
-                                </button>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-            <p>
-                <button onclick="location.href='AdminController?action=insertManager'" type="button" class="btn btn-primary">Add
-                    manager
-                </button>
-            </p>
-            <p>
-                <button onclick="location.href='AdminController?action=insertDriver'" type="button" class="btn btn-primary">Add
-                    driver
-                </button>
-            </p>
-        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Registered users
+                    </div>
+                    <div class="panel-body">
 
+
+                        <table width="100%" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>User name</th>
+                                <th>Login</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${users}" var="user">
+                                <tr>
+                                    <td><c:out value="${user.name}"/></td>
+                                    <td><c:out value="${user.login}"/></td>
+                                    <td><c:out value="${user.role}"/></td>
+                                    <td>
+                                        <button onclick="location.href='AdminController?action=edit&id=<c:out
+                                                value="${user.id}"/>'" type="button" class="btn btn-primary">Edit user
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>
+            <button onclick="location.href='AdminController?action=insertManager'" type="button"
+                    class="btn btn-primary">Add
+                manager
+            </button>
+        </p>
+        <p>
+            <button onclick="location.href='AdminController?action=insertDriver'" type="button"
+                    class="btn btn-primary">Add
+                driver
+            </button>
+        </p>
 
     </div>
-</div>
+
 </body>
 </html>
