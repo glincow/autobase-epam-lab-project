@@ -34,8 +34,8 @@ public class TransportDaoImpl implements TransportDao {
         return transport;
     }
 
-    final static private String SQL_INSERT_TRANSPORT = "INSERT INTO Transport (id , max_mass, max_volume, " +
-            "isAuto_works, isAuto_available, driver_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final static private String SQL_INSERT_TRANSPORT = "INSERT INTO Transport (max_mass, max_volume, " +
+            "isAuto_works, isAuto_available, driver_id) VALUES (?, ?, ?, ?, ?)";
 
     final static private String SQL_SELECT_TRANSPORT_BY_ID = "SELECT * FROM Transport WHERE id = ?";
 
@@ -68,12 +68,11 @@ public class TransportDaoImpl implements TransportDao {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setLong(1, transport.getId());
-            preparedStatement.setFloat(3, transport.getMaxMass());
-            preparedStatement.setFloat(4, transport.getMaxVolume());
-            preparedStatement.setBoolean(5, transport.getIsAutoWorks());
-            preparedStatement.setBoolean(6, transport.getIsAutoAvailable());
-            preparedStatement.setLong(7, transport.getDriver().getId());
+            preparedStatement.setFloat(1, transport.getMaxMass());
+            preparedStatement.setFloat(2, transport.getMaxVolume());
+            preparedStatement.setBoolean(3, transport.getIsAutoWorks());
+            preparedStatement.setBoolean(4, transport.getIsAutoAvailable());
+            preparedStatement.setLong(5, transport.getDriver().getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

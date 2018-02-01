@@ -9,10 +9,10 @@
           href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-    <title>Add new user</title>
+    <title>Add new driver</title>
 </head>
 <body>
-<form method="POST" action='AdminController' name="frmAddManager">
+<form method="POST" action='AdminController' name="frmAddUser">
     User Name : <input
         type="text" name="name"
         value="<c:out value="${jspUser.name}" />" /> <br />
@@ -22,18 +22,29 @@
     User password : <input
         type="text" name="password"
         value="<c:out value="${jspUser.password}" />" /> <br />
-    <c:choose> <%--for create only manager and edit everybody except driver--%>
-        <c:when test="${jspUser.role == null}">
-            <input type="hidden" name="role" value="MANAGER" />
-        </c:when>
-        <c:otherwise>
-            <input type="hidden" name="role" value="<c:out value="${jspUser.role}" />" />
-        </c:otherwise>
-    </c:choose>
+    <input type="hidden" name="role" value="DRIVER" />
     <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />" />
+
+    <br/>
+    <br/>
+    Max mass : <input
+        type="text" name="maxMass"
+        value="<c:out value="${transport.maxMass}" />"/> <br/>
+    Max volume : <input
+        type="text" name="maxVolume"
+        value="<c:out value="${transport.maxVolume}" />"/> <br/>
+    Works : <select name="isAutoWorks">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select> <br/>
+    Available : <select name="isAutoAvailable">
+                    <option value="true">True</option>
+                    <option selected value="false">False</option>
+                </select> <br/>
+    <input type="hidden" name="transportId" value="<c:out value="${transport.id}" />" />
+
     <input
             type="submit" value="Submit" />
 </form>
 </body>
 </html>
-
