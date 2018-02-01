@@ -40,6 +40,8 @@ public class RideDaoImpl implements RideDao {
 
     final static private String SQL_SELECT_RIDE_BY_STATUS = "SELECT * FROM Ride WHERE status = ?";
 
+    final static private String SQL_SELECT_RIDE_BY_CUSTOMER_AND_STATUS = "SELECT * FROM Ride WHERE customer_id = ? AND status = ?";
+
     final static private String SQL_SELECT_ALL_RIDES = "SELECT * FROM Ride";
 
     final static private String SQL_UPDATE_RIDE = "UPDATE ride SET name = ?, " +
@@ -204,6 +206,37 @@ public class RideDaoImpl implements RideDao {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, manager.getId());
+            preparedStatement.setString(2, status.name());
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Ride ride = assembleRide(rs);
+                list.add(ride);
+            }
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DataAccessException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Ride> getByCustomerAndStatus(User customer, Ride.Status status) {
+        logger.debug("Ride get by manager and status started...");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = SQL_SELECT_RIDE_BY_CUSTOMER_AND_STATUS;
+        List<Ride> list = new ArrayList<>();
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, customer.getId());
             preparedStatement.setString(2, status.name());
             rs = preparedStatement.executeQuery();
 

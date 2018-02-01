@@ -22,13 +22,13 @@
             <div class="col-lg-8">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <fmt:message key="manager.text.title1"/>
+                        <fmt:message key="rides.text.unassigned"/>
                     </div>
 
                     <div class="panel-body">
                         <c:choose>
                             <c:when test="${ridesUnassigned.size()==0}">
-                                <p><fmt:message key="manager.text.noorders1"/></p>
+                                <p><fmt:message key="manager.text.nounassigned"/></p>
                             </c:when>
                             <c:otherwise>
                                 <table width="100%" class="table table-striped">
@@ -76,13 +76,13 @@
             <div class="col-lg-8">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <fmt:message key="manager.text.title2"/>
+                        <fmt:message key="rides.text.inprocess"/>
                     </div>
 
                     <div class="panel-body">
                         <c:choose>
                             <c:when test="${ridesInProcess.size()==0}">
-                                <p><fmt:message key="manager.text.noorders2"/></p>
+                                <p><fmt:message key="manager.text.noinprocess"/></p>
                             </c:when>
                             <c:otherwise>
                                 <table width="100%" class="table table-striped">
@@ -122,13 +122,13 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <fmt:message key="manager.text.title3"/>
+                        <fmt:message key="rides.text.archived"/>
                     </div>
 
                     <div class="panel-body">
                         <c:choose>
                             <c:when test="${ridesFinished.size()==0 and ridesCanceled.size()==0}">
-                                <p><fmt:message key="manager.text.noorders3"/></p>
+                                <p><fmt:message key="manager.text.noarchived"/></p>
                             </c:when>
                             <c:otherwise>
                                 <table width="100%" class="table table-striped">
