@@ -35,18 +35,22 @@
                                 <td><c:out value="${ride.mass}"/></td>
                                 <td><c:out value="${ride.volume}"/></td>
                                 <td><c:out value="${ride.status}"/></td>
-                                <c:if test="${ride.status=='UNASSIGNED'}">
+
                                     <td>
+                                        <c:if test="${ride.status=='UNASSIGNED'}">
                                         <button onclick="location.href='CustomerController?action=edit&id=<c:out
                                                 value="${ride.id}"/>'" type="button" class="btn btn-primary">Edit order
                                         </button>
+                                        </c:if>
                                     </td>
                                     <td>
+                                        <c:if test="${ride.status=='UNASSIGNED'}">
                                         <button onclick="location.href='CustomerController?action=cancel&id=<c:out
                                                 value="${ride.id}"/>'" type="button" class="btn btn-danger">Cancel order
                                         </button>
+                                        </c:if>
                                     </td>
-                                </c:if>
+
                             </tr>
                         </c:forEach>
                         </tbody>

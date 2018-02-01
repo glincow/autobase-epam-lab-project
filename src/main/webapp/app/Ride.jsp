@@ -19,7 +19,7 @@
                 <div class="col-lg-4">
                     <form method="POST" action='CustomerController' name="Ride" role="form">
                         <fieldset>
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="rideId">Ride ID</label>
                                 <input class="form-control" type="text" name="id" readonly="readonly" id="rideId"
                                        value="<c:out value="${ride.id}" />"/>
@@ -42,8 +42,8 @@
                                        id="rideVolume" placeholder="Enter volume"
                                        value="<c:out value="${ride.volume}" />"/>
                             </div>
-                            <div class="form-group">
-                                <label for="rideStatus">Order volume</label>
+                            <div class="form-group" hidden>
+                                <label for="rideStatus">Ride status</label>
                                 <input class="form-control" type="text" name="status" id="rideStatus"
                                        readonly="readonly"
                                         <c:choose>
@@ -60,5 +60,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
