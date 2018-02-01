@@ -1,6 +1,6 @@
 package controller;
 
-import dao.EmptyResultDataAccessException;
+import dao.exceptions.EmptyResultDataAccessException;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
