@@ -1,5 +1,6 @@
 package dao;
 
+import dao.exceptions.DataAccessException;
 import model.Ride;
 
 import java.sql.Connection;
@@ -32,6 +33,8 @@ public class RideDaoImpl implements RideDao {
     final static private String SQL_SELECT_RIDE_BY_EXECUTOR = "SELECT * FROM Ride WHERE executor_id = ?";
 
     final static private String SQL_SELECT_RIDE_BY_EXECUTOR_AND_STATUS = "SELECT * FROM Ride WHERE executor_id = ? AND status = ?";
+
+    final static private String SQL_SELECT_RIDE_BY_MANAGER_AND_STATUS = "SELECT * FROM Ride WHERE manager_id = ? AND status = ?";
 
     final static private String SQL_SELECT_RIDE_BY_CUSTOMER = "SELECT * FROM Ride WHERE customer_id = ? ORDER BY status DESC";
 
@@ -170,6 +173,37 @@ public class RideDaoImpl implements RideDao {
             connection = DBConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, transport.getId());
+            preparedStatement.setString(2, status.name());
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Ride ride = assembleRide(rs);
+                list.add(ride);
+            }
+        } catch (SQLException e) {
+            logger.error("SQLexception in get method : " + e.getMessage());
+            throw new DataAccessException("SQLexception in get method", e);
+        } finally {
+            DbUtils.closeQuietly(connection, preparedStatement, rs);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Ride> getByManagerAndStatus(User manager, Ride.Status status) {
+        logger.debug("Ride get by manager and status started...");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String sql = SQL_SELECT_RIDE_BY_MANAGER_AND_STATUS;
+        List<Ride> list = new ArrayList<>();
+
+        try {
+            connection = DBConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, manager.getId());
             preparedStatement.setString(2, status.name());
             rs = preparedStatement.executeQuery();
 

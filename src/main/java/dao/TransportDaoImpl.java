@@ -1,5 +1,6 @@
 package dao;
 
+import dao.exceptions.DataAccessException;
 import model.Ride;
 import model.Transport;
 import model.User;

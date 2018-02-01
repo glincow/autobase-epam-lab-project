@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <title><fmt:message key="manager.text.header"/></title>
+    <title><fmt:message key="manager.text.title"/></title>
 </head>
 <body>
 <div id="wrapper">
@@ -22,25 +22,25 @@
             <div class="col-lg-8">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <fmt:message key="manager.text.title1"/>
+                        Unassigned orders
                     </div>
 
                     <div class="panel-body">
                         <c:choose>
                             <c:when test="${ridesUnassigned.size()==0}">
-                                <p><fmt:message key="manager.text.noorders1"/></p>
+                                <p>No unassigned rides at the moment</p>
                             </c:when>
                             <c:otherwise>
                                 <table width="100%" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th><fmt:message key="ride.id"/></th>
-                                        <th><fmt:message key="ride.customer"/></th>
-                                        <th><fmt:message key="ride.destination"/></th>
-                                        <th><fmt:message key="ride.mass"/></th>
-                                        <th><fmt:message key="ride.volume"/></th>
-                                        <th><fmt:message key="ride.status"/></th>
-                                        <th colspan=1><fmt:message key="ride.action"/></th>
+                                        <th>Ride Id</th>
+                                        <th>Customer name</th>
+                                        <th>Ride destination</th>
+                                        <th>Mass</th>
+                                        <th>Volume</th>
+                                        <th>Order status</th>
+                                        <th colspan=1>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -51,11 +51,13 @@
                                             <td><c:out value="${ride.name}"/></td>
                                             <td><c:out value="${ride.mass}"/></td>
                                             <td><c:out value="${ride.volume}"/></td>
-                                            <td><fmt:message key="status.${ride.status}"/></td>
+                                            <td><c:out value="${ride.status}"/></td>
                                             <td>
-                                                <button onclick="location.href='ManagerController?action=transportList&id=<c:out value="${ride.id}"/>'" type="button"
-                                                        class="btn btn-primary">
-                                                    <fmt:message key="manager.button.choose"/>
+                                                <button onclick="location.href='ManagerController?action=transportList&id=<c:out
+                                                            value="${ride.id}"/>'" type="button"
+                                                        class="btn btn-success">Choose
+                                                    vehicle
+                                                    for the order
                                                 </button>
 
                                             </td>
@@ -72,29 +74,57 @@
         </div>
 
 
+<<<<<<< HEAD
+                    <table border=1 width="100%" class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th><fmt:message key="ride.id"/></th>
+                            <th><fmt:message key="ride.destination"/></th>
+                            <th><fmt:message key="ride.mass"/></th>
+                            <th><fmt:message key="ride.volume"/></th>
+                            <th><fmt:message key="ride.status"/></th>
+                            <th colspan=1><fmt:message key="ride.action"/></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${rides}" var="ride">
+                            <tr>
+                                <td><c:out value="${ride.id}"/></td>
+                                <td><c:out value="${ride.name}"/></td>
+                                <td><c:out value="${ride.mass}"/></td>
+                                <td><c:out value="${ride.volume}"/></td>
+                                <td><fmt:message key="status.${ride.status}"/></td>
+                                <td><c:if test="${ride.status=='UNASSIGNED'}">
+                                    <button onclick="location.href='ManagerController?action=transportList&id=<c:out
+                                            value="${ride.id}"/>'" type="button" class="btn btn-primary">
+                                        <fmt:message key="manager.button.choose"/>
+                                    </button>
+                                </c:if></td>
+=======
         <div class="row">
             <div class="col-lg-8">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <fmt:message key="manager.text.title2"/>
+                        Orders in process
                     </div>
+>>>>>>> new tables to manager page added
 
                     <div class="panel-body">
                         <c:choose>
                             <c:when test="${ridesInProcess.size()==0}">
-                                <p><fmt:message key="manager.text.noorders2"/></p>
+                                <p>No rides in process at the moment</p>
                             </c:when>
                             <c:otherwise>
                                 <table width="100%" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th><fmt:message key="ride.id"/></th>
-                                        <th><fmt:message key="ride.customer"/></th>
-                                        <th><fmt:message key="ride.destination"/></th>
-                                        <th><fmt:message key="ride.mass"/></th>
-                                        <th><fmt:message key="ride.volume"/></th>
-                                        <th><fmt:message key="ride.driver"/></th>
-                                        <th><fmt:message key="ride.status"/></th>
+                                        <th>Ride Id</th>
+                                        <th>Customer name</th>
+                                        <th>Ride destination</th>
+                                        <th>Mass</th>
+                                        <th>Volume</th>
+                                        <th>Driver name</th>
+                                        <th>Order status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -106,7 +136,7 @@
                                             <td><c:out value="${ride.mass}"/></td>
                                             <td><c:out value="${ride.volume}"/></td>
                                             <td><c:out value="${ride.executor.driver.name}"/></td>
-                                            <td><fmt:message key="status.${ride.status}"/></td>
+                                            <td><c:out value="${ride.status}"/></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -122,25 +152,25 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <fmt:message key="manager.text.title3"/>
+                        Archived orders
                     </div>
 
                     <div class="panel-body">
                         <c:choose>
                             <c:when test="${ridesFinished.size()==0 and ridesCanceled.size()==0}">
-                                <p><fmt:message key="manager.text.noorders3"/></p>
+                                <p>No archived orders at the moment</p>
                             </c:when>
                             <c:otherwise>
                                 <table width="100%" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th><fmt:message key="ride.id"/></th>
-                                        <th><fmt:message key="ride.customer"/></th>
-                                        <th><fmt:message key="ride.destination"/></th>
-                                        <th><fmt:message key="ride.mass"/></th>
-                                        <th><fmt:message key="ride.volume"/></th>
-                                        <th><fmt:message key="ride.driver"/></th>
-                                        <th><fmt:message key="ride.status"/></th>
+                                        <th>Ride Id</th>
+                                        <th>Customer name</th>
+                                        <th>Ride destination</th>
+                                        <th>Mass</th>
+                                        <th>Volume</th>
+                                        <th>Driver name</th>
+                                        <th>Order status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -152,7 +182,7 @@
                                             <td><c:out value="${ride.mass}"/></td>
                                             <td><c:out value="${ride.volume}"/></td>
                                             <td><c:out value="${ride.executor.driver.name}"/></td>
-                                            <td><fmt:message key="status.${ride.status}"/></td>
+                                            <td><c:out value="${ride.status}"/></td>
                                         </tr>
                                     </c:forEach>
                                     <c:forEach items="${ridesCanceled}" var="ride">
@@ -162,8 +192,8 @@
                                             <td><c:out value="${ride.name}"/></td>
                                             <td><c:out value="${ride.mass}"/></td>
                                             <td><c:out value="${ride.volume}"/></td>
-                                            <td>-</td>
-                                            <td><fmt:message key="status.${ride.status}"/></td>
+                                            <td>None</td>
+                                            <td><c:out value="${ride.status}"/></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -176,6 +206,6 @@
         </div>
 
 
-    </div>
+</div>
 </body>
 </html>
