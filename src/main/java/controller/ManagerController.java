@@ -69,18 +69,11 @@ public class ManagerController extends HttpServlet {
             request.setAttribute("transportList", transportList);
             request.setAttribute("ride", ride); //ride is needed here to recieve it in chooseTransport (next if)
         } else if("chooseTransport".equalsIgnoreCase(action)) {
-            /*Transport transport = transportDao.getBy(Long.parseLong(request.getParameter("id")));
-            Ride ride = rideDao.getById(Long.parseLong(request.getParameter("rideId")));
-            ride.setStatus(Ride.Status.IN_PROCESS);
-            ride.setExecutor(transport);
-            ride.setManager(user);
-            rideDao.update(ride);
-            forward = LIST_RIDE;
             request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));
             request.setAttribute("ridesInProcess", rideDao.getByManagerAndStatus(user, Ride.Status.IN_PROCESS));
             request.setAttribute("ridesFinished", rideDao.getByManagerAndStatus(user, Ride.Status.FINISHED));
             request.setAttribute("ridesCanceled", rideDao.getByStatus(Ride.Status.CANCELED));
-        } else {
+        } else  {
             forward = LIST_RIDE;
             request.setAttribute("ridesUnassigned", rideDao.getByStatus(Ride.Status.UNASSIGNED));
             request.setAttribute("ridesInProcess", rideDao.getByManagerAndStatus(user, Ride.Status.IN_PROCESS));
