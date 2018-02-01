@@ -56,10 +56,16 @@
                                 </table>
                             </div>
                             <div class="panel-footer">
-                                <button onclick="location.href='DriverController?action=finishRide&id=<c:out
-                                        value="${activeRide.id}"/>'" type="button" class="btn btn-primary"><fmt:message
-                                        key="driver.button.finish"/>
-                                </button>
+                                <form method="post" name="finishRide">
+                                    <input type="hidden" name="postAction" value="finishRide"/>
+                                    <input type="hidden" name="rideId" value="<c:out value="${activeRide.id}" />"/>
+                                    <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit">
+                                        Finish ride
+                                    </button>
+                                </form>
+                                <%--<button onclick="location.href='DriverController?action=finishRide&id=<c:out
+                                        value="${activeRide.id}"/>'" type="button" class="btn btn-primary">Finish ride
+                                </button>--%>
                             </div>
                         </c:otherwise>
                     </c:choose>
