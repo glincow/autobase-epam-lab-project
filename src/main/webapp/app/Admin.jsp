@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <fmt:message key="admin.table.header"/>
@@ -55,17 +55,27 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <fmt:message key="admin.table.headeradd"/>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <button onclick="location.href='AdminController?action=insertManager'" type="button"
+                                    class="btn btn-primary"><fmt:message key="admin.button.manager"/>
+                            </button>
+                        </p>
+                        <p>
+                            <button onclick="location.href='AdminController?action=insertDriver'" type="button"
+                                    class="btn btn-primary"><fmt:message key="admin.button.driver"/>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p>
-            <button onclick="location.href='AdminController?action=insertManager'" type="button"
-                    class="btn btn-primary"><fmt:message key="admin.button.manager"/>
-            </button>
-        </p>
-        <p>
-            <button onclick="location.href='AdminController?action=insertDriver'" type="button"
-                    class="btn btn-primary"><fmt:message key="admin.button.driver"/>
-            </button>
-        </p>
+
 
     </div>
 

@@ -56,16 +56,18 @@
                                 </table>
                             </div>
                             <div class="panel-footer">
-                                <form method="post" name="finishRide">
-                                    <input type="hidden" name="postAction" value="finishRide"/>
-                                    <input type="hidden" name="rideId" value="<c:out value="${activeRide.id}" />"/>
-                                    <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit">
-                                        Finish ride
-                                    </button>
-                                </form>
-                                <%--<button onclick="location.href='DriverController?action=finishRide&id=<c:out
-                                        value="${activeRide.id}"/>'" type="button" class="btn btn-primary">Finish ride
-                                </button>--%>
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <form method="post" name="finishRide">
+                                            <input type="hidden" name="postAction" value="finishRide"/>
+                                            <input type="hidden" name="rideId"
+                                                   value="<c:out value="${activeRide.id}" />"/>
+                                            <button class="btn btn-primary btn-success" type="submit" value="Submit">
+                                                <fmt:message key="driver.button.finish"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </c:otherwise>
                     </c:choose>
@@ -96,11 +98,11 @@
                             </tr>
                             <tr>
                                 <th><fmt:message key="vehicle.works"/></th>
-                                <td><c:out value="${transport.isAutoWorks}"/></td>
+                                <td><fmt:message key="text.${transport.isAutoWorks}"/></td>
                             </tr>
                             <tr>
                                 <th><fmt:message key="vehicle.available"/></th>
-                                <td><c:out value="${transport.isAutoAvailable}"/></td>
+                                <td><fmt:message key="text.${transport.isAutoAvailable}"/></td>
                             </tr>
                             </tbody>
                         </table>
@@ -124,34 +126,30 @@
                         <fmt:message key="driver.ride.title"/>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <table width="100%" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th><fmt:message key="ride.id"/></th>
-                                        <th><fmt:message key="ride.destination"/></th>
-                                        <th><fmt:message key="ride.mass"/></th>
-                                        <th><fmt:message key="ride.volume"/></th>
-                                        <th><fmt:message key="ride.manager"/></th>
-                                        <th><fmt:message key="ride.status"/></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${rides}" var="ride">
-                                        <tr>
-                                            <td><c:out value="${ride.id}"/></td>
-                                            <td><c:out value="${ride.name}"/></td>
-                                            <td><c:out value="${ride.mass}"/></td>
-                                            <td><c:out value="${ride.volume}"/></td>
-                                            <td><c:out value="${ride.manager.name}"/></td>
-                                            <td><fmt:message key="status.${ride.status}"/></td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <table width="100%" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><fmt:message key="ride.id"/></th>
+                                <th><fmt:message key="ride.destination"/></th>
+                                <th><fmt:message key="ride.mass"/></th>
+                                <th><fmt:message key="ride.volume"/></th>
+                                <th><fmt:message key="ride.manager"/></th>
+                                <th><fmt:message key="ride.status"/></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${rides}" var="ride">
+                                <tr>
+                                    <td><c:out value="${ride.id}"/></td>
+                                    <td><c:out value="${ride.name}"/></td>
+                                    <td><c:out value="${ride.mass}"/></td>
+                                    <td><c:out value="${ride.volume}"/></td>
+                                    <td><c:out value="${ride.manager.name}"/></td>
+                                    <td><fmt:message key="status.${ride.status}"/></td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

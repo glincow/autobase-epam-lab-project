@@ -1,5 +1,5 @@
 <%@include file="../WEB-INF/i18n.jspf" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -40,17 +40,20 @@
                                 <div class="form-group">
                                     <label for="userName"><fmt:message key="user.name"/></label>
                                     <input class="form-control" type="text" name="name" id="userName"
-                                           value="<c:out value="${jspUser.name}" />"/>
+                                           value="<c:out value="${jspUser.name}" />" required
+                                           placeholder="<fmt:message key="signUp.label.namepl"/>"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="userLogin"><fmt:message key="user.login"/></label>
                                     <input class="form-control" type="text" name="login" id="userLogin"
-                                           value="<c:out value="${jspUser.login}" />"/>
+                                           value="<c:out value="${jspUser.login}" />" required
+                                           placeholder="<fmt:message key="signIn.label.loginpl"/>"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="userPassword"><fmt:message key="user.password"/></label>
-                                    <input class="form-control" type="text" name="password" id="userPassword"
-                                           value="<c:out value="${jspUser.password}" />"/>
+                                    <input class="form-control" type="password" name="password" id="userPassword"
+                                           value="<c:out value="${jspUser.password}" />" required
+                                           placeholder="<fmt:message key="signIn.label.passwordpl"/>"/>
                                 </div>
 
 

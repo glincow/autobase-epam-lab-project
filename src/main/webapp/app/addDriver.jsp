@@ -1,6 +1,4 @@
 <%@include file="../WEB-INF/i18n.jspf" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
     <title><fmt:message key="adddriver.text.title"/></title>
@@ -37,17 +35,20 @@
                                         <div class="form-group">
                                             <label for="userName"><fmt:message key="user.name"/></label>
                                             <input class="form-control" type="text" name="name" id="userName"
-                                                   value="<c:out value="${jspUser.name}" />"/>
+                                                   value="<c:out value="${jspUser.name}" />" required
+                                                   placeholder="<fmt:message key="signUp.label.namepl"/>"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="userLogin"><fmt:message key="user.login"/></label>
                                             <input class="form-control" type="text" name="login" id="userLogin"
-                                                   value="<c:out value="${jspUser.login}" />"/>
+                                                   value="<c:out value="${jspUser.login}" />" required
+                                                   placeholder="<fmt:message key="signIn.label.loginpl"/>"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="userPassword"><fmt:message key="user.password"/></label>
-                                            <input class="form-control" type="text" name="password" id="userPassword"
-                                                   value="<c:out value="${jspUser.password}" />"/>
+                                            <input class="form-control" type="password" name="password" id="userPassword"
+                                                   value="<c:out value="${jspUser.password}" />" required
+                                                   placeholder="<fmt:message key="signIn.label.passwordpl"/>"/>
                                         </div>
                                         <input type="hidden" name="role" value="DRIVER"/>
                                         <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />"/>
@@ -68,41 +69,43 @@
                                             <label for="maxMass"><fmt:message key="vehicle.mass"/></label>
                                             <input class="form-control" type="number" min="1" max="100" step="0.1"
                                                    name="maxMass" id="maxMass"
-                                                   value="<c:out value="${transport.maxMass}" />"/>
+                                                   value="<c:out value="${transport.maxMass}" />" required
+                                                   placeholder="<fmt:message key="vehicle.masspl"/>"/>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="maxVolume"><fmt:message key="vehicle.volume"/></label>
                                             <input class="form-control" type="number" min="1" max="100" step="0.1"
                                                    name="maxVolume" id="maxVolume"
-                                                   value="<c:out value="${transport.maxVolume}" />"/>
+                                                   value="<c:out value="${transport.maxVolume}" />" required
+                                                   placeholder="<fmt:message key="vehicle.volumepl"/>"/>
                                         </div>
 
                                         <div class="form-group">
                                             <label><fmt:message key="vehicle.works"/></label>
-                                            <c:choose> <%--for dynamic selected variant--%>
+                                            <c:choose>
                                                 <c:when test="${transport.isAutoWorks=='true'}">
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="isAutoWorks" value="true" checked>True
+                                                            <input type="radio" name="isAutoWorks" value="true" checked><fmt:message key="text.true"/>
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="isAutoWorks" value="false">False
+                                                            <input type="radio" name="isAutoWorks" value="false"><fmt:message key="text.false"/>
                                                         </label>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="isAutoWorks" value="true">True
+                                                            <input type="radio" name="isAutoWorks" value="true"><fmt:message key="text.true"/>
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
                                                             <input type="radio" name="isAutoWorks" value="false"
-                                                                   checked>False
+                                                                   checked><fmt:message key="text.false"/>
                                                         </label>
                                                     </div>
                                                 </c:otherwise>
@@ -115,25 +118,25 @@
                                                     <div class="radio">
                                                         <label>
                                                             <input type="radio" name="isAutoAvailable" value="true"
-                                                                   checked>True
+                                                                   checked><fmt:message key="text.true"/>
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="isAutoAvailable" value="false">False
+                                                            <input type="radio" name="isAutoAvailable" value="false"><fmt:message key="text.false"/>
                                                         </label>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="isAutoAvailable" value="true">True
+                                                            <input type="radio" name="isAutoAvailable" value="true"><fmt:message key="text.true"/>
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
                                                             <input type="radio" name="isAutoAvailable" value="false"
-                                                                   checked>False
+                                                                   checked><fmt:message key="text.false"/>
                                                         </label>
                                                     </div>
                                                 </c:otherwise>
