@@ -77,6 +77,13 @@
                             </div>
                         </fieldset>
                         <br>
+                        <c:choose>
+                            <c:when test="${errorId == 3}">
+                                <div class="alert alert-danger">
+                                    Login already exists
+                                </div>
+                            </c:when>
+                        </c:choose>
                         <div class="row">
                             <div class="col-lg-6">
                                 <button onclick="location.href='/AdminController?action=listUsers'"

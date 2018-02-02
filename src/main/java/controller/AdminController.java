@@ -4,6 +4,7 @@ import dao.TransportDao;
 import dao.TransportDaoImpl;
 import dao.UserDao;
 import dao.UserDaoImpl;
+import dao.exceptions.EmptyResultDataAccessException;
 import model.Transport;
 import model.User;
 import org.apache.logging.log4j.LogManager;
@@ -46,10 +47,32 @@ public class AdminController extends HttpServlet {
         String userId = request.getParameter("id");
 
         if (userId == null || userId.isEmpty()) {
-            dao.add(user);
+            try {
+                dao.getBy(request.getParameter("login"));
+                request.setAttribute("errorId", 3);
+                if (user.getRole() == User.Role.DRIVER) {
+                    request.getRequestDispatcher(INSERT_OR_EDIT_DRIVER).forward(request, response);
+                } else {
+                    request.getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);
+                }
+                logger.info("User with such login already exists");
+            } catch (EmptyResultDataAccessException e) {
+                dao.add(user);
+            }
         } else {
-            user.setId(Long.parseLong(userId));
-            dao.update(user);
+            try {
+                dao.getBy(request.getParameter("login"));
+                request.setAttribute("errorId", 3);
+                if (user.getRole() == User.Role.DRIVER) {
+                    request.getRequestDispatcher(INSERT_OR_EDIT_DRIVER).forward(request, response);
+                } else {
+                    request.getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);
+                }
+                logger.info("User with such login already exists");
+            } catch (EmptyResultDataAccessException e) {
+                user.setId(Long.parseLong(userId));
+                dao.update(user);
+            }
         }
 
         if (user.getRole() == User.Role.DRIVER) {

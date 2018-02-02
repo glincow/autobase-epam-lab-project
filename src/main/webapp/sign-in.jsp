@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <h3 class="panel-title"><fmt:message key="signIn.text.greeting"/></h3>
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <form class="pull-right" method="get">
                                 <select id="language" name="language" onchange="submit()">
                                     <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>EN</option>
@@ -63,7 +63,18 @@
                                        name="password" type="password"
                                        value="">
                             </div>
-
+                            <c:choose>
+                                <c:when test="${errorId == 1}">
+                                    <div class="alert alert-danger">
+                                        No user with this login found
+                                    </div>
+                                </c:when>
+                                <c:when test="${errorId == 2}">
+                                    <div class="alert alert-danger">
+                                        "Wrong login or password"
+                                    </div>
+                                </c:when>
+                            </c:choose>
                             <!-- <div class="checkbox">
                                 <label>
                                     <input name="remember" type="checkbox" value="Remember Me">Remember Me
@@ -83,8 +94,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!-- Form validation -->

@@ -47,6 +47,7 @@ public class SignUpServlet extends HttpServlet {
             LOGGER.info("User " + user.getLogin() + " logged in as " + user.getRole());
             return;
         }
+        request.setAttribute("errorId", 3);
         request.getRequestDispatcher("/sign-up.jsp").forward(request, response);
         LOGGER.info("Login " + login + " already exists");
     }

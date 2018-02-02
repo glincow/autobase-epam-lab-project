@@ -46,6 +46,7 @@
                                            placeholder="<fmt:message key="signIn.label.loginpl"/>"
                                            data-parsley-required data-parsley-pattern="/^[a-z0-9_-]{3,16}$/"/>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="userPassword"><fmt:message key="user.password"/></label>
                                     <input class="form-control" type="password" name="password" id="userPassword"
@@ -63,6 +64,13 @@
                                     <input type="hidden" name="role" value="DRIVER"/>
                                     <input type="hidden" name="id" value="<c:out value="${jspUser.id}" />"/>
                                 </div>
+                                <c:choose>
+                                    <c:when test="${errorId == 3}">
+                                        <div class="alert alert-danger">
+                                            Login already exists
+                                        </div>
+                                    </c:when>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
@@ -168,6 +176,7 @@
                 <input type="hidden" name="transportId" value="<c:out value="${transport.id}" />"/>
 
             </div>
+
             <div class="row">
                 <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit"><fmt:message
                         key="adduser.button.confirm"/></button>

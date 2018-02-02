@@ -35,8 +35,9 @@ public class SignInServlet extends HttpServlet {
         try {
             user = dao.getBy(login);
         } catch (EmptyResultDataAccessException e) {
+            request.setAttribute("errorId", 1);
             doGet(request, response);
-            LOGGER.info("Wrong login or password");
+            LOGGER.info("No user with such login found");
             return;
         }
 
@@ -63,6 +64,7 @@ public class SignInServlet extends HttpServlet {
             }
             LOGGER.info("User " + user.getLogin() + " logged in as " + role);
         } else {
+            request.setAttribute("errorId", 2);
             doGet(request, response);
             LOGGER.info("Wrong login or password");
         }

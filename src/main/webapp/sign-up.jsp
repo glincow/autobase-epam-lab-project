@@ -74,6 +74,13 @@
                                        placeholder="<fmt:message key="signUp.label.passwordAgainpl" />" type="password"
                                        name="password" value="" data-parsley-required data-parsley-length="[3, 10]" data-parsley-equalto="#inputPassword">
                             </div>
+                            <c:choose>
+                            <c:when test="${errorId == 3}">
+                                <div class="alert alert-danger">
+                                    Login already exists
+                                </div>
+                            </c:when>
+                            </c:choose>
                             <button class="btn btn-lg btn-success btn-block" type="submit" value="SignIn">
                                 <fmt:message key="signUp.button.signUp"/>
                             </button>
