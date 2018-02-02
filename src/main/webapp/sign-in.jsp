@@ -66,12 +66,12 @@
                             <c:choose>
                                 <c:when test="${errorId == 1}">
                                     <div class="alert alert-danger">
-                                        No user with this login found
+                                        <fmt:message key="signIn.error1"/>
                                     </div>
                                 </c:when>
                                 <c:when test="${errorId == 2}">
                                     <div class="alert alert-danger">
-                                        "Wrong login or password"
+                                        <fmt:message key="signIn.error2"/>
                                     </div>
                                 </c:when>
                             </c:choose>

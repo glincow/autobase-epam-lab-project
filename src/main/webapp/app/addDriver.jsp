@@ -67,7 +67,7 @@
                                 <c:choose>
                                     <c:when test="${errorId == 3}">
                                         <div class="alert alert-danger">
-                                            Login already exists
+                                            <fmt:message key="signUp.error"/>
                                         </div>
                                     </c:when>
                                 </c:choose>
