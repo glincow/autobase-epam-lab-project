@@ -10,6 +10,7 @@
     <!-- MetisMenu CSS -->
     <link href="bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <link href="bootstrap/parsley.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -26,7 +27,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3 class="panel-title"><fmt:message key="signIn.button.signUp"/></h3>
+                            <h3 class="panel-title"><fmt:message key="signUp.text.action"/></h3>
                         </div>
                         <div class="col-md-6" >
                             <form class="pull-right" method="get">
@@ -46,46 +47,44 @@
                 <div class="panel-body">
 
 
-                    <form action="/signUp" method="post" class="form-signin" role="form">
+                    <form id="signUp" action="/signUp" method="post" class="form-signin" role="form" >
                         <fieldset>
                             <div class="form-group">
                                 <label for="inputName"><fmt:message key="signUp.label.name"/></label>
                                 <input class="form-control" id="inputName"
                                        placeholder="<fmt:message key="signUp.label.namepl" />" type="text"
                                        name="name" autofocus
-                                       required>
+                                       data-parsley-required data-parsley-length="[3, 20]">
                             </div>
                             <div class="form-group">
                                 <label for="inputLogin"><fmt:message key="signUp.label.login"/></label>
                                 <input class="form-control" id="inputLogin"
                                        placeholder="<fmt:message key="signUp.label.loginpl" />"
-                                       type="text" name="login" required>
+                                       type="text" name="login" data-parsley-required data-parsley-pattern="/^[a-z0-9_-]{3,16}$/">
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword"><fmt:message key="signUp.label.password"/></label>
                                 <input class="form-control" id="inputPassword"
                                        placeholder="<fmt:message key="signUp.label.passwordpl" />" type="password"
-                                       name="password" value="">
+                                       name="password" value="" data-parsley-required data-parsley-pattern="/^[a-z0-9_-]{3,18}$/">
                             </div>
+                            <div class="form-group">
+                                <label for="inputPassword"><fmt:message key="signUp.label.passwordAgain"/></label>
+                                <input class="form-control" id="inputPasswordAgain"
+                                       placeholder="<fmt:message key="signUp.label.passwordAgainpl" />" type="password"
+                                       name="password" value="" data-parsley-required data-parsley-length="[3, 10]" data-parsley-equalto="#inputPassword">
+                            </div>
+                            <c:choose>
+                            <c:when test="${errorId == 3}">
+                                <div class="alert alert-danger">
+                                    <fmt:message key="signUp.error"/>
+                                </div>
+                            </c:when>
+                            </c:choose>
                             <button class="btn btn-lg btn-success btn-block" type="submit" value="SignIn">
                                 <fmt:message key="signUp.button.signUp"/>
                             </button>
                         </fieldset>
-
-
-                        <!-- <label for="inputName" class="sr-only">Name</label>
-                        <input type="text" id="inputName" name="name"
-                               class="form-control" placeholder="Name" required>
-
-                        <label for="inputLogin" class="sr-only">Login</label>
-                        <input type="text" id="inputLogin" name="login"
-                               class="form-control" placeholder="Login" required>
-
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" name="password"
-                               class="form-control" placeholder="Password" required>
-
-                        <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignUp">Sign up</button> -->
                     </form>
                     <p></p>
                     <div class="text-center">
@@ -96,6 +95,15 @@
         </div>
     </div>
 </div>
-</div>
+
+
+<!-- Form validation -->
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/parsley.js"></script>
+<script src="js/i18n/${language}.js"></script>
+<script>
+    $('#signUp').parsley();
+</script>
+
 </body>
 </html>

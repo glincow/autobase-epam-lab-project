@@ -7,6 +7,9 @@
     <!-- MetisMenu CSS -->
     <link href="bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <!-- Validation error messages CSS -->
+    <link href="bootstrap/parsley.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -51,7 +54,6 @@
 
 
 
-    <!-- /.dropdown -->
 
 
 
@@ -60,6 +62,11 @@
 
 </nav>
 
-</body>
 
+<!-- Form validation libraries -->
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/parsley.js"></script>
+<script src="js/i18n/${language}.js"></script>
+
+</body>
 </html>

@@ -10,6 +10,8 @@
     <!-- MetisMenu CSS -->
     <link href="bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <!-- Validation error messages CSS -->
+    <link href="bootstrap/parsley.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -29,7 +31,7 @@
                         <div class="col-md-6">
                             <h3 class="panel-title"><fmt:message key="signIn.text.greeting"/></h3>
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <form class="pull-right" method="get">
                                 <select id="language" name="language" onchange="submit()">
                                     <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>EN</option>
@@ -44,7 +46,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form action="/signIn" method=post class="form-signin" role="form">
+                    <form id="LogIn" action="/signIn" method=post class="form-signin" role="form" data-parsley-required>
 
                         <fieldset>
                             <div class="form-group">
@@ -61,7 +63,18 @@
                                        name="password" type="password"
                                        value="">
                             </div>
-
+                            <c:choose>
+                                <c:when test="${errorId == 1}">
+                                    <div class="alert alert-danger">
+                                        <fmt:message key="signIn.error1"/>
+                                    </div>
+                                </c:when>
+                                <c:when test="${errorId == 2}">
+                                    <div class="alert alert-danger">
+                                        <fmt:message key="signIn.error2"/>
+                                    </div>
+                                </c:when>
+                            </c:choose>
                             <!-- <div class="checkbox">
                                 <label>
                                     <input name="remember" type="checkbox" value="Remember Me">Remember Me
@@ -82,21 +95,14 @@
     </div>
 </div>
 
-<!--<form action="/signUp" method=get class="form-signin">
-    <button class="btn btn-lg btn-primary btn-block" type="submit" value="SignUp">Sign up</button>
-</form> -->
 
-<!-- jQuery -->
-<script src="bootstrap/vendor/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="bootstrap/dist/js/sb-admin-2.js"></script>
+<!-- Form validation -->
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/parsley.js"></script>
+<script src="js/i18n/${language}.js"></script>
+<script type="text/javascript">
+    $('#LogIn').parsley();
+</script>
 
 </body>
 </html>

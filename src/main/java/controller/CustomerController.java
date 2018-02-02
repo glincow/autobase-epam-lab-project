@@ -42,7 +42,7 @@ public class CustomerController extends HttpServlet {
             dao.update(ride);
         }
         RequestDispatcher view = request.getRequestDispatcher(LIST_RIDE);
-        request.setAttribute("ridesUnassigned", dao.getByStatus(Ride.Status.UNASSIGNED));
+        request.setAttribute("ridesUnassigned", dao.getByCustomerAndStatus(customer, Ride.Status.UNASSIGNED));
         request.setAttribute("ridesInProcess", dao.getByCustomerAndStatus(customer, Ride.Status.IN_PROCESS));
         request.setAttribute("ridesFinished", dao.getByCustomerAndStatus(customer, Ride.Status.FINISHED));
         request.setAttribute("ridesCanceled", dao.getByCustomerAndStatus(customer, Ride.Status.CANCELED));
@@ -61,7 +61,7 @@ public class CustomerController extends HttpServlet {
             ride.setStatus(Ride.Status.CANCELED);
             dao.update(ride);
             forward = LIST_RIDE;
-            request.setAttribute("ridesUnassigned", dao.getByStatus(Ride.Status.UNASSIGNED));
+            request.setAttribute("ridesUnassigned", dao.getByCustomerAndStatus(customer, Ride.Status.UNASSIGNED));
             request.setAttribute("ridesInProcess", dao.getByCustomerAndStatus(customer, Ride.Status.IN_PROCESS));
             request.setAttribute("ridesFinished", dao.getByCustomerAndStatus(customer, Ride.Status.FINISHED));
             request.setAttribute("ridesCanceled", dao.getByCustomerAndStatus(customer, Ride.Status.CANCELED));
@@ -75,7 +75,7 @@ public class CustomerController extends HttpServlet {
             forward = INSERT_OR_EDIT;
         } else {
             forward = LIST_RIDE;
-            request.setAttribute("ridesUnassigned", dao.getByStatus(Ride.Status.UNASSIGNED));
+            request.setAttribute("ridesUnassigned", dao.getByCustomerAndStatus(customer, Ride.Status.UNASSIGNED));
             request.setAttribute("ridesInProcess", dao.getByCustomerAndStatus(customer, Ride.Status.IN_PROCESS));
             request.setAttribute("ridesFinished", dao.getByCustomerAndStatus(customer, Ride.Status.FINISHED));
             request.setAttribute("ridesCanceled", dao.getByCustomerAndStatus(customer, Ride.Status.CANCELED));

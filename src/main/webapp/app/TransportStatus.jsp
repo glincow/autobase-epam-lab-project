@@ -102,13 +102,8 @@
                                 <button class="btn btn-success pull-right" type="submit" value="Submit"><fmt:message key="trstatus.button.confirm"/></button>
                             </div>
                         </div>
-
                     </form>
-
                 </div>
-                <!-- <div class="panel-footer">
-
-                </div> -->
             </div>
         </div>
 

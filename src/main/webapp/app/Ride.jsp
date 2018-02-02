@@ -27,7 +27,7 @@
                         <fmt:message key="addride.table.header"/>
                     </div>
                     <div class="panel-body">
-                        <form method="POST" action='CustomerController' name="Ride" role="form">
+                        <form id="addOrder" method="POST" action='CustomerController' name="Ride" role="form">
                             <fieldset>
                                 <div class="form-group" hidden>
                                     <label for="rideId">Ride ID</label>
@@ -38,19 +38,24 @@
                                     <label for="rideDestination"><fmt:message key="ride.destination"/></label>
                                     <input class="form-control" type="text" name="name" id="rideDestination"
                                            placeholder="<fmt:message key="ride.placeholder.destination"/>"
-                                           value="<c:out value="${ride.name}" />" autofocus required/>
+                                           value="<c:out value="${ride.name}" />" autofocus
+                                           data-parsley-required data-parsley-pattern="/^[A-Za-z_-]{3,20}$/"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="rideMass"><fmt:message key="ride.mass"/></label>
-                                    <input class="form-control" type="number" min="1" max="100" step="0.1" name="mass"
+                                    <input class="form-control" type="number" step="0.1" name="mass"
                                            id="rideMass" placeholder="<fmt:message key="ride.placeholder.mass"/>"
-                                           value="<c:out value="${ride.mass}" />" required/>
+                                           value="<c:out value="${ride.mass}" />"
+                                           data-parsley-required data-parsley-type="number"
+                                           data-parsley-range="[1, 10]"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="rideVolume"><fmt:message key="ride.volume"/></label>
-                                    <input class="form-control" type="number" min="1" max="100" step="0.1" name="volume"
+                                    <input class="form-control" type="number" step="0.1" name="volume"
                                            id="rideVolume" placeholder="<fmt:message key="ride.placeholder.volume"/>"
-                                           value="<c:out value="${ride.volume}" />" required/>
+                                           value="<c:out value="${ride.volume}" />"
+                                           data-parsley-required data-parsley-type="number"
+                                           data-parsley-range="[1, 100]"/>
                                 </div>
                                 <div class="form-group" hidden>
                                     <label for="rideStatus">Ride status</label>
@@ -66,7 +71,7 @@
                                             </c:choose>/>
                                 </div>
                             </fieldset>
-
+                            <br>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <button onclick="location.href='/CustomerController?action='"
@@ -88,6 +93,9 @@
         </div>
     </div>
 </div>
-
+<!-- Form validation -->
+<script type="text/javascript">
+    $('#addOrder').parsley();
+</script>
 </body>
 </html>
