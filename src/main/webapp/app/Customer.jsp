@@ -3,6 +3,23 @@
 <html>
 <head>
     <title><fmt:message key="customer.text.title"/></title>
+
+    <script
+            src="http://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js" type="javascript"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js" type="javascript"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -32,22 +49,22 @@
                                 <td><c:out value="${ride.name}"/></td>
                                 <td><c:out value="${ride.mass}"/></td>
                                 <td><c:out value="${ride.volume}"/></td>
-                                <td><fmt:message key="status.${ride.status}"/></td>
+                                <td id="status_${ride.id}"><fmt:message key="status.${ride.status}"/></td>
 
-                                    <td>
-                                        <c:if test="${ride.status=='UNASSIGNED'}">
-                                        <button onclick="location.href='CustomerController?action=edit&id=<c:out
+                                <td>
+                                    <c:if test="${ride.status=='UNASSIGNED'}">
+                                        <button id="edit_<c:out value="${ride.id}"/>" onclick="location.href='CustomerController?action=edit&id=<c:out
                                                 value="${ride.id}"/>'" type="button" class="btn btn-primary"><fmt:message key="customer.button.edit"/>
                                         </button>
-                                        </c:if>
-                                    </td>
-                                    <td>
-                                        <c:if test="${ride.status=='UNASSIGNED'}">
-                                        <button onclick="location.href='CustomerController?action=cancel&id=<c:out
-                                                value="${ride.id}"/>'" type="button" class="btn btn-danger"><fmt:message key="customer.button.cancel"/>
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <c:if test="${ride.status=='UNASSIGNED'}">
+                                        <button id="cancel_<c:out value="${ride.id}"/>" onclick="cancel('CustomerController?action=cancel&id=<c:out
+                                                value="${ride.id}"/>', <c:out value="${ride.id}"/>)" type="button" class="btn btn-danger"><fmt:message key="customer.button.cancel"/>
                                         </button>
-                                        </c:if>
-                                    </td>
+                                    </c:if>
+                                </td>
 
                             </tr>
                         </c:forEach>
@@ -67,17 +84,20 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="../vendor/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="application/javascript">
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+  function cancel(url, id) {
+    console.log(url);
+    console.log(id);
+    $.get(url, function () {
+      document.getElementById("status_" + id).innerText = "CANCELED";
+      $("#edit_" + id).remove();
+      $("#cancel_" + id).remove();
+    })
+  }
 
-<!-- Custom Theme JavaScript -->
-<script src="../dist/js/sb-admin-2.js"></script>
+</script>
 
 </body>
 </html>
