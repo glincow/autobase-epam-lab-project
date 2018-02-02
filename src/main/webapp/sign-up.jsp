@@ -27,7 +27,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3 class="panel-title"><fmt:message key="signIn.button.signUp"/></h3>
+                            <h3 class="panel-title"><fmt:message key="signUp.text.action"/></h3>
                         </div>
                         <div class="col-md-6" >
                             <form class="pull-right" method="get">
