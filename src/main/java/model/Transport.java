@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Transport {
 
     private Long id;
@@ -61,5 +63,24 @@ public class Transport {
     public String toString() {
         return "Transport [id = " + id + ", maxMass = " + maxMass + ", maxVolume = " + maxVolume +
                 ", isAutoWorks = " + isAutoWorks + ", isAutoAvailable = " + isAutoAvailable + ", driver = " + driver.toString() + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transport transport = (Transport) o;
+        return Float.compare(transport.maxMass, maxMass) == 0 &&
+                Float.compare(transport.maxVolume, maxVolume) == 0 &&
+                isAutoWorks == transport.isAutoWorks &&
+                isAutoAvailable == transport.isAutoAvailable &&
+                Objects.equals(id, transport.id) &&
+                Objects.equals(driver, transport.driver);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, maxMass, maxVolume, isAutoWorks, isAutoAvailable, driver);
     }
 }

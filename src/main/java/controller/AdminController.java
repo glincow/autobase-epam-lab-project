@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "AdminController")
 public class AdminController extends HttpServlet {
@@ -38,13 +36,13 @@ public class AdminController extends HttpServlet {
         transportDao = new TransportDaoImpl();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
         user.setName(request.getParameter("name"));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
         user.setRole(User.Role.valueOf(request.getParameter("role")).getId());
-        String userId = request.getParameter("id");
+        String userId = request.getParameter("id"   );
 
         if (userId == null || userId.isEmpty()) {
             try {
@@ -97,7 +95,7 @@ public class AdminController extends HttpServlet {
         view.forward(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
         String action = request.getParameter("action");
 
