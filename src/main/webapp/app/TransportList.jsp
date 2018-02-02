@@ -24,6 +24,13 @@
                     <div class="panel-heading">
                         <fmt:message key="trlist.text.vehicleheader"/>
                     </div>
+                    <c:choose>
+                    <c:when test="${transportList.size()==0}">
+                        <div class="panel-body">
+                            <p><fmt:message key="trlist.empty"/></p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
                     <div class="panel-body">
                         <table width="100%" class="table table-striped">
                             <thead>
@@ -44,10 +51,12 @@
                                     <td><c:out value="${transport.maxVolume}"/></td>
                                     <td>
                                         <form method="post">
-                                            <input type="hidden" name="transpId" value="<c:out value="${transport.id}" />"/>
+                                            <input type="hidden" name="transpId"
+                                                   value="<c:out value="${transport.id}" />"/>
                                             <input type="hidden" name="rideId" value="<c:out value="${ride.id}" />"/>
-                                            <button class="btn btn-primary btn-success pull-right" type="submit" value="Submit">
-                                                Assign vehicle
+                                            <button class="btn btn-primary btn-success pull-right" type="submit"
+                                                    value="Submit">
+                                                <fmt:message key="trlist.button.assign"/>
                                             </button>
                                         </form>
                                     </td>
@@ -57,11 +66,13 @@
                             </tbody>
                         </table>
                     </div>
+                    </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <fmt:message key="trlist.text.rideheader"/>
@@ -69,18 +80,21 @@
                     <div class="panel-body">
                         <table width="100%" class="table table-striped">
                             <thead>
-                            <tr>
-                                <th><fmt:message key="ride.id"/></th>
-                                <th><fmt:message key="ride.destination"/></th>
-                                <th><fmt:message key="ride.mass"/></th>
-                                <th><fmt:message key="ride.volume"/></th>
-                            </tr>
-                            </thead>
                             <tbody>
                             <tr>
+                                <th><fmt:message key="ride.id"/></th>
                                 <td><c:out value="${ride.id}"/></td>
+                            </tr>
+                            <tr>
+                                <th><fmt:message key="ride.destination"/></th>
                                 <td><c:out value="${ride.name}"/></td>
+                            </tr>
+                            <tr>
+                                <th><fmt:message key="ride.mass"/></th>
                                 <td><c:out value="${ride.mass}"/></td>
+                            </tr>
+                            <tr>
+                                <th><fmt:message key="ride.volume"/></th>
                                 <td><c:out value="${ride.volume}"/></td>
                             </tr>
                             </tbody>

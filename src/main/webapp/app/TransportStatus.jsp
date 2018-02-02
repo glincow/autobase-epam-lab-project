@@ -36,24 +36,24 @@
                                     <c:when test="${transport.isAutoWorks=='true'}">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoWorks" value="true" checked>True
+                                                <input type="radio" name="isAutoWorks" value="true" checked><fmt:message key="text.true"/>
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoWorks" value="false">False
+                                                <input type="radio" name="isAutoWorks" value="false"><fmt:message key="text.false"/>
                                             </label>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoWorks"  value="true">True
+                                                <input type="radio" name="isAutoWorks"  value="true"><fmt:message key="text.true"/>
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoWorks"  value="false" checked>False
+                                                <input type="radio" name="isAutoWorks"  value="false" checked><fmt:message key="text.false"/>
                                             </label>
                                         </div>
                                     </c:otherwise>
@@ -66,24 +66,24 @@
                                     <c:when test="${transport.isAutoAvailable=='true'}">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoAvailable"  value="true" checked>True
+                                                <input type="radio" name="isAutoAvailable"  value="true" checked><fmt:message key="text.true"/>
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoAvailable"  value="false">False
+                                                <input type="radio" name="isAutoAvailable"  value="false"><fmt:message key="text.false"/>
                                             </label>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoAvailable"  value="true">True
+                                                <input type="radio" name="isAutoAvailable"  value="true"><fmt:message key="text.true"/>
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="isAutoAvailable"  value="false" checked>False
+                                                <input type="radio" name="isAutoAvailable"  value="false" checked><fmt:message key="text.false"/>
                                             </label>
                                         </div>
                                     </c:otherwise>
@@ -91,7 +91,18 @@
                             </div>
                         </fieldset>
                         <br>
-                        <button class="btn btn-primary" type="submit" value="Submit"><fmt:message key="trstatus.button.confirm"/></button>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <button onclick="location.href='/DriverController?action='"
+                                        type="button"
+                                        class="btn btn-primary"><fmt:message key="adduser.button.back"/>
+                                </button>
+                            </div>
+                            <div class="col-lg-6">
+                                <button class="btn btn-success pull-right" type="submit" value="Submit"><fmt:message key="trstatus.button.confirm"/></button>
+                            </div>
+                        </div>
+
                     </form>
 
                 </div>
@@ -123,11 +134,11 @@
                         </tr>
                         <tr>
                             <th><fmt:message key="vehicle.works"/></th>
-                            <td><c:out value="${transport.isAutoWorks}"/></td>
+                            <td><fmt:message key="text.${transport.isAutoWorks}"/></td>
                         </tr>
                         <tr>
                             <th><fmt:message key="vehicle.available"/></th>
-                            <td><c:out value="${transport.isAutoAvailable}"/></td>
+                            <td><fmt:message key="text.${transport.isAutoAvailable}"/></td>
                         </tr>
                         </tbody>
                     </table>
