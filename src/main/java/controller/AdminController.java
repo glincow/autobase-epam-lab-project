@@ -42,7 +42,7 @@ public class AdminController extends HttpServlet {
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
         user.setRole(User.Role.valueOf(request.getParameter("role")).getId());
-        String userId = request.getParameter("id"   );
+        String userId = request.getParameter("id");
 
         if (userId == null || userId.isEmpty()) {
             try {
@@ -58,19 +58,8 @@ public class AdminController extends HttpServlet {
                 dao.add(user);
             }
         } else {
-            try {
-                dao.getBy(request.getParameter("login"));
-                request.setAttribute("errorId", 3);
-                if (user.getRole() == User.Role.DRIVER) {
-                    request.getRequestDispatcher(INSERT_OR_EDIT_DRIVER).forward(request, response);
-                } else {
-                    request.getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);
-                }
-                logger.info("User with such login already exists");
-            } catch (EmptyResultDataAccessException e) {
-                user.setId(Long.parseLong(userId));
-                dao.update(user);
-            }
+            user.setId(Long.parseLong(userId));
+            dao.update(user);
         }
 
         if (user.getRole() == User.Role.DRIVER) {

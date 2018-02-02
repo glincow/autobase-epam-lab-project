@@ -49,19 +49,19 @@ INSERT INTO Role SET name= 'Driver';
 INSERT INTO Role SET name= 'Customer';
 
 INSERT INTO User (name, login, password, role_id) VALUES ('Admin', 'admin', 'admin', 1);
-INSERT INTO User (name, login, password, role_id) VALUES ('Vasia', 'vasia', 'vasia', 3);
-INSERT INTO User (name, login, password, role_id) VALUES ('Petia', 'petia', 'petia', 3);
-INSERT INTO User (name, login, password, role_id) VALUES ('Vova', 'vova', 'vova', 2);
-INSERT INTO User (name, login, password, role_id) VALUES ('John', 'john', 'john', 4);
-INSERT INTO User (name, login, password, role_id) VALUES ('Kolia', 'kolia', 'kolia', 3);
+INSERT INTO User (name, login, password, role_id) VALUES ('Vasilii Petrov', 'vasia', 'vasia', 3);
+INSERT INTO User (name, login, password, role_id) VALUES ('Petr Novikov', 'petia', 'petia', 3);
+INSERT INTO User (name, login, password, role_id) VALUES ('Vladimir Putin', 'vova', 'vova', 2);
+INSERT INTO User (name, login, password, role_id) VALUES ('John Doe', 'john', 'john', 4);
+INSERT INTO User (name, login, password, role_id) VALUES ('Nikolai Ivanov', 'kolia', 'kolia', 3);
 
-INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (12.4, 14.2, TRUE, TRUE, 2);
-INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (27.0, 16.5, TRUE, TRUE, 3);
-INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (30.0, 20.5, TRUE, TRUE, 6);
+INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (5.5, 14.2, TRUE, TRUE, 2);
+INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (6.7, 16.5, TRUE, TRUE, 3);
+INSERT INTO Transport (max_mass, max_volume, isAuto_works, isAuto_available, driver_id) VALUES (8.3, 20.5, TRUE, TRUE, 6);
 
-INSERT INTO Ride (name, mass, volume, status, customer_id) VALUES ('WestRide', 1.4, 2.4, 'UNASSIGNED', 5);
-INSERT INTO Ride (name, mass, volume, status, customer_id ) VALUES ('EastRide', 6.4, 0.3, 'UNASSIGNED', 5);
-INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('SouthRide', 6.4, 0.3, 'IN_PROCESS', 1, 4, 5);
-INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('NorthRide', 24.7, 15.9, 'IN_PROCESS', 2, 4, 5);
-INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('NERide', 8.7, 5.9, 'FINISHED', 1, 4, 5);
-INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('SERide', 4.7, 15.9, 'FINISHED', 2, 4, 5);
+INSERT INTO Ride (name, mass, volume, status, customer_id) VALUES ('New York', 1.4, 2.4, 'UNASSIGNED', 5);
+INSERT INTO Ride (name, mass, volume, status, customer_id ) VALUES ('Paris', 6.4, 0.3, 'UNASSIGNED', 5);
+INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('Berlin', 6.4, 48.3, 'IN_PROCESS', 1, 4, 5);
+INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('Novgorod', 4.7, 15.9, 'IN_PROCESS', 2, 4, 5);
+INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('Rostov', 8.7, 25.0, 'FINISHED', 1, 4, 5);
+INSERT INTO Ride (name, mass, volume, status, executor_id, manager_id, customer_id) VALUES ('Saint-Petersburg', 2.3, 15.4, 'FINISHED', 2, 4, 5);
